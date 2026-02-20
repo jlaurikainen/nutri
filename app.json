@@ -2,7 +2,7 @@
   "expo": {
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#333333",
         "foregroundImage": "./src/assets/adaptive-icon.png"
       },
       "edgeToEdgeEnabled": true,
@@ -15,14 +15,15 @@
     "name": "nutri",
     "newArchEnabled": true,
     "orientation": "portrait",
+    "plugins": ["expo-router"],
     "scheme": "nutri-scheme",
     "slug": "nutri",
     "splash": {
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "#333333",
       "image": "./src/assets/splash-icon.png",
       "resizeMode": "contain"
     },
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "version": "1.0.0",
     "web": {
       "bundler": "metro",
