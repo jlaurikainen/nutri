@@ -1,3 +1,5 @@
+import { DarkTheme, DefaultTheme, type Theme } from "@react-navigation/native";
+
 export const THEME = {
   dark: {
     accent: "hsl(0 0% 14.9%)",
@@ -50,5 +52,30 @@ export const THEME = {
     ring: "hsl(0 0% 63%)",
     secondary: "hsl(0 0% 96.1%)",
     secondaryForeground: "hsl(0 0% 9%)",
+  },
+};
+
+export const NAV_THEME: Record<"light" | "dark", Theme> = {
+  dark: {
+    ...DarkTheme,
+    colors: {
+      background: THEME.dark.background,
+      border: THEME.dark.border,
+      card: THEME.dark.card,
+      notification: THEME.dark.destructive,
+      primary: THEME.dark.primary,
+      text: THEME.dark.foreground,
+    },
+  },
+  light: {
+    ...DefaultTheme,
+    colors: {
+      background: THEME.light.background,
+      border: THEME.light.border,
+      card: THEME.light.card,
+      notification: THEME.light.destructive,
+      primary: THEME.light.primary,
+      text: THEME.light.foreground,
+    },
   },
 };

@@ -2,7 +2,7 @@
   "expo": {
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#333333",
+        "backgroundColor": "#ffffff",
         "foregroundImage": "./src/assets/adaptive-icon.png"
       },
       "edgeToEdgeEnabled": true,
@@ -19,11 +19,11 @@
     "scheme": "nutri-scheme",
     "slug": "nutri",
     "splash": {
-      "backgroundColor": "#333333",
+      "backgroundColor": "#ffffff",
       "image": "./src/assets/splash-icon.png",
       "resizeMode": "contain"
     },
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "automatic",
     "version": "1.0.0",
     "web": {
       "bundler": "metro",

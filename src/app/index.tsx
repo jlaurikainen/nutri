@@ -1,10 +1,18 @@
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
+import { View } from "react-native";
+import { Button } from "../components/ui/button";
+import { Text } from "../components/ui/text";
 
 const Home = () => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <>
+      <Stack.Screen options={{ title: "Home" }} />
+      <View>
+        <Button>
+          <Text>Button</Text>
+        </Button>
+      </View>
+    </>
   );
 };
 
