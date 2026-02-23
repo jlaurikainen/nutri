@@ -33,7 +33,9 @@ export const useCreateMealTemplate = () => {
         [args.calories, args.carbs, args.fat, args.name, args.protein],
       );
     },
-    onSuccess: () => client.invalidateQueries({ queryKey: ["meal-templates"] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["meal-templates"] });
+    },
   });
 };
 
@@ -45,7 +47,9 @@ export const useDeleteMealTemplate = () => {
     mutationFn: async (id: number) => {
       return await db.runAsync("DELETE FROM meal_templates WHERE id = ?;", id);
     },
-    onSuccess: () => client.invalidateQueries({ queryKey: ["meal-templates"] }),
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["meal-templates"] });
+    },
   });
 };
 
@@ -94,6 +98,9 @@ export const useUpdateMealTemplate = () => {
         [args.calories, args.carbs, args.fat, args.name, args.protein, args.id],
       );
     },
-    onSuccess: () => client.invalidateQueries({ queryKey: ["meal-templates"] }),
+    onSuccess: (_, args) => {
+      client.invalidateQueries({ queryKey: ["meal-template", args.id] });
+      client.invalidateQueries({ queryKey: ["meal-templates"] });
+    },
   });
 };
