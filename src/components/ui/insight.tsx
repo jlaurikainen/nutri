@@ -8,7 +8,7 @@ interface Props {
 
 export const Insight = (props: Props) => {
   return (
-    <View className="flex gap-2 p-4 bg-white/10 rounded-2xl">
+    <View className="flex gap-2 p-4 bg-white/10 rounded-2xl flex-1">
       <Text className="text-4xl">{props.amount}</Text>
       <Text className="text-gray-400">{props.title}</Text>
     </View>

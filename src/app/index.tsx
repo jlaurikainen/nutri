@@ -9,11 +9,15 @@ const Home = () => {
     <>
       <Stack.Screen options={{ title: "Home" }} />
 
-      <View className="grid grid-cols-2 gap-4 p-8">
-        <Insight amount={100} title="Kcal" />
-        <Insight amount={100} title="Carbs" />
-        <Insight amount={100} title="Protein" />
-        <Insight amount={100} title="Fat" />
+      <View className="gap-4 p-8">
+        <View className="gap-4 flex-row w-full">
+          <Insight amount={100} title="Kcal" />
+          <Insight amount={100} title="Carbs" />
+        </View>
+        <View className="gap-4 flex-row w-full">
+          <Insight amount={100} title="Protein" />
+          <Insight amount={100} title="Fat" />
+        </View>
       </View>
 
       <View className="px-8">
