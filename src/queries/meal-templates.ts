@@ -1,17 +1,27 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
+import { z } from "zod";
 
-interface CreateTemplateProps {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
+export const createTemplateSchema = z.object({
+  calories: z.number(),
+  carbs: z.number(),
+  fat: z.number(),
+  name: z.string(),
+  protein: z.number(),
+});
 
-interface UpdateTemplateProps extends CreateTemplateProps {
-  id: number;
-}
+export type CreateTemplateProps = z.infer<typeof createTemplateSchema>;
+
+export const updateTemplateSchema = z.intersection(
+  createTemplateSchema,
+  z.object({
+    id: z.number(),
+  }),
+);
+
+export type UpdateTemplateProps = z.infer<typeof updateTemplateSchema>;
+
+export type MealTemplate = UpdateTemplateProps;
 
 export const useCreateMealTemplate = () => {
   const client = useQueryClient();
@@ -70,7 +80,7 @@ export const useMealTemplate = (id: number) => {
 export const useMealTemplates = () => {
   const db = useSQLiteContext();
 
-  return useQuery({
+  return useQuery<MealTemplate[]>({
     queryFn: async () => {
       return await db.getAllAsync("SELECT * FROM meal_templates ORDER_BY;");
     },
