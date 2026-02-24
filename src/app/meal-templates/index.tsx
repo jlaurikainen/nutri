@@ -1,6 +1,9 @@
 import { Link, Stack } from "expo-router";
+import { SquarePen, Trash2 } from "lucide-react-native";
 import { View } from "react-native";
+import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
+import { Icon } from "@/src/components/ui/icon";
 import { Text } from "@/src/components/ui/text";
 import { useMealTemplates } from "@/src/queries/meal-templates";
 
@@ -11,7 +14,7 @@ const MealTemplates = () => {
     <>
       <Stack.Screen options={{ title: "Meal Templates" }} />
 
-      <View className="p-4 gap-4">
+      <Page>
         <View>
           <Link asChild href="/meal-templates/add">
             <Button>
@@ -22,21 +25,42 @@ const MealTemplates = () => {
 
         <View>
           {data?.map((x) => (
-            <View className="gap-1 dark:bg-white/10 p-6 rounded-2xl" key={x.id}>
-              <View className="flex-row justify-between items-center">
+            <View className="flex-row gap-1" key={x.id}>
+              <View className="gap-1 flex-1">
                 <Text className="text-xl">{x.name}</Text>
-                <Text className="text-xl">{x.calories} kcal</Text>
+
+                <View className="flex-row gap-1">
+                  <View className="flex-1">
+                    <Text className="text-gray-600">{x.calories}</Text>
+                    <Text className="text-gray-400 text-xs">kcal</Text>
+                  </View>
+                  <View className="flex-1">
+                    <Text className="text-gray-600">{x.carbs}g</Text>
+                    <Text className="text-gray-400 text-xs">carbs </Text>
+                  </View>
+                  <View className="flex-1">
+                    <Text className="text-gray-600">{x.protein}g</Text>
+                    <Text className="text-gray-400 text-xs">protein</Text>
+                  </View>
+                  <View className="flex-1">
+                    <Text className="text-gray-600">{x.fat}g</Text>
+                    <Text className="text-gray-400 text-xs">fat</Text>
+                  </View>
+                </View>
               </View>
 
-              <View className="flex-row gap-4 ">
-                <Text className="text-gray-400">Carbs: {x.carbs} </Text>
-                <Text className="text-gray-400">Protein: {x.protein}</Text>
-                <Text className="text-gray-400">Fat: {x.fat}</Text>
+              <View className="gap-1">
+                <Button className="aspect-square" size="sm" variant="secondary">
+                  <Icon as={SquarePen} />
+                </Button>
+                <Button className="aspect-square" size="sm" variant="secondary">
+                  <Icon as={Trash2} />
+                </Button>
               </View>
             </View>
           ))}
         </View>
-      </View>
+      </Page>
     </>
   );
 };
