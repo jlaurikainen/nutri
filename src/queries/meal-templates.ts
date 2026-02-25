@@ -34,9 +34,9 @@ export const useCreateMealTemplate = () => {
           INSERT INTO meal_templates(
             calories,
             carbs,
-            fat
+            fat,
             name,
-            protein,
+            protein
           )
           VALUES(?, ?, ?, ?, ?);
         `,

@@ -5,10 +5,20 @@ import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
 import { Icon } from "@/src/components/ui/icon";
 import { Text } from "@/src/components/ui/text";
-import { useMealTemplates } from "@/src/queries/meal-templates";
+import {
+  useDeleteMealTemplate,
+  useMealTemplates,
+} from "@/src/queries/meal-templates";
 
 const MealTemplates = () => {
   const { data } = useMealTemplates();
+  const { mutateAsync } = useDeleteMealTemplate();
+
+  const onDelete = (id: number) => {
+    return () => {
+      mutateAsync(id);
+    };
+  };
 
   return (
     <>
@@ -53,7 +63,12 @@ const MealTemplates = () => {
                 <Button className="aspect-square" size="sm" variant="secondary">
                   <Icon as={SquarePen} />
                 </Button>
-                <Button className="aspect-square" size="sm" variant="secondary">
+                <Button
+                  className="aspect-square"
+                  onPress={onDelete(x.id)}
+                  size="sm"
+                  variant="secondary"
+                >
                   <Icon as={Trash2} />
                 </Button>
               </View>
