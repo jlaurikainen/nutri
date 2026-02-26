@@ -1,4 +1,4 @@
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { SquarePen, Trash2 } from "lucide-react-native";
 import { View } from "react-native";
 import { Page } from "@/src/components/page";
@@ -11,12 +11,19 @@ import {
 } from "@/src/queries/meal-templates";
 
 const MealTemplates = () => {
+  const router = useRouter();
   const { data } = useMealTemplates();
   const { mutateAsync } = useDeleteMealTemplate();
 
   const onDelete = (id: number) => {
     return () => {
       mutateAsync(id);
+    };
+  };
+
+  const onEdit = (id: number) => {
+    return () => {
+      router.navigate(`/meal-templates/${id}`);
     };
   };
 
@@ -60,9 +67,15 @@ const MealTemplates = () => {
               </View>
 
               <View className="gap-1">
-                <Button className="aspect-square" size="sm" variant="secondary">
+                <Button
+                  className="aspect-square"
+                  onPress={onEdit(x.id)}
+                  size="sm"
+                  variant="secondary"
+                >
                   <Icon as={SquarePen} />
                 </Button>
+
                 <Button
                   className="aspect-square"
                   onPress={onDelete(x.id)}

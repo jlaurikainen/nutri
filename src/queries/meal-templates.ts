@@ -66,7 +66,7 @@ export const useDeleteMealTemplate = () => {
 export const useMealTemplate = (id: number) => {
   const db = useSQLiteContext();
 
-  return useQuery({
+  return useQuery<MealTemplate | null>({
     queryFn: async () => {
       return await db.getFirstAsync(
         "SELECT * FROM meal_templates WHERE id = ?;",
