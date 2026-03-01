@@ -5,7 +5,6 @@
         "backgroundColor": "#ffffff",
         "foregroundImage": "./src/assets/adaptive-icon.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "experiments": {
@@ -16,7 +15,6 @@
       "supportsTablet": true
     },
     "name": "nutri",
-    "newArchEnabled": true,
     "orientation": "portrait",
     "plugins": ["expo-router", "expo-sqlite"],
     "scheme": "nutri-scheme",
