@@ -22,7 +22,6 @@ const Edit = () => {
           name="name"
           render={({ field }) => (
             <Field
-              autoFocus
               label="Name"
               returnKeyType="next"
               {...tranformFieldProps(field)}

@@ -67,19 +67,13 @@ const MealTemplates = () => {
               </View>
 
               <View className="gap-1">
-                <Button
-                  className="aspect-square"
-                  onPress={onEdit(x.id)}
-                  size="sm"
-                  variant="secondary"
-                >
+                <Button onPress={onEdit(x.id)} size="icon" variant="secondary">
                   <Icon as={SquarePen} />
                 </Button>
 
                 <Button
-                  className="aspect-square"
                   onPress={onDelete(x.id)}
-                  size="sm"
+                  size="icon"
                   variant="secondary"
                 >
                   <Icon as={Trash2} />
