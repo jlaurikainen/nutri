@@ -57,7 +57,7 @@ const MealTemplates = () => {
 
         <ScrollView>
           <View className="gap-4">
-            {filteredData?.map((x) => (
+            {filteredData.map((x) => (
               <MealItem key={x.id}>
                 <MealItem.Title title={x.name} />
 

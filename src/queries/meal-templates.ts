@@ -1,12 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
-import type { z } from "zod";
-import type {
-  createMealTemplateSchema,
-  updateMealTemplateSchema,
+import { z } from "zod";
+import {
+  type createMealTemplateSchema,
+  mealTemplateSchema,
 } from "../schemas/meal-templates";
-
-export type MealTemplate = z.infer<typeof updateMealTemplateSchema>;
 
 export const useCreateMealTemplate = () => {
   const client = useQueryClient();
@@ -51,7 +49,7 @@ export const useDeleteMealTemplate = () => {
 export const useMealTemplate = (id: number) => {
   const db = useSQLiteContext();
 
-  return useQuery<MealTemplate | null>({
+  return useQuery({
     queryFn: async () => {
       return await db.getFirstAsync(
         "SELECT * FROM meal_templates WHERE id = ?;",
@@ -59,19 +57,21 @@ export const useMealTemplate = (id: number) => {
       );
     },
     queryKey: ["meal-template", id],
+    select: mealTemplateSchema.parse,
   });
 };
 
 export const useMealTemplates = () => {
   const db = useSQLiteContext();
 
-  return useQuery<MealTemplate[]>({
+  return useQuery({
     queryFn: async () => {
       return await db.getAllAsync(
         "SELECT * FROM meal_templates ORDER BY name ASC;",
       );
     },
     queryKey: ["meal-templates"],
+    select: z.array(mealTemplateSchema).parse,
   });
 };
 
@@ -80,7 +80,7 @@ export const useUpdateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof updateMealTemplateSchema>) => {
+    mutationFn: async (args: z.infer<typeof mealTemplateSchema>) => {
       await db.runAsync(
         `
           UPDATE meal_templates

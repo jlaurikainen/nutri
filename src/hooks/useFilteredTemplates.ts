@@ -5,11 +5,12 @@ export const useFilteredTemplates = () => {
   const [filter, setFilter] = useState("");
   const { data } = useMealTemplates();
 
-  const filteredData = data?.filter(
-    (x) =>
-      x.name.toLowerCase().startsWith(filter.toLowerCase()) ||
-      x.name.toLowerCase().includes(filter.toLowerCase()),
-  );
+  const filteredData =
+    data?.filter(
+      (x) =>
+        x.name.toLowerCase().startsWith(filter.toLowerCase()) ||
+        x.name.toLowerCase().includes(filter.toLowerCase()),
+    ) ?? [];
 
   const updateFilter = (x: string) => setFilter(x);
 

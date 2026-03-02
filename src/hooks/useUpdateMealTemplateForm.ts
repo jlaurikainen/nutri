@@ -7,14 +7,14 @@ import {
   useMealTemplate,
   useUpdateMealTemplate,
 } from "../queries/meal-templates";
-import { mealTemplateSchema } from "../schemas/meal-templates";
+import { mealTemplateFormSchema } from "../schemas/meal-templates";
 
 export const useUpdateMealTemplateForm = (id: number) => {
   const router = useRouter();
   const { mutateAsync } = useUpdateMealTemplate();
   const { data } = useMealTemplate(id);
   const { control, handleSubmit, reset } = useForm({
-    resolver: zodResolver(mealTemplateSchema),
+    resolver: zodResolver(mealTemplateFormSchema),
   });
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const useUpdateMealTemplateForm = (id: number) => {
   }, [data, reset]);
 
   const onSubmit = handleSubmit(
-    async (data: z.infer<typeof mealTemplateSchema>) => {
+    async (data: z.infer<typeof mealTemplateFormSchema>) => {
       await mutateAsync({ id, ...data });
       router.back();
     },

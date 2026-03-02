@@ -9,7 +9,7 @@ export const createMealTemplateSchema = z.object({
   protein: z.number(),
 });
 
-export const mealTemplateSchema = z.object({
+export const mealTemplateFormSchema = z.object({
   calories: z.string().transform(toNumber),
   carbs: z.string().transform(toNumber),
   fat: z.string().transform(toNumber),
@@ -17,7 +17,7 @@ export const mealTemplateSchema = z.object({
   protein: z.string().transform(toNumber),
 });
 
-export const updateMealTemplateSchema = z.intersection(
+export const mealTemplateSchema = z.intersection(
   createMealTemplateSchema,
   z.object({
     id: z.number(),
