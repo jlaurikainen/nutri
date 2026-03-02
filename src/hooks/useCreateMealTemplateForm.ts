@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 import { useCreateMealTemplate } from "../queries/meal-templates";
-import { mealTemplateSchema } from "../schemas/meal-template-forms";
+import { mealTemplateSchema } from "../schemas/meal-templates";
 
 export const useCreateMealTemplateForm = () => {
   const router = useRouter();

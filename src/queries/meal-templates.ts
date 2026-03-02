@@ -1,34 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
-import { z } from "zod";
+import type { z } from "zod";
+import type {
+  createMealTemplateSchema,
+  updateMealTemplateSchema,
+} from "../schemas/meal-templates";
 
-export const createTemplateSchema = z.object({
-  calories: z.number(),
-  carbs: z.number(),
-  fat: z.number(),
-  name: z.string(),
-  protein: z.number(),
-});
-
-export type CreateTemplateProps = z.infer<typeof createTemplateSchema>;
-
-export const updateTemplateSchema = z.intersection(
-  createTemplateSchema,
-  z.object({
-    id: z.number(),
-  }),
-);
-
-export type UpdateTemplateProps = z.infer<typeof updateTemplateSchema>;
-
-export type MealTemplate = UpdateTemplateProps;
+export type MealTemplate = z.infer<typeof updateMealTemplateSchema>;
 
 export const useCreateMealTemplate = () => {
   const client = useQueryClient();
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: CreateTemplateProps) => {
+    mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) => {
       await db.runAsync(
         `
           INSERT INTO meal_templates(
@@ -93,7 +78,7 @@ export const useUpdateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: UpdateTemplateProps) => {
+    mutationFn: async (args: z.infer<typeof updateMealTemplateSchema>) => {
       await db.runAsync(
         `
           UPDATE meal_templates

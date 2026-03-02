@@ -4,7 +4,7 @@ import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
 import { Field } from "@/src/components/ui/field";
 import { Text } from "@/src/components/ui/text";
-import { useCreateMealTemplateForm } from "@/src/hooks/create-meal-template-form";
+import { useCreateMealTemplateForm } from "@/src/hooks/useCreateMealTemplateForm";
 import { tranformFieldProps } from "@/src/utils/field";
 
 const Add = () => {

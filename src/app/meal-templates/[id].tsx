@@ -4,7 +4,7 @@ import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
 import { Field } from "@/src/components/ui/field";
 import { Text } from "@/src/components/ui/text";
-import { useUpdateMealTemplateForm } from "@/src/hooks/update-meal-template-form";
+import { useUpdateMealTemplateForm } from "@/src/hooks/useUpdateMealTemplateForm";
 import { tranformFieldProps } from "@/src/utils/field";
 import { toNumber } from "@/src/utils/number";
 

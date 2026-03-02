@@ -6,7 +6,7 @@ import {
   useMealTemplate,
   useUpdateMealTemplate,
 } from "../queries/meal-templates";
-import { mealTemplateSchema } from "../schemas/meal-template-forms";
+import { mealTemplateSchema } from "../schemas/meal-templates";
 
 export const useUpdateMealTemplateForm = (id: number) => {
   const router = useRouter();
