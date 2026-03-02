@@ -5,7 +5,7 @@ import { Button } from "@/src/components/ui/button";
 import { Field } from "@/src/components/ui/field";
 import { Text } from "@/src/components/ui/text";
 import { useCreateMealTemplateForm } from "@/src/hooks/useCreateMealTemplateForm";
-import { tranformFieldProps } from "@/src/utils/field";
+import { tranformFieldProps } from "@/src/lib/utils/field";
 
 const Add = () => {
   const { control, onSubmit } = useCreateMealTemplateForm();

@@ -1,5 +1,5 @@
 import z from "zod";
-import { toNumber } from "../utils/number";
+import { toNumber } from "../lib/utils/number";
 
 export const createMealTemplateSchema = z.object({
   calories: z.number(),
