@@ -1,8 +1,42 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
 import { endOfDay, startOfDay, toDBString } from "../lib/utils/date";
-import { mealSchema } from "../schemas/meal";
+import { type createMealSchema, mealSchema } from "../schemas/meal";
+
+export const useAddMeal = () => {
+  const db = useSQLiteContext();
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (args: z.infer<typeof createMealSchema>) => {
+      await db.runAsync(
+        `
+          INSERT INTO meals(
+            calories,
+            carbs,
+            date,
+            fat,
+            name,
+            protein
+          )
+          VALUES(?, ?, ?, ?, ?, ?);
+        `,
+        [
+          args.calories,
+          args.carbs,
+          toDBString(args.date),
+          args.fat,
+          args.name,
+          args.protein,
+        ],
+      );
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["meals"] });
+    },
+  });
+};
 
 export const useMeals = (
   props: { end: Date; start: Date } = { end: new Date(), start: new Date() },
