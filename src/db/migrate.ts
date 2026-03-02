@@ -1,13 +1,9 @@
 import type { SQLiteDatabase } from "expo-sqlite";
 
-interface DBVersionQuery {
-  user_version: number;
-}
-
 export async function migrate(db: SQLiteDatabase) {
-  const DB_VERSION = 1;
+  const DB_VERSION = 2;
 
-  const versionQuery = await db.getFirstAsync<DBVersionQuery>(
+  const versionQuery = await db.getFirstAsync<{ user_version: number }>(
     "PRAGMA user_version",
   );
 
@@ -15,11 +11,13 @@ export async function migrate(db: SQLiteDatabase) {
     return;
   }
 
-  if (versionQuery.user_version >= DB_VERSION) {
+  let currentVersion = versionQuery.user_version;
+
+  if (currentVersion >= DB_VERSION) {
     return;
   }
 
-  if (versionQuery.user_version === 0) {
+  if (currentVersion === 0) {
     await db.execAsync(`
       PRAGMA journal_mode = WAL;
 
@@ -50,8 +48,26 @@ export async function migrate(db: SQLiteDatabase) {
       );
     `);
 
-    await db.execAsync(`PRAGMA user_version = ${DB_VERSION}`);
+    currentVersion += 1;
   }
 
-  return db.execAsync("");
+  if (currentVersion === 1) {
+    await db.execAsync(`
+      CREATE TABLE meals (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        calories INTEGER,
+        carbs REAL,
+        protein REAL,
+        fat REAL,
+        date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await db.execAsync("CREATE INDEX idx_date ON meals(date);");
+
+    currentVersion += 1;
+  }
+
+  await db.execAsync(`PRAGMA user_version = ${DB_VERSION}`);
 }
