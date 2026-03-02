@@ -67,7 +67,9 @@ export const useMealTemplates = () => {
 
   return useQuery<MealTemplate[]>({
     queryFn: async () => {
-      return await db.getAllAsync("SELECT * FROM meal_templates ORDER_BY;");
+      return await db.getAllAsync(
+        "SELECT * FROM meal_templates ORDER BY name ASC;",
+      );
     },
     queryKey: ["meal-templates"],
   });
