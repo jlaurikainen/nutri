@@ -13,3 +13,7 @@ export const endOfDay = (date = new Date()) => {
 export const toDBString = (date: Date) => {
   return date.toISOString().replace("T", " ").substring(0, 19);
 };
+
+export const fromDBString = (date: string) => {
+  return new Date(date);
+};

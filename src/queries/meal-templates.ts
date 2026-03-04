@@ -38,7 +38,7 @@ export const useDeleteMealTemplate = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      return await db.runAsync("DELETE FROM meal_templates WHERE id = ?;", id);
+      await db.runAsync("DELETE FROM meal_templates WHERE id = ?;", id);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: ["meal-templates"] });

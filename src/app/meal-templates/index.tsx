@@ -1,6 +1,7 @@
 import { Link, Stack, useRouter } from "expo-router";
 import { Plus, RotateCcw, SquarePen, Trash2 } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
+import type z from "zod";
 import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
 import { Icon } from "@/src/components/ui/icon";
@@ -9,16 +10,26 @@ import { MealItem } from "@/src/components/ui/meal-item";
 import { Text } from "@/src/components/ui/text";
 import { useFilteredTemplates } from "@/src/hooks/useFilteredTemplates";
 import { useDeleteMealTemplate } from "@/src/queries/meal-templates";
+import { useAddMeal } from "@/src/queries/meals";
+import type { mealTemplateSchema } from "@/src/schemas/meal-templates";
 
 const MealTemplates = () => {
   const { filter, updateFilter, resetFilter, filteredData } =
     useFilteredTemplates();
   const router = useRouter();
-  const { mutateAsync } = useDeleteMealTemplate();
+  const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
+  const { mutateAsync: addMeal } = useAddMeal();
+
+  const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
+    return async () => {
+      await addMeal({ ...template, date: new Date() });
+      router.back();
+    };
+  };
 
   const onDelete = (id: number) => {
-    return () => {
-      mutateAsync(id);
+    return async () => {
+      await deleteTemplate(id);
     };
   };
 
@@ -73,7 +84,7 @@ const MealTemplates = () => {
                 </MealItem.Macros>
 
                 <MealItem.Actions>
-                  <Button size="icon" variant="secondary">
+                  <Button onPress={onAdd(x)} size="icon" variant="secondary">
                     <Icon as={Plus} />
                   </Button>
 

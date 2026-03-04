@@ -38,16 +38,28 @@ export const useAddMeal = () => {
   });
 };
 
-export const useMeals = (
-  props: { end: Date; start: Date } = { end: new Date(), start: new Date() },
-) => {
+export const useDeleteMeal = () => {
+  const db = useSQLiteContext();
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await db.runAsync("DELETE FROM meals WHERE id = ?;", id);
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: ["meals"] });
+    },
+  });
+};
+
+export const useMeals = (props: { end: Date; start: Date }) => {
   const db = useSQLiteContext();
   const startString = toDBString(startOfDay(props.start));
   const endString = toDBString(endOfDay(props.end));
 
   return useQuery({
     queryFn: async () => {
-      return db.getAllAsync(
+      return await db.getAllAsync(
         `
           SELECT * FROM meals
           WHERE date BETWEEN ? AND ?

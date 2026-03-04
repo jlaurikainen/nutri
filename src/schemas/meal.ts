@@ -1,9 +1,10 @@
 import z from "zod";
+import { fromDBString } from "../lib/utils/date";
 import { createMealTemplateSchema } from "./meal-templates";
 
 export const createMealSchema = z.intersection(
   createMealTemplateSchema,
-  z.object({ date: z.date() }),
+  z.object({ date: z.string().transform(fromDBString) }),
 );
 
 export const mealSchema = z.intersection(
