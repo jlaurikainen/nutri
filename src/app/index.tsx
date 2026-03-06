@@ -1,4 +1,4 @@
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { Trash2 } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 import { Page } from "../components/page";
@@ -6,7 +6,6 @@ import { Button } from "../components/ui/button";
 import { Icon } from "../components/ui/icon";
 import { Insight } from "../components/ui/insight";
 import { MealItem } from "../components/ui/meal-item";
-import { Text } from "../components/ui/text";
 import { useDeleteMeal, useMeals } from "../queries/meals";
 
 const Home = () => {
@@ -49,14 +48,6 @@ const Home = () => {
         <View className="gap-2 flex-row w-full">
           <Insight amount={totals.protein} title="Protein" unit="g" />
           <Insight amount={totals.fat} title="Fat" unit="g" />
-        </View>
-
-        <View>
-          <Link asChild href="/meal-templates">
-            <Button>
-              <Text>Meal Templates</Text>
-            </Button>
-          </Link>
         </View>
 
         <ScrollView className="flex-1">
