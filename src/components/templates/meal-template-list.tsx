@@ -2,7 +2,6 @@ import { useRouter } from "expo-router";
 import { Plus, SquarePen, Trash2 } from "lucide-react-native";
 import { View } from "react-native";
 import type z from "zod";
-import { useFilteredMealTempaltes } from "@/src/hooks/useFilteredMealTemplates";
 import {
   type mealTemplateSchema,
   useDeleteMealTemplate,
@@ -11,6 +10,7 @@ import { useAddMeal } from "@/src/queries/meals";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
 import { MealItem } from "../ui/meal-item";
+import { useFilteredMealTempaltes } from "./useFilteredMealTemplates";
 
 export const MealTemplateList = () => {
   const router = useRouter();

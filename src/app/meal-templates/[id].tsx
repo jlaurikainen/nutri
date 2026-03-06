@@ -1,16 +1,18 @@
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
 import { Button } from "@/src/components/ui/button";
 import { Field } from "@/src/components/ui/field";
 import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
+import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import { useUpdateMealTemplateForm } from "@/src/hooks/useUpdateMealTemplateForm";
 import { tranformFieldProps } from "@/src/lib/utils/field";
 import { toNumber } from "@/src/lib/utils/number";
+import { pathIdSchema } from "@/src/schemas/search-params";
 
 const Edit = () => {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id } = useParsedLocalParams(pathIdSchema);
   const { control, onSubmit } = useUpdateMealTemplateForm(toNumber(id));
   const router = useRouter();
 
