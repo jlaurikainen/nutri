@@ -1,10 +1,10 @@
 import { useLocalSearchParams } from "expo-router";
 import { RotateCcw } from "lucide-react-native";
 import { View } from "react-native";
-import { useQueryFilter } from "../hooks/useQueryFilter";
-import { Button } from "./ui/button";
-import { Icon } from "./ui/icon";
-import { Input } from "./ui/input";
+import { useQueryFilter } from "@/src/hooks/useQueryFilter";
+import { Button } from "../ui/button";
+import { Icon } from "../ui/icon";
+import { Input } from "../ui/input";
 
 export const MealTempalteFilter = () => {
   const { query = "" } = useLocalSearchParams<{ query?: string }>();

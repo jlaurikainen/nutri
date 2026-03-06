@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { View } from "react-native";
-import { useMeals } from "../queries/meals";
-import { Insight } from "./ui/insight";
-import { Text } from "./ui/text";
+import { useMeals } from "@/src/queries/meals";
+import { Insight } from "../ui/insight";
+import { Text } from "../ui/text";
 
 export const DailyMacros = () => {
   const { data = [] } = useMeals({ end: new Date(), start: new Date() });

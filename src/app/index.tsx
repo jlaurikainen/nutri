@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 import { Fragment } from "react";
 import { ScrollView } from "react-native";
-import { DailyMacros } from "../components/daily-macros";
-import { DailyMeals } from "../components/daily-meals";
-import { Page } from "../components/page";
+import { DailyMacros } from "../components/home/daily-macros";
+import { DailyMeals } from "../components/home/daily-meals";
+import { Page } from "../components/ui/page";
 
 const Home = () => {
   return (

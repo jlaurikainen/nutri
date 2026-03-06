@@ -2,11 +2,11 @@ import { Link } from "expo-router";
 import { Trash2 } from "lucide-react-native";
 import { Fragment } from "react";
 import { View } from "react-native";
-import { useDeleteMeal, useMeals } from "../queries/meals";
-import { Button } from "./ui/button";
-import { Icon } from "./ui/icon";
-import { MealItem } from "./ui/meal-item";
-import { Text } from "./ui/text";
+import { useDeleteMeal, useMeals } from "@/src/queries/meals";
+import { Button } from "../ui/button";
+import { Icon } from "../ui/icon";
+import { MealItem } from "../ui/meal-item";
+import { Text } from "../ui/text";
 
 export const DailyMeals = () => {
   const { data = [] } = useMeals({ end: new Date(), start: new Date() });

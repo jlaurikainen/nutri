@@ -1,7 +1,7 @@
 import { HomeIcon, LibraryIcon, User2Icon } from "lucide-react-native";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Tab } from "./ui/tab";
+import { Tab } from "../ui/tab";
 
 export const BottomBar = () => {
   const insets = useSafeAreaInsets();

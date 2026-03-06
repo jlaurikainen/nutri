@@ -1,8 +1,8 @@
 import "../global.css";
 import { PortalHost } from "@rn-primitives/portal";
 import { Stack } from "expo-router";
-import { BottomBar } from "../components/bottom-bar";
-import { Contexts } from "../components/contexts";
+import { BottomBar } from "../components/app/bottom-bar";
+import { Contexts } from "../components/app/contexts";
 
 const RootLayout = () => {
   return (

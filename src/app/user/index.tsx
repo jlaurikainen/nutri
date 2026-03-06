@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Page } from "@/src/components/page";
+import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 
 const User = () => {

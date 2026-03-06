@@ -1,9 +1,9 @@
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
-import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
 import { Field } from "@/src/components/ui/field";
+import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 import { useUpdateMealTemplateForm } from "@/src/hooks/useUpdateMealTemplateForm";
 import { tranformFieldProps } from "@/src/lib/utils/field";
