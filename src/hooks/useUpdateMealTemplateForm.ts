@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 import {
+  mealTemplateFormSchema,
   useMealTemplate,
   useUpdateMealTemplate,
 } from "../queries/meal-templates";
-import { mealTemplateFormSchema } from "../schemas/meal-templates";
 
 export const useUpdateMealTemplateForm = (id: number) => {
   const router = useRouter();

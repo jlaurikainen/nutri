@@ -1,114 +1,31 @@
-import { Link, Stack, useRouter } from "expo-router";
-import { Plus, RotateCcw, SquarePen, Trash2 } from "lucide-react-native";
+import { Link, Stack } from "expo-router";
 import { ScrollView, View } from "react-native";
-import type z from "zod";
+import { MealTempalteFilter } from "@/src/components/meal-template-filter";
+import { MealTemplateList } from "@/src/components/meal-template-list";
 import { Page } from "@/src/components/page";
 import { Button } from "@/src/components/ui/button";
-import { Icon } from "@/src/components/ui/icon";
-import { Input } from "@/src/components/ui/input";
-import { MealItem } from "@/src/components/ui/meal-item";
 import { Text } from "@/src/components/ui/text";
-import { useFilteredTemplates } from "@/src/hooks/useFilteredTemplates";
-import { useDeleteMealTemplate } from "@/src/queries/meal-templates";
-import { useAddMeal } from "@/src/queries/meals";
-import type { mealTemplateSchema } from "@/src/schemas/meal-templates";
 
 const MealTemplates = () => {
-  const { filter, updateFilter, resetFilter, filteredData } =
-    useFilteredTemplates();
-  const router = useRouter();
-  const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
-  const { mutateAsync: addMeal } = useAddMeal();
-
-  const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
-    return async () => {
-      await addMeal({ ...template, date: new Date() });
-      router.back();
-    };
-  };
-
-  const onDelete = (id: number) => {
-    return async () => {
-      await deleteTemplate(id);
-    };
-  };
-
-  const onEdit = (id: number) => {
-    return () => {
-      router.navigate(`/meal-templates/${id}`);
-    };
-  };
-
   return (
     <>
       <Stack.Screen options={{ title: "Meal Templates" }} />
 
       <Page>
+        <Text variant="h3">Meal Templates</Text>
+
+        <MealTempalteFilter />
+
         <View>
           <Link asChild href="/meal-templates/add">
-            <Button>
-              <Text>Add Template</Text>
+            <Button size="sm">
+              <Text>Add New</Text>
             </Button>
           </Link>
         </View>
 
-        <View className="flex-row gap-2 items-end">
-          <View className="flex-1">
-            <Input
-              onChangeText={updateFilter}
-              placeholder="Search by name..."
-              value={filter}
-            />
-          </View>
-
-          <Button onPress={resetFilter} size="icon" variant="secondary">
-            <Icon as={RotateCcw} />
-          </Button>
-        </View>
-
         <ScrollView>
-          <View className="gap-4">
-            {filteredData.map((x) => (
-              <MealItem key={x.id}>
-                <MealItem.Title title={x.name} />
-
-                <MealItem.Macros>
-                  <MealItem.Macro
-                    label="calories"
-                    unit="kcal"
-                    value={x.calories}
-                  />
-                  <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
-                  <MealItem.Macro label="protein" unit="g" value={x.protein} />
-                  <MealItem.Macro label="fat" unit="g" value={x.fat} />
-                </MealItem.Macros>
-
-                <MealItem.Actions>
-                  <Button onPress={onAdd(x)} size="icon" variant="secondary">
-                    <Icon as={Plus} />
-                  </Button>
-
-                  <View className="flex-row ml-auto gap-1">
-                    <Button
-                      onPress={onEdit(x.id)}
-                      size="icon"
-                      variant="secondary"
-                    >
-                      <Icon as={SquarePen} />
-                    </Button>
-
-                    <Button
-                      onPress={onDelete(x.id)}
-                      size="icon"
-                      variant="secondary"
-                    >
-                      <Icon as={Trash2} />
-                    </Button>
-                  </View>
-                </MealItem.Actions>
-              </MealItem>
-            ))}
-          </View>
+          <MealTemplateList />
         </ScrollView>
       </Page>
     </>

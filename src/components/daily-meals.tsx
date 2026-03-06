@@ -1,5 +1,6 @@
 import { Link } from "expo-router";
 import { Trash2 } from "lucide-react-native";
+import { Fragment } from "react";
 import { View } from "react-native";
 import { useDeleteMeal, useMeals } from "../queries/meals";
 import { Button } from "./ui/button";
@@ -25,29 +26,39 @@ export const DailyMeals = () => {
         </Text>
         <Link asChild href="/meal-templates">
           <Button>
-            <Text>Add Meals</Text>
+            <Text>Add Meal</Text>
           </Button>
         </Link>
       </View>
     );
   }
 
-  return data?.map((x) => (
-    <MealItem key={x.id}>
-      <MealItem.Title title={x.name} />
-      <MealItem.Macros>
-        <MealItem.Macro label="calories" unit="kcal" value={x.calories} />
-        <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
-        <MealItem.Macro label="protein" unit="g" value={x.protein} />
-        <MealItem.Macro label="fat" unit="g" value={x.fat} />
-      </MealItem.Macros>
-      <MealItem.Actions>
-        <View className="ml-auto">
-          <Button onPress={onDelete(x.id)} size="icon" variant="secondary">
-            <Icon as={Trash2} />
-          </Button>
-        </View>
-      </MealItem.Actions>
-    </MealItem>
-  ));
+  return (
+    <Fragment>
+      <Link asChild href="/meal-templates">
+        <Button>
+          <Text>Add Meal</Text>
+        </Button>
+      </Link>
+
+      {data.map((x) => (
+        <MealItem key={x.id}>
+          <MealItem.Title title={x.name} />
+          <MealItem.Macros>
+            <MealItem.Macro label="calories" unit="kcal" value={x.calories} />
+            <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
+            <MealItem.Macro label="protein" unit="g" value={x.protein} />
+            <MealItem.Macro label="fat" unit="g" value={x.fat} />
+          </MealItem.Macros>
+          <MealItem.Actions>
+            <View className="ml-auto">
+              <Button onPress={onDelete(x.id)} size="icon" variant="secondary">
+                <Icon as={Trash2} />
+              </Button>
+            </View>
+          </MealItem.Actions>
+        </MealItem>
+      ))}
+    </Fragment>
+  );
 };

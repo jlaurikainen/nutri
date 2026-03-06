@@ -2,8 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import type z from "zod";
-import { useCreateMealTemplate } from "../queries/meal-templates";
-import { mealTemplateFormSchema } from "../schemas/meal-templates";
+import {
+  mealTemplateFormSchema,
+  useCreateMealTemplate,
+} from "../queries/meal-templates";
 
 export const useCreateMealTemplateForm = () => {
   const router = useRouter();

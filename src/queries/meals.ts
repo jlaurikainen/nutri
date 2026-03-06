@@ -1,8 +1,25 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
-import { endOfDay, startOfDay, toDBString } from "../lib/utils/date";
-import { type createMealSchema, mealSchema } from "../schemas/meal";
+import {
+  endOfDay,
+  fromDBString,
+  startOfDay,
+  toDBString,
+} from "../lib/utils/date";
+
+import { MEALS_KEY } from "./keys";
+import { createMealTemplateSchema } from "./meal-templates";
+
+export const createMealSchema = z.intersection(
+  createMealTemplateSchema,
+  z.object({ date: z.string().transform(fromDBString) }),
+);
+
+export const mealSchema = z.intersection(
+  createMealSchema,
+  z.object({ id: z.number() }),
+);
 
 export const useAddMeal = () => {
   const db = useSQLiteContext();
@@ -33,7 +50,7 @@ export const useAddMeal = () => {
       );
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["meals"] });
+      client.invalidateQueries({ queryKey: [MEALS_KEY] });
     },
   });
 };
@@ -47,7 +64,7 @@ export const useDeleteMeal = () => {
       await db.runAsync("DELETE FROM meals WHERE id = ?;", id);
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["meals"] });
+      client.invalidateQueries({ queryKey: [MEALS_KEY] });
     },
   });
 };
@@ -68,7 +85,7 @@ export const useMeals = (props: { end: Date; start: Date }) => {
         [startString, endString],
       );
     },
-    queryKey: ["meals", startString, endString],
+    queryKey: [MEALS_KEY, startString, endString],
     select: z.array(mealSchema).parse,
   });
 };

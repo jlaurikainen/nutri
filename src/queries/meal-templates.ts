@@ -1,10 +1,31 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import { z } from "zod";
-import {
-  type createMealTemplateSchema,
-  mealTemplateSchema,
-} from "../schemas/meal-templates";
+import { toNumber } from "../lib/utils/number";
+import { MULTI_TEMPLATE_KEY, SINGLE_TEMPLATE_KEY } from "./keys";
+
+export const createMealTemplateSchema = z.object({
+  calories: z.number(),
+  carbs: z.number(),
+  fat: z.number(),
+  name: z.string(),
+  protein: z.number(),
+});
+
+export const mealTemplateFormSchema = z.object({
+  calories: z.string().transform(toNumber),
+  carbs: z.string().transform(toNumber),
+  fat: z.string().transform(toNumber),
+  name: z.string(),
+  protein: z.string().transform(toNumber),
+});
+
+export const mealTemplateSchema = z.intersection(
+  createMealTemplateSchema,
+  z.object({
+    id: z.number(),
+  }),
+);
 
 export const useCreateMealTemplate = () => {
   const client = useQueryClient();
@@ -27,7 +48,7 @@ export const useCreateMealTemplate = () => {
       );
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["meal-templates"] });
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
     },
   });
 };
@@ -41,7 +62,7 @@ export const useDeleteMealTemplate = () => {
       await db.runAsync("DELETE FROM meal_templates WHERE id = ?;", id);
     },
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["meal-templates"] });
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
     },
   });
 };
@@ -56,7 +77,7 @@ export const useMealTemplate = (id: number) => {
         id,
       );
     },
-    queryKey: ["meal-template", id],
+    queryKey: [SINGLE_TEMPLATE_KEY, id],
     select: mealTemplateSchema.parse,
   });
 };
@@ -70,7 +91,7 @@ export const useMealTemplates = () => {
         "SELECT * FROM meal_templates ORDER BY name ASC;",
       );
     },
-    queryKey: ["meal-templates"],
+    queryKey: [MULTI_TEMPLATE_KEY],
     select: z.array(mealTemplateSchema).parse,
   });
 };
@@ -96,8 +117,8 @@ export const useUpdateMealTemplate = () => {
       );
     },
     onSuccess: (_, args) => {
-      client.invalidateQueries({ queryKey: ["meal-template", args.id] });
-      client.invalidateQueries({ queryKey: ["meal-templates"] });
+      client.invalidateQueries({ queryKey: [SINGLE_TEMPLATE_KEY, args.id] });
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
     },
   });
 };
