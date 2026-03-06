@@ -42,6 +42,8 @@
   "scripts": {
     "android": "expo start --android",
     "check": "biome check",
+    "dev:android": "bun run --parallel emulator android",
+    "emulator": "emulator -avd Medium_Phone_API_36.1",
     "format": "biome format --write",
     "ios": "expo start --ios",
     "start": "expo start",
