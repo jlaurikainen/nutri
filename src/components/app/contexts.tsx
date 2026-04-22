@@ -14,9 +14,7 @@ export const Contexts = (props: PropsWithChildren) => {
   return (
     <QueryClientProvider client={client}>
       <SQLiteProvider databaseName="nutri.db" onInit={migrate}>
-        <ThemeProvider value={NAV_THEME[theme as "light" | "dark"]}>
-          {props.children}
-        </ThemeProvider>
+        <ThemeProvider value={NAV_THEME[theme]}>{props.children}</ThemeProvider>
       </SQLiteProvider>
     </QueryClientProvider>
   );
