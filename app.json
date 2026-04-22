@@ -5,6 +5,7 @@
         "backgroundColor": "#ffffff",
         "foregroundImage": "./src/assets/adaptive-icon.png"
       },
+      "package": "com.jl.nutri",
       "predictiveBackGestureEnabled": false
     },
     "experiments": {
