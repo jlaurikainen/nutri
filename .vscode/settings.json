@@ -19,5 +19,6 @@
     "source.fixAll.biome": "explicit",
     "source.removeUnusedImports": "always"
   },
-  "editor.defaultFormatter": "biomejs.biome"
+  "editor.defaultFormatter": "biomejs.biome",
+  "tailwindCSS.classFunctions": ["cn", "clsx", "twMerge"]
 }
