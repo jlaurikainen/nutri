@@ -1,7 +1,7 @@
 import { Link, Stack } from "expo-router";
 import { ScrollView, View } from "react-native";
-import { MealTempalteFilter } from "@/src/components/templates/meal-template-filter";
-import { MealTemplateList } from "@/src/components/templates/meal-template-list";
+import { MealTempalteFilter } from "@/src/components/meal-templates/meal-template-filter";
+import { MealTemplateList } from "@/src/components/meal-templates/meal-template-list";
 import { Button } from "@/src/components/ui/button";
 import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
