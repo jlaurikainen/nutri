@@ -18,14 +18,17 @@
       "tailwindDirectives": true
     }
   },
-  "formatter": {
+  "files": {
     "includes": [
       "**",
-      "!.expo/**",
-      "!android/**",
-      "!node_modules/**",
-      "!uniwind-types.d.ts"
-    ],
+      "!.expo",
+      "!android",
+      "!node_modules",
+      "!**/expo-env.d.ts",
+      "!**/uniwind-types.d.ts"
+    ]
+  },
+  "formatter": {
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80
