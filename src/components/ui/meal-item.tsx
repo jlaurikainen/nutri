@@ -7,7 +7,7 @@ export const MealItem = (props: PropsWithChildren) => {
 };
 
 const Title = (props: { title: string }) => {
-  return <Text className="text-xl">{props.title}</Text>;
+  return <Text className="text-gray-900 text-xl">{props.title}</Text>;
 };
 
 const Macros = (props: PropsWithChildren) => {

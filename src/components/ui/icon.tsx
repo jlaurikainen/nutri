@@ -6,8 +6,8 @@ type IconProps = LucideProps & {
   as: LucideIcon;
 };
 
-function IconImpl({ as: IconComponent, ...props }: IconProps) {
-  return <IconComponent {...props} />;
+function IconImpl({ as: IconComponent, ...rest }: IconProps) {
+  return <IconComponent {...rest} />;
 }
 
 const StyledIcon = withUniwind(IconImpl, {
@@ -21,14 +21,12 @@ const StyledIcon = withUniwind(IconImpl, {
   },
 });
 
-function Icon({ as: IconComponent, className, ...props }: IconProps) {
+export function Icon({ as: IconComponent, className, ...rest }: IconProps) {
   return (
     <StyledIcon
       as={IconComponent}
-      className={cn("text-foreground size-5", className)}
-      {...props}
+      className={cn("size-5", className)}
+      {...rest}
     />
   );
 }
-
-export { Icon };
