@@ -1,8 +1,10 @@
 import { Link } from "expo-router";
-import { ScrollView, View } from "react-native";
+import { Plus } from "lucide-react-native";
+import { View } from "react-native";
 import { MealTempalteFilter } from "@/src/components/meal-templates/meal-template-filter";
 import { MealTemplateList } from "@/src/components/meal-templates/meal-template-list";
 import { Button } from "@/src/components/ui/button";
+import { Icon } from "@/src/components/ui/icon";
 import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 
@@ -16,14 +18,13 @@ const MealTemplates = () => {
       <View>
         <Link asChild href="/meal-templates/add">
           <Button size="sm">
-            <Text>Add New</Text>
+            <Icon as={Plus} color="#ffffff" />
+            <Text>New Template</Text>
           </Button>
         </Link>
       </View>
 
-      <ScrollView>
-        <MealTemplateList />
-      </ScrollView>
+      <MealTemplateList />
     </Page>
   );
 };

@@ -19,7 +19,13 @@
     }
   },
   "formatter": {
-    "includes": ["**", "!.expo/**", "!android/**", "!node_modules/**"],
+    "includes": [
+      "**",
+      "!.expo/**",
+      "!android/**",
+      "!node_modules/**",
+      "!uniwind-types.d.ts"
+    ],
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80

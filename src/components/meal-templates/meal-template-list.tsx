@@ -1,6 +1,6 @@
-import { useRouter } from "expo-router";
-import { Plus, SquarePen, Trash2 } from "lucide-react-native";
-import { View } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { Plus, Trash2 } from "lucide-react-native";
+import { ScrollView, View } from "react-native";
 import type z from "zod";
 import {
   type mealTemplateSchema,
@@ -31,42 +31,44 @@ export const MealTemplateList = () => {
     };
   };
 
-  const onEdit = (id: number) => {
-    return () => {
-      router.navigate(`/meal-templates/${id}`);
-    };
-  };
-
   return (
-    <View className="gap-4">
-      {data.map((x) => (
-        <MealItem key={x.id}>
-          <MealItem.Title title={x.name} />
+    <ScrollView>
+      <View className="gap-4">
+        {data.map((x) => (
+          <MealItem key={x.id}>
+            <MealItem.Heading>
+              <Link
+                className="text-xl line-clamp-1 text-indigo-900"
+                href={`/meal-templates/${x.id}`}
+              >
+                {x.name}
+              </Link>
+            </MealItem.Heading>
 
-          <MealItem.Macros>
-            <MealItem.Macro label="calories" unit="kcal" value={x.calories} />
-            <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
-            <MealItem.Macro label="protein" unit="g" value={x.protein} />
-            <MealItem.Macro label="fat" unit="g" value={x.fat} />
-          </MealItem.Macros>
+            <MealItem.Macros>
+              <MealItem.Macro label="calories" unit="kcal" value={x.calories} />
+              <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
+              <MealItem.Macro label="protein" unit="g" value={x.protein} />
+              <MealItem.Macro label="fat" unit="g" value={x.fat} />
+            </MealItem.Macros>
 
-          <MealItem.Actions>
-            <Button onPress={onAdd(x)} size="icon" variant="secondary">
-              <Icon as={Plus} />
-            </Button>
-
-            <View className="flex-row ml-auto gap-1">
-              <Button onPress={onEdit(x.id)} size="icon" variant="secondary">
-                <Icon as={SquarePen} />
+            <MealItem.Actions>
+              <Button onPress={onAdd(x)} size="icon" variant="secondary">
+                <Icon as={Plus} />
               </Button>
 
-              <Button onPress={onDelete(x.id)} size="icon" variant="secondary">
+              <Button
+                className="ml-auto"
+                onPress={onDelete(x.id)}
+                size="icon"
+                variant="secondary"
+              >
                 <Icon as={Trash2} />
               </Button>
-            </View>
-          </MealItem.Actions>
-        </MealItem>
-      ))}
-    </View>
+            </MealItem.Actions>
+          </MealItem>
+        ))}
+      </View>
+    </ScrollView>
   );
 };

@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { View } from "react-native";
 import { Text } from "./text";
 
@@ -8,8 +8,21 @@ export const MealItem = (props: PropsWithChildren) => {
   );
 };
 
+const Heading = (props: PropsWithChildren<{ action?: ReactNode }>) => {
+  return (
+    <View className="flex-row gap-2 items-center">
+      {props.children}
+      {props.action ? <View className="ml-auto">{props.action}</View> : null}
+    </View>
+  );
+};
+
 const Title = (props: { title: string }) => {
-  return <Text className="text-gray-900 text-xl">{props.title}</Text>;
+  return (
+    <Text className="text-gray-900 text-xl line-clamp-1 shrink">
+      {props.title}
+    </Text>
+  );
 };
 
 const Macros = (props: PropsWithChildren) => {
@@ -31,6 +44,7 @@ const Actions = (props: PropsWithChildren) => {
   return <View className="flex-row gap-1 mt-2">{props.children}</View>;
 };
 
+MealItem.Heading = Heading;
 MealItem.Title = Title;
 MealItem.Macros = Macros;
 MealItem.Macro = Macro;
