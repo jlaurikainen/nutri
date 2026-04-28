@@ -3,7 +3,9 @@ import { View } from "react-native";
 import { Text } from "./text";
 
 export const MealItem = (props: PropsWithChildren) => {
-  return <View className="gap-1 p-4">{props.children}</View>;
+  return (
+    <View className="gap-1 p-4 border-gray-900 border">{props.children}</View>
+  );
 };
 
 const Title = (props: { title: string }) => {
@@ -19,8 +21,8 @@ const Macros = (props: PropsWithChildren) => {
 const Macro = (props: { label: string; unit: string; value: number }) => {
   return (
     <View>
-      <Text className="text-gray-400 text-xs">{props.label}</Text>
-      <Text className="text-gray-600">{`${props.value} ${props.unit}`}</Text>
+      <Text className="text-gray-700 text-xs">{props.label}</Text>
+      <Text className="text-gray-700">{`${props.value} ${props.unit}`}</Text>
     </View>
   );
 };

@@ -8,7 +8,7 @@ export const BottomBar = () => {
 
   return (
     <View
-      className="flex-row justify-evenly gap-4 items-center bg-white pt-4 border-t border-t-gray-200"
+      className="flex-row justify-evenly gap-4 items-center bg-gray-100 pt-4 border-t border-t-gray-900"
       style={{ paddingBottom: insets.bottom }}
     >
       <Tab href="/" icon={HomeIcon} label="Home" />

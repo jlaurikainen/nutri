@@ -12,9 +12,7 @@ export const Field = (props: Props) => {
 
   return (
     <View className="gap-1">
-      <Text className="ml-1" variant="muted">
-        {label}
-      </Text>
+      <Text className="ml-1">{label}</Text>
 
       <Input {...rest} />
     </View>

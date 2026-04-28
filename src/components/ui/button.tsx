@@ -18,11 +18,9 @@ const buttonVariants = cva(
         sm: cn("h-9 gap-1.5 px-3 sm:h-8"),
       },
       variant: {
-        default: cn(
-          "bg-gray-900 active:bg-primary/90 shadow-sm shadow-black/5",
-        ),
+        default: cn("bg-gray-900 active:bg-gray-900/90"),
         secondary: cn(
-          "bg-gray-100 active:bg-secondary/80 shadow-sm shadow-black/5",
+          "bg-gray-100 border border-gray-900 active:bg-gray-100/80",
         ),
       },
     },

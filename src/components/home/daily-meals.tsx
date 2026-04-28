@@ -21,7 +21,7 @@ export const DailyMeals = () => {
   if (data.length === 0) {
     return (
       <View className="items-center my-24 gap-8">
-        <Text className="text-gray-500" variant="h3">
+        <Text className="text-gray-900" variant="h3">
           No Meals Added for Today
         </Text>
         <Link asChild href="/meal-templates">
