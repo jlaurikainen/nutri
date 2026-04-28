@@ -1,4 +1,4 @@
-import { HomeIcon, LibraryIcon, User2Icon } from "lucide-react-native";
+import { HomeIcon, LibraryIcon } from "lucide-react-native";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Tab } from "../ui/tab";
@@ -13,7 +13,7 @@ export const BottomBar = () => {
     >
       <Tab href="/" icon={HomeIcon} label="Home" />
       <Tab href="/meal-templates" icon={LibraryIcon} label="Templates" />
-      <Tab href="/user" icon={User2Icon} label="User" />
+      {/* <Tab href="/user" icon={User2Icon} label="User" /> */}
     </View>
   );
 };
