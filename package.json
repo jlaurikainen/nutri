@@ -8,7 +8,7 @@
     "@tanstack/react-query": "^5.90.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "expo": "~55.0.17",
+    "expo": "~55.0.18",
     "expo-constants": "~55.0.15",
     "expo-linking": "~55.0.14",
     "expo-router": "~55.0.13",
@@ -43,7 +43,6 @@
     "android": "expo start --android",
     "build:apk": "npx expo prebuild --clean && npx expo run:android --variant release",
     "check": "biome check",
-    "clean": "Remove-Item -Force -Recurse .\\node_modules\\ && Remove-Item -Force -Recurse .\\bun.lock",
     "emulator": "emulator -avd Medium_Phone_API_36.1",
     "format": "biome format --write",
     "start": "expo start"
