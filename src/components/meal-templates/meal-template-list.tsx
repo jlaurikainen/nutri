@@ -1,43 +1,36 @@
-import { Link } from "expo-router";
-import { Plus } from "lucide-react-native";
-import { ScrollView, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, ScrollView } from "react-native";
 import type z from "zod";
 import { toDateOnlyTZISO } from "@/src/lib/utils/date";
 import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
-import { Button } from "../ui/button";
-import { Icon } from "../ui/icon";
 import { MealItem } from "../ui/meal-item";
 import { useFilteredMealTempaltes } from "./useFilteredMealTemplates";
 
 export const MealTemplateList = () => {
   const data = useFilteredMealTempaltes();
-  const { mutateAsync: addMeal } = useAddMeal();
+  const router = useRouter();
+  const { mutateAsync } = useAddMeal();
 
   const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
     return async () => {
-      await addMeal({ ...template, date: toDateOnlyTZISO(new Date()) });
+      await mutateAsync({ ...template, date: toDateOnlyTZISO(new Date()) });
+    };
+  };
+
+  const onEdit = (id: number) => {
+    return () => {
+      router.navigate(`/meal-templates/${id}`);
     };
   };
 
   return (
-    <ScrollView>
-      <View className="gap-4">
-        {data.map((x) => (
-          <MealItem key={x.id}>
-            <MealItem.Heading
-              action={
-                <Button onPress={onAdd(x)} size="icon" variant="secondary">
-                  <Icon as={Plus} />
-                </Button>
-              }
-            >
-              <Link
-                className="text-xl line-clamp-1 text-indigo-900 shrink"
-                href={`/meal-templates/${x.id}`}
-              >
-                {x.name}
-              </Link>
+    <ScrollView className="gap-4">
+      {data.map((x) => (
+        <Pressable key={x.id} onLongPress={onEdit(x.id)} onPress={onAdd(x)}>
+          <MealItem>
+            <MealItem.Heading>
+              <MealItem.Title title={x.name} />
             </MealItem.Heading>
 
             <MealItem.Macros>
@@ -47,8 +40,8 @@ export const MealTemplateList = () => {
               <MealItem.Macro label="fat" unit="g" value={x.fat} />
             </MealItem.Macros>
           </MealItem>
-        ))}
-      </View>
+        </Pressable>
+      ))}
     </ScrollView>
   );
 };
