@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { Pressable, View } from "react-native";
-import { toDateOnlyTZISO } from "@/src/lib/utils/date";
+import { toDateOnlyTZISO } from "@/src/lib/date";
 import { useMeals } from "@/src/queries/meals";
 import { Insight } from "../ui/insight";
 

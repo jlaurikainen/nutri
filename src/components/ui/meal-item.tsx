@@ -4,7 +4,9 @@ import { Text } from "./text";
 
 export const MealItem = (props: PropsWithChildren) => {
   return (
-    <View className="gap-1 p-4 border-gray-900 border">{props.children}</View>
+    <View className="gap-1 px-3 py-2 border-gray-900 border">
+      {props.children}
+    </View>
   );
 };
 
@@ -26,15 +28,13 @@ const Title = (props: { title: string }) => {
 };
 
 const Macros = (props: PropsWithChildren) => {
-  return (
-    <View className="flex-row justify-between gap-1">{props.children}</View>
-  );
+  return <View className="flex-row gap-1">{props.children}</View>;
 };
 
 const Macro = (props: { label: string; unit: string; value: number }) => {
   return (
-    <View>
-      <Text className="text-gray-700 text-xs">{props.label}</Text>
+    <View className="flex-1">
+      <Text className="text-gray-500 text-xs">{props.label}</Text>
       <Text className="text-gray-700">{`${props.value} ${props.unit}`}</Text>
     </View>
   );

@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
-import { Pressable, ScrollView } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import type z from "zod";
-import { toDateOnlyTZISO } from "@/src/lib/utils/date";
+import { toDateOnlyTZISO } from "@/src/lib/date";
 import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
 import { MealItem } from "../ui/meal-item";
@@ -28,23 +28,29 @@ export const MealTemplateList = () => {
   };
 
   return (
-    <ScrollView className="gap-4">
-      {data.map((x) => (
-        <Pressable key={x.id} onLongPress={onEdit(x.id)} onPress={onAdd(x)}>
-          <MealItem>
-            <MealItem.Heading>
-              <MealItem.Title title={x.name} />
-            </MealItem.Heading>
+    <ScrollView>
+      <View className="gap-4">
+        {data.map((x) => (
+          <Pressable key={x.id} onLongPress={onEdit(x.id)} onPress={onAdd(x)}>
+            <MealItem>
+              <MealItem.Heading>
+                <MealItem.Title title={x.name} />
+              </MealItem.Heading>
 
-            <MealItem.Macros>
-              <MealItem.Macro label="calories" unit="kcal" value={x.calories} />
-              <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
-              <MealItem.Macro label="protein" unit="g" value={x.protein} />
-              <MealItem.Macro label="fat" unit="g" value={x.fat} />
-            </MealItem.Macros>
-          </MealItem>
-        </Pressable>
-      ))}
+              <MealItem.Macros>
+                <MealItem.Macro
+                  label="calories"
+                  unit="kcal"
+                  value={x.calories}
+                />
+                <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
+                <MealItem.Macro label="protein" unit="g" value={x.protein} />
+                <MealItem.Macro label="fat" unit="g" value={x.fat} />
+              </MealItem.Macros>
+            </MealItem>
+          </Pressable>
+        ))}
+      </View>
     </ScrollView>
   );
 };

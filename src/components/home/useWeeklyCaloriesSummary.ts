@@ -4,7 +4,7 @@ import {
   endOfDay,
   startOfDay,
   toDateOnlyTZISO,
-} from "@/src/lib/utils/date";
+} from "@/src/lib/date";
 import { useMeals } from "@/src/queries/meals";
 
 const END_OF_TODAY = endOfDay(new Date());

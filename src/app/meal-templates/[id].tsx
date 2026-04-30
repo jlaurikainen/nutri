@@ -8,8 +8,8 @@ import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import { useUpdateMealTemplateForm } from "@/src/hooks/useUpdateMealTemplateForm";
-import { tranformFieldProps } from "@/src/lib/utils/field";
-import { toNumber } from "@/src/lib/utils/number";
+import { tranformFieldProps } from "@/src/lib/field";
+import { toNumber } from "@/src/lib/number";
 import { useDeleteMealTemplate } from "@/src/queries/meal-templates";
 import { pathIdSchema } from "@/src/schemas/search-params";
 

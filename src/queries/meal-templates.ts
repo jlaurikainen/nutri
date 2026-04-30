@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import { z } from "zod";
-import { toNumber } from "../lib/utils/number";
+import { toNumber } from "../lib/number";
 import { MULTI_TEMPLATE_KEY, SINGLE_TEMPLATE_KEY } from "./keys";
 
 export const createMealTemplateSchema = z.object({

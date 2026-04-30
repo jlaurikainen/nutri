@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { View } from "react-native";
 import Svg, { Line, Rect, Text as SVGText } from "react-native-svg";
-import { toDateMonthString } from "@/src/lib/utils/date";
-import { formatNumber } from "@/src/lib/utils/number";
+import { toDateMonthString } from "@/src/lib/date";
+import { formatNumber } from "@/src/lib/number";
 import { useWeeklyCaloriesSummary } from "./useWeeklyCaloriesSummary";
 
 const BAR_Y_OFFSET = 720,
