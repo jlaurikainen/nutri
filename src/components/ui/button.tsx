@@ -19,6 +19,7 @@ const buttonVariants = cva(
       },
       variant: {
         default: cn("bg-gray-900 active:bg-gray-900/90"),
+        destructive: cn("bg-rose-900"),
         secondary: cn(
           "bg-gray-100 border border-gray-900 active:bg-gray-100/80",
         ),
@@ -40,8 +41,9 @@ const buttonTextVariants = cva(cn("text-white text-sm font-medium"), {
       sm: "",
     },
     variant: {
-      default: "text-gray-100",
-      secondary: "text-gray-900",
+      default: cn("text-gray-100"),
+      destructive: cn("text-gray-100"),
+      secondary: cn("text-gray-900"),
     },
   },
 });

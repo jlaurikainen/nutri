@@ -1,11 +1,8 @@
 import { Link, useRouter } from "expo-router";
-import { Plus, Trash2 } from "lucide-react-native";
+import { Plus } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 import type z from "zod";
-import {
-  type mealTemplateSchema,
-  useDeleteMealTemplate,
-} from "@/src/queries/meal-templates";
+import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
@@ -15,7 +12,6 @@ import { useFilteredMealTempaltes } from "./useFilteredMealTemplates";
 export const MealTemplateList = () => {
   const router = useRouter();
   const data = useFilteredMealTempaltes();
-  const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
   const { mutateAsync: addMeal } = useAddMeal();
 
   const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
@@ -25,20 +21,20 @@ export const MealTemplateList = () => {
     };
   };
 
-  const onDelete = (id: number) => {
-    return async () => {
-      await deleteTemplate(id);
-    };
-  };
-
   return (
     <ScrollView>
       <View className="gap-4">
         {data.map((x) => (
           <MealItem key={x.id}>
-            <MealItem.Heading>
+            <MealItem.Heading
+              action={
+                <Button onPress={onAdd(x)} size="icon" variant="secondary">
+                  <Icon as={Plus} />
+                </Button>
+              }
+            >
               <Link
-                className="text-xl line-clamp-1 text-indigo-900"
+                className="text-xl line-clamp-1 text-indigo-900 shrink"
                 href={`/meal-templates/${x.id}`}
               >
                 {x.name}
@@ -51,21 +47,6 @@ export const MealTemplateList = () => {
               <MealItem.Macro label="protein" unit="g" value={x.protein} />
               <MealItem.Macro label="fat" unit="g" value={x.fat} />
             </MealItem.Macros>
-
-            <MealItem.Actions>
-              <Button onPress={onAdd(x)} size="icon" variant="secondary">
-                <Icon as={Plus} />
-              </Button>
-
-              <Button
-                className="ml-auto"
-                onPress={onDelete(x.id)}
-                size="icon"
-                variant="secondary"
-              >
-                <Icon as={Trash2} />
-              </Button>
-            </MealItem.Actions>
           </MealItem>
         ))}
       </View>

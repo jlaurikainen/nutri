@@ -10,15 +10,24 @@ import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import { useUpdateMealTemplateForm } from "@/src/hooks/useUpdateMealTemplateForm";
 import { tranformFieldProps } from "@/src/lib/utils/field";
 import { toNumber } from "@/src/lib/utils/number";
+import { useDeleteMealTemplate } from "@/src/queries/meal-templates";
 import { pathIdSchema } from "@/src/schemas/search-params";
 
 const Edit = () => {
   const { id } = useParsedLocalParams(pathIdSchema);
+  const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
   const { control, onSubmit } = useUpdateMealTemplateForm(toNumber(id));
   const router = useRouter();
 
   const onCancel = () => {
     router.back();
+  };
+
+  const onDelete = (id: number) => {
+    return async () => {
+      await deleteTemplate(id);
+      router.back();
+    };
   };
 
   return (
@@ -89,12 +98,18 @@ const Edit = () => {
           )}
         />
 
-        <View className="flex-row gap-2">
-          <Button className="flex-1" onPress={onCancel} variant="secondary">
-            <Text>Cancel</Text>
-          </Button>
-          <Button className="flex-1" onPress={onSubmit}>
-            <Text>Save Changes</Text>
+        <View className="gap-2">
+          <View className="flex-row gap-2">
+            <Button className="flex-1" onPress={onCancel} variant="secondary">
+              <Text>Cancel</Text>
+            </Button>
+            <Button className="flex-1" onPress={onSubmit}>
+              <Text>Save Changes</Text>
+            </Button>
+          </View>
+
+          <Button onPress={onDelete(Number(id))} variant="destructive">
+            <Text>Delete Template</Text>
           </Button>
         </View>
       </Page>
