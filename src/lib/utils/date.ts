@@ -40,3 +40,11 @@ export const toDateOnlyTZISO = (date: Date) => {
 export const toDateMonthString = (date: Date) => {
   return date.toLocaleDateString("fi", { day: "numeric", month: "numeric" });
 };
+
+export const difference = (start: Date, end: Date) => {
+  return millisecondsToDays(end.getTime() - start.getTime());
+};
+
+export const millisecondsToDays = (input: number) => {
+  return Math.round(input / 1000 / 60 / 60 / 24);
+};

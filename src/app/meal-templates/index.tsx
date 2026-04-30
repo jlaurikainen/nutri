@@ -13,12 +13,9 @@ const MealTemplates = () => {
   return (
     <Fragment>
       <Stack.Screen options={{ title: "Meal Templates" }} />
-
       <Page>
         <MealTempalteFilter />
-
         <MealTemplateList />
-
         <Link asChild href="/meal-templates/add">
           <FAB icon={Plus} style={{ bottom: insets.bottom + 16, left: 16 }} />
         </Link>

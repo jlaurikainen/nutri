@@ -3,7 +3,6 @@ import { View } from "react-native";
 import Svg, { Line, Rect, Text as SVGText } from "react-native-svg";
 import { toDateMonthString } from "@/src/lib/utils/date";
 import { formatNumber } from "@/src/lib/utils/number";
-import { Text } from "../ui/text";
 import { useWeeklyCaloriesSummary } from "./useWeeklyCaloriesSummary";
 
 const BAR_Y_OFFSET = 720,
@@ -17,7 +16,7 @@ const BAR_Y_OFFSET = 720,
   VALUE_X_OFFSET = BAR_WIDTH / 2;
 
 export function WeeklyCalories() {
-  const { weekAverage, weeklyCalories } = useWeeklyCaloriesSummary();
+  const { weeklyCalories } = useWeeklyCaloriesSummary();
 
   return (
     <View className="aspect-video">
@@ -76,10 +75,6 @@ export function WeeklyCalories() {
           y2={720}
         />
       </Svg>
-
-      <Text className="mt-2 text-center">
-        Average Daily Calories: {formatNumber(weekAverage, 0)} kcal
-      </Text>
     </View>
   );
 }

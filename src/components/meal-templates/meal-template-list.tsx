@@ -14,7 +14,10 @@ export const MealTemplateList = () => {
 
   const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
     return async () => {
-      await mutateAsync({ ...template, date: toDateOnlyTZISO(new Date()) });
+      await mutateAsync({
+        ...template,
+        date: toDateOnlyTZISO(new Date()),
+      }).then(() => router.back());
     };
   };
 
