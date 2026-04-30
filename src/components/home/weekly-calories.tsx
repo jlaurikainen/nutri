@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { View } from "react-native";
-import Svg, { Line, Rect, Text as SVGText } from "react-native-svg";
+import Svg, { Rect, Text as SVGText } from "react-native-svg";
 import { formatNumber } from "@/src/lib/number";
 import { useWeeklyCaloriesSummary } from "./useWeeklyCaloriesSummary";
 
@@ -21,28 +21,6 @@ export function WeeklyCalories() {
         width="100%"
       >
         <Rect fill="#181818" height="100%" width="100%" x={0} y={0} />
-
-        <Line
-          id="one-thousand-line"
-          stroke="#666"
-          strokeDasharray={25}
-          strokeWidth={3}
-          x1={0}
-          x2="100%"
-          y1={VIEWPORT_HEIGHT / (MAX_VALUE / 2000)}
-          y2={VIEWPORT_HEIGHT / (MAX_VALUE / 2000)}
-        />
-
-        <Line
-          id="two-thousand-line"
-          stroke="#666"
-          strokeDasharray={25}
-          strokeWidth={3}
-          x1={0}
-          x2="100%"
-          y1={VIEWPORT_HEIGHT / (MAX_VALUE / 1000)}
-          y2={VIEWPORT_HEIGHT / (MAX_VALUE / 1000)}
-        />
 
         {Object.entries(weeklyCalories).map(([key, value], i, self) => {
           const canvasEmptyWidth = VIEWPORT_WIDTH - BAR_WIDTH * self.length; // How much space we have left on the canvas x-axis once the bars are drawn
