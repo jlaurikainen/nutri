@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "name": "nutri",
+    "name": "Nutri",
     "orientation": "portrait",
     "plugins": ["expo-router", "expo-sqlite"],
     "scheme": "nutri-scheme",
