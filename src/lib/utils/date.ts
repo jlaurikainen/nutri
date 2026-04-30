@@ -17,3 +17,26 @@ export const toDBString = (date: Date) => {
 export const fromDBString = (date: string) => {
   return new Date(date);
 };
+
+export const addDays = (date: Date, amount: number) => {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + amount);
+  return newDate;
+};
+
+export const toDateOnlyTZISO = (date: Date) => {
+  return date
+    .toLocaleString("fi", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
+    .split(".")
+    .reverse()
+    .join(".")
+    .replaceAll(".", "-");
+};
+
+export const toDateMonthString = (date: Date) => {
+  return date.toLocaleDateString("fi", { day: "numeric", month: "numeric" });
+};
