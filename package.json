@@ -43,9 +43,7 @@
     "android": "expo start --android",
     "build:apk": "npx expo prebuild --clean && npx expo run:android --variant release",
     "check": "biome check",
-    "emulator": "emulator -avd Medium_Phone_API_36.1",
-    "format": "biome format --write",
-    "start": "expo start"
+    "format": "biome format --write"
   },
   "version": "1.0.0"
 }
