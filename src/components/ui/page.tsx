@@ -8,7 +8,7 @@ export const Page = (props: PropsWithChildren) => {
   return (
     <View
       className="flex-1 bg-gray-100 gap-4 p-4"
-      style={{ paddingBottom: insets.bottom + 8, paddingTop: insets.top + 8 }}
+      style={{ paddingBottom: insets.bottom + 8 }}
       {...props}
     />
   );

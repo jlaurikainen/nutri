@@ -1,31 +1,29 @@
-import { Link } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { Plus } from "lucide-react-native";
-import { View } from "react-native";
+import { Fragment } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MealTempalteFilter } from "@/src/components/meal-templates/meal-template-filter";
 import { MealTemplateList } from "@/src/components/meal-templates/meal-template-list";
-import { Button } from "@/src/components/ui/button";
-import { Icon } from "@/src/components/ui/icon";
+import { FAB } from "@/src/components/ui/fab";
 import { Page } from "@/src/components/ui/page";
-import { Text } from "@/src/components/ui/text";
 
 const MealTemplates = () => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <Page>
-      <Text variant="h3">Meal Templates</Text>
+    <Fragment>
+      <Stack.Screen options={{ title: "Meal Templates" }} />
 
-      <MealTempalteFilter />
+      <Page>
+        <MealTempalteFilter />
 
-      <View>
+        <MealTemplateList />
+
         <Link asChild href="/meal-templates/add">
-          <Button size="sm">
-            <Icon as={Plus} color="#ffffff" />
-            <Text>New Template</Text>
-          </Button>
+          <FAB icon={Plus} style={{ bottom: insets.bottom + 16, left: 16 }} />
         </Link>
-      </View>
-
-      <MealTemplateList />
-    </Page>
+      </Page>
+    </Fragment>
   );
 };
 

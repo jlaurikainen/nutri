@@ -1,4 +1,5 @@
 import { Stack, useRouter } from "expo-router";
+import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
 import { Button } from "@/src/components/ui/button";
@@ -21,7 +22,7 @@ const Edit = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <Stack.Screen options={{ title: "Edit Template" }} />
 
       <Page>
@@ -97,7 +98,7 @@ const Edit = () => {
           </Button>
         </View>
       </Page>
-    </>
+    </Fragment>
   );
 };
 
