@@ -15,7 +15,7 @@ export const toDBString = (date: Date) => {
 };
 
 export const fromDBString = (date: string) => {
-  return new Date(date);
+  return toDateOnlyTZISO(new Date(date));
 };
 
 export const addDays = (date: Date, amount: number) => {

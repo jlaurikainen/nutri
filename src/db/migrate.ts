@@ -1,7 +1,7 @@
 import type { SQLiteDatabase } from "expo-sqlite";
 
 export async function migrate(db: SQLiteDatabase) {
-  const DB_VERSION = 2;
+  const DB_VERSION = 3;
 
   const versionQuery = await db.getFirstAsync<{ user_version: number }>(
     "PRAGMA user_version",
@@ -65,6 +65,15 @@ export async function migrate(db: SQLiteDatabase) {
     `);
 
     await db.execAsync("CREATE INDEX idx_date ON meals(date);");
+
+    currentVersion += 1;
+  }
+
+  if (currentVersion === 2) {
+    await db.execAsync(`
+      UPDATE meals
+      SET date = date(date);
+    `);
 
     currentVersion += 1;
   }

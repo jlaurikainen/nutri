@@ -14,13 +14,11 @@ export const useWeeklyCaloriesSummary = () => {
 
   const weeklyCalories = data.reduce(
     (a, c) => {
-      const dateOnlyString = toDateOnlyTZISO(new Date(c.date));
-
-      if (!(dateOnlyString in a)) {
+      if (!(c.date in a)) {
         return a;
       }
 
-      a[dateOnlyString] += c.calories;
+      a[c.date] += c.calories;
 
       return a;
     },

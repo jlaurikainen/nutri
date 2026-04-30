@@ -1,12 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
-import {
-  endOfDay,
-  fromDBString,
-  startOfDay,
-  toDBString,
-} from "../lib/utils/date";
+import { fromDBString, toDateOnlyTZISO } from "../lib/utils/date";
 
 import { MEALS_KEY } from "./keys";
 import { createMealTemplateSchema } from "./meal-templates";
@@ -42,7 +37,7 @@ export const useAddMeal = () => {
         [
           args.calories,
           args.carbs,
-          toDBString(args.date),
+          args.date,
           args.fat,
           args.name,
           args.protein,
@@ -71,8 +66,8 @@ export const useDeleteMeal = () => {
 
 export const useMeals = (props: { end: Date; start: Date }) => {
   const db = useSQLiteContext();
-  const startString = toDBString(startOfDay(props.start));
-  const endString = toDBString(endOfDay(props.end));
+  const startString = toDateOnlyTZISO(props.start);
+  const endString = toDateOnlyTZISO(props.end);
 
   return useQuery({
     queryFn: async () => {

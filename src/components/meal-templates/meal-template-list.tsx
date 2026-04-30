@@ -1,7 +1,8 @@
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { Plus } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 import type z from "zod";
+import { toDateOnlyTZISO } from "@/src/lib/utils/date";
 import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
 import { Button } from "../ui/button";
@@ -10,14 +11,12 @@ import { MealItem } from "../ui/meal-item";
 import { useFilteredMealTempaltes } from "./useFilteredMealTemplates";
 
 export const MealTemplateList = () => {
-  const router = useRouter();
   const data = useFilteredMealTempaltes();
   const { mutateAsync: addMeal } = useAddMeal();
 
   const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
     return async () => {
-      await addMeal({ ...template, date: new Date() });
-      router.back();
+      await addMeal({ ...template, date: toDateOnlyTZISO(new Date()) });
     };
   };
 
