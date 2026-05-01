@@ -32,7 +32,8 @@ export function WeeklyCalories() {
           return (
             <Fragment key={key}>
               <SVGText
-                fill={value > 0 ? "#1c1c1e" : "transparent"}
+                fill="#1c1c1e"
+                fontFamily="SpaceGrotesk-Regular"
                 fontSize={50}
                 textAnchor="middle"
                 x={barX + BAR_WIDTH / 2}

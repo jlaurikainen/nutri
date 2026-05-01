@@ -18,6 +18,15 @@ export const Contexts = (props: PropsWithChildren) => {
               card: "#f7fff7", // expo-router stack header background
               text: "#1c1c1e", // expo-router stack header text/icon color
             },
+            fonts: {
+              ...DefaultTheme.fonts,
+              bold: { fontFamily: "SpaceGrotesk-Bold", fontWeight: "bold" },
+              medium: { fontFamily: "SpaceGrotesk-medium", fontWeight: "500" },
+              regular: {
+                fontFamily: "SpaceGrotesk-Regular",
+                fontWeight: "normal",
+              },
+            },
           }}
         >
           {props.children}

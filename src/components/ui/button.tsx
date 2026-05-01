@@ -28,7 +28,7 @@ const buttonVariants = cva(
   },
 );
 
-const buttonTextVariants = cva(cn("text-sm font-medium"), {
+const buttonTextVariants = cva(cn("font-grotesk"), {
   defaultVariants: {
     size: "default",
     variant: "default",

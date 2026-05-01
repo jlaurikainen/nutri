@@ -3,7 +3,7 @@ import { type ComponentProps, createContext, useContext } from "react";
 import { Text as RNText } from "react-native";
 import { cn } from "@/src/lib/utils";
 
-const textVariants = cva(cn("text-foreground text-base"), {
+const textVariants = cva(cn("text-foreground text-base font-grotesk"), {
   defaultVariants: {
     variant: "default",
   },
