@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { formatNumber } from "@/src/lib/number";
+import { formatNumber } from "@/src/utils/number";
 import { Text } from "./text";
 
 interface Props {

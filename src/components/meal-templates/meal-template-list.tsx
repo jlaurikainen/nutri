@@ -1,9 +1,9 @@
 import { useRouter } from "expo-router";
 import { Pressable, ScrollView, View } from "react-native";
 import type z from "zod";
-import { toTimezoneAwareISOString } from "@/src/lib/date";
 import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
+import { toTimezoneAwareISOString } from "@/src/utils/date";
 import { MealItem } from "../ui/meal-item";
 import { useFilteredMealTempaltes } from "./useFilteredMealTemplates";
 

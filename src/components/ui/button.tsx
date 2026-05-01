@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Pressable } from "react-native";
 import { TextClassContext } from "@/src/components/ui/text";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/utils/utils";
 
 const buttonVariants = cva(
   cn("group shrink-0 flex-row items-center justify-center gap-2 shadow-none"),

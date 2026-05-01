@@ -8,8 +8,12 @@ import { Icon } from "@/src/components/ui/icon";
 import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
-import { addDays, startOfDay, toTimezoneAwareISOString } from "@/src/lib/date";
-import { pathDateSchema } from "@/src/schemas/search-params";
+import {
+  addDays,
+  startOfDay,
+  toTimezoneAwareISOString,
+} from "@/src/utils/date";
+import { pathDateSchema } from "@/src/utils/search-params";
 
 function Meals() {
   const { date } = useParsedLocalParams(pathDateSchema);

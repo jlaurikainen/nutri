@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { View } from "react-native";
-import { formatNumber } from "@/src/lib/number";
+import { formatNumber } from "@/src/utils/number";
 import { Text } from "./text";
 
 export const MealItem = (props: PropsWithChildren) => {

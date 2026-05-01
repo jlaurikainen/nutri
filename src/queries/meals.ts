@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
-import { toTimezoneAwareISOString } from "../lib/date";
+import { toTimezoneAwareISOString } from "../utils/date";
 
 import { MEALS_KEY } from "./keys";
 import { createMealTemplateSchema } from "./meal-templates";

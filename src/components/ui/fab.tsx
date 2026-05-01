@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react-native";
 import { Pressable, type PressableProps, View } from "react-native";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/utils/utils";
 import { Icon } from "./icon";
 
 interface Props extends PressableProps {

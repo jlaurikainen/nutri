@@ -1,11 +1,11 @@
+import { useMeals } from "@/src/queries/meals";
 import {
   addDays,
   difference,
   endOfDay,
   startOfDay,
   toTimezoneAwareISOString,
-} from "@/src/lib/date";
-import { useMeals } from "@/src/queries/meals";
+} from "@/src/utils/date";
 
 const END_OF_TODAY = endOfDay(new Date());
 const WEEK_AGO = startOfDay(addDays(END_OF_TODAY, -6));

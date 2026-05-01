@@ -2,7 +2,7 @@ import { RotateCcw } from "lucide-react-native";
 import { View } from "react-native";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import { useQueryFilter } from "@/src/hooks/useQueryFilter";
-import { querySchema } from "@/src/schemas/search-params";
+import { querySchema } from "@/src/utils/search-params";
 import { Button } from "../ui/button";
 import { Icon } from "../ui/icon";
 import { Input } from "../ui/input";

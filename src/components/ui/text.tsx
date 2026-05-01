@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { type ComponentProps, createContext, useContext } from "react";
 import { Text as RNText } from "react-native";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/utils/utils";
 
 const textVariants = cva(cn("text-foreground text-base font-grotesk"), {
   defaultVariants: {
