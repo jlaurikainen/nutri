@@ -21,6 +21,7 @@ const RootLayout = () => {
       <StatusBar style="dark" />
       <Stack
         screenOptions={{
+          animation: "fade_from_bottom",
           headerShadowVisible: false,
           headerTitleStyle: {
             fontFamily: "SpaceGrotesk-Regular",
