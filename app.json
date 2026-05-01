@@ -12,9 +12,6 @@
       "typedRoutes": true
     },
     "icon": "./src/assets/icon.png",
-    "ios": {
-      "supportsTablet": true
-    },
     "name": "Nutri",
     "orientation": "portrait",
     "plugins": ["expo-router", "expo-sqlite"],
@@ -26,10 +23,6 @@
       "resizeMode": "contain"
     },
     "userInterfaceStyle": "automatic",
-    "version": "1.0.1",
-    "web": {
-      "bundler": "metro",
-      "favicon": "./src/assets/favicon.png"
-    }
+    "version": "1.0.1"
   }
 }
