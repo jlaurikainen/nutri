@@ -1,6 +1,6 @@
 import { View } from "react-native";
-import { Page } from "@/src/components/ui/page";
-import { Text } from "@/src/components/ui/text";
+import { Page } from "@/src/components/shared/page";
+import { Text } from "@/src/components/shared/text";
 
 const User = () => {
   return (

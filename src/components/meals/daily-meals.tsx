@@ -1,10 +1,10 @@
 import { Trash2 } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 import { useDeleteMeal, useMeals } from "@/src/queries/meals";
-import { Button } from "../ui/button";
-import { Icon } from "../ui/icon";
-import { MealItem } from "../ui/meal-item";
-import { Text } from "../ui/text";
+import { Button } from "../shared/button";
+import { Icon } from "../shared/icon";
+import { MealItem } from "../shared/meal-item";
+import { Text } from "../shared/text";
 
 interface Props {
   date?: Date;

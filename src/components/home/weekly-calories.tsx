@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { View } from "react-native";
 import Svg, { Rect, Text as SVGText } from "react-native-svg";
 import { formatNumber } from "@/src/utils/number";
-import { useWeeklyCaloriesSummary } from "./useWeeklyCaloriesSummary";
+import { useWeeklyCaloriesSummary } from "../../hooks/useWeeklyCaloriesSummary";
 
 const BAR_WIDTH = 180,
   MAX_VALUE = 3000,

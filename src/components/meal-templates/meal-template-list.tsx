@@ -4,8 +4,8 @@ import type z from "zod";
 import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
 import { toTimezoneAwareISOString } from "@/src/utils/date";
-import { MealItem } from "../ui/meal-item";
-import { useFilteredMealTempaltes } from "./useFilteredMealTemplates";
+import { useFilteredMealTempaltes } from "../../hooks/useFilteredMealTemplates";
+import { MealItem } from "../shared/meal-item";
 
 export const MealTemplateList = () => {
   const data = useFilteredMealTempaltes();

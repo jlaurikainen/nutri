@@ -3,8 +3,8 @@ import { Plus } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DailyMacros } from "../components/home/daily-macros";
 import { WeeklyCalories } from "../components/home/weekly-calories";
-import { FAB } from "../components/ui/fab";
-import { Page } from "../components/ui/page";
+import { FAB } from "../components/shared/fab";
+import { Page } from "../components/shared/page";
 
 const Home = () => {
   const insets = useSafeAreaInsets();

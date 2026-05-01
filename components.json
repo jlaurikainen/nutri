@@ -4,7 +4,7 @@
     "components": "@/src/components",
     "hooks": "@/src/hooks",
     "lib": "@/src/lib",
-    "ui": "@/src/components/ui",
+    "ui": "@/src/components/shared",
     "utils": "@/src/lib/utils"
   },
   "rsc": false,

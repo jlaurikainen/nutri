@@ -2,7 +2,7 @@ import { Link } from "expo-router";
 import { Pressable, View } from "react-native";
 import { useMeals } from "@/src/queries/meals";
 import { toTimezoneAwareISOString } from "@/src/utils/date";
-import { Insight } from "../ui/insight";
+import { Insight } from "../shared/insight";
 
 export const DailyMacros = () => {
   const { data = [] } = useMeals({ end: new Date(), start: new Date() });

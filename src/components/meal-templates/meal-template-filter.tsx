@@ -3,9 +3,9 @@ import { View } from "react-native";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import { useQueryFilter } from "@/src/hooks/useQueryFilter";
 import { querySchema } from "@/src/utils/search-params";
-import { Button } from "../ui/button";
-import { Icon } from "../ui/icon";
-import { Input } from "../ui/input";
+import { Button } from "../shared/button";
+import { Icon } from "../shared/icon";
+import { Input } from "../shared/input";
 
 export const MealTempalteFilter = () => {
   const { query = "" } = useParsedLocalParams(querySchema);

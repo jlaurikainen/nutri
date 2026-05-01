@@ -4,8 +4,8 @@ import { Fragment } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MealTempalteFilter } from "@/src/components/meal-templates/meal-template-filter";
 import { MealTemplateList } from "@/src/components/meal-templates/meal-template-list";
-import { FAB } from "@/src/components/ui/fab";
-import { Page } from "@/src/components/ui/page";
+import { FAB } from "@/src/components/shared/fab";
+import { Page } from "@/src/components/shared/page";
 
 const MealTemplates = () => {
   const insets = useSafeAreaInsets();

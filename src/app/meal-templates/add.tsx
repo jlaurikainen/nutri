@@ -2,10 +2,10 @@ import { Stack, useRouter } from "expo-router";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
-import { Button } from "@/src/components/ui/button";
-import { Field } from "@/src/components/ui/field";
-import { Page } from "@/src/components/ui/page";
-import { Text } from "@/src/components/ui/text";
+import { Button } from "@/src/components/shared/button";
+import { Field } from "@/src/components/shared/field";
+import { Page } from "@/src/components/shared/page";
+import { Text } from "@/src/components/shared/text";
 import { useCreateMealTemplateForm } from "@/src/hooks/useCreateMealTemplateForm";
 
 const Add = () => {

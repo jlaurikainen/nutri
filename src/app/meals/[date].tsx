@@ -3,10 +3,10 @@ import { ArrowLeft, ArrowRight } from "lucide-react-native";
 import { Fragment } from "react";
 import { View } from "react-native";
 import { DailyMeals } from "@/src/components/meals/daily-meals";
-import { Button } from "@/src/components/ui/button";
-import { Icon } from "@/src/components/ui/icon";
-import { Page } from "@/src/components/ui/page";
-import { Text } from "@/src/components/ui/text";
+import { Button } from "@/src/components/shared/button";
+import { Icon } from "@/src/components/shared/icon";
+import { Page } from "@/src/components/shared/page";
+import { Text } from "@/src/components/shared/text";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import {
   addDays,
