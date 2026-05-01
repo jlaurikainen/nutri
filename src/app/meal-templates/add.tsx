@@ -7,7 +7,6 @@ import { Field } from "@/src/components/ui/field";
 import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 import { useCreateMealTemplateForm } from "@/src/hooks/useCreateMealTemplateForm";
-import { tranformFieldProps } from "@/src/lib/field";
 
 const Add = () => {
   const { control, onSubmit } = useCreateMealTemplateForm();
@@ -26,12 +25,7 @@ const Add = () => {
           control={control}
           name="name"
           render={({ field }) => (
-            <Field
-              autoFocus
-              label="Name"
-              returnKeyType="next"
-              {...tranformFieldProps(field)}
-            />
+            <Field autoFocus label="Name" returnKeyType="next" {...field} />
           )}
         />
 
@@ -43,7 +37,7 @@ const Add = () => {
               inputMode="decimal"
               label="Calories"
               returnKeyType="next"
-              {...tranformFieldProps(field)}
+              {...field}
             />
           )}
         />
@@ -56,7 +50,7 @@ const Add = () => {
               inputMode="decimal"
               label="Carbs"
               returnKeyType="next"
-              {...tranformFieldProps(field)}
+              {...field}
             />
           )}
         />
@@ -69,7 +63,7 @@ const Add = () => {
               inputMode="decimal"
               label="Protein"
               returnKeyType="next"
-              {...tranformFieldProps(field)}
+              {...field}
             />
           )}
         />
@@ -78,11 +72,7 @@ const Add = () => {
           control={control}
           name="fat"
           render={({ field }) => (
-            <Field
-              inputMode="decimal"
-              label="Fat"
-              {...tranformFieldProps(field)}
-            />
+            <Field inputMode="decimal" label="Fat" {...field} />
           )}
         />
 

@@ -1,6 +1,6 @@
-export const startOfDay = (date = new Date()) => {
+export const addDays = (date: Date, amount: number) => {
   const newDate = new Date(date);
-  newDate.setHours(0, 0, 0, 0);
+  newDate.setDate(newDate.getDate() + amount);
   return newDate;
 };
 
@@ -10,21 +10,21 @@ export const endOfDay = (date = new Date()) => {
   return newDate;
 };
 
-export const toDBString = (date: Date) => {
-  return date.toISOString().replace("T", " ").substring(0, 19);
-};
-
-export const fromDBString = (date: string) => {
-  return toDateOnlyTZISO(new Date(date));
-};
-
-export const addDays = (date: Date, amount: number) => {
+export const startOfDay = (date = new Date()) => {
   const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + amount);
+  newDate.setHours(0, 0, 0, 0);
   return newDate;
 };
 
-export const toDateOnlyTZISO = (date: Date) => {
+export const difference = (start: Date, end: Date) => {
+  return millisecondsToDays(end.getTime() - start.getTime());
+};
+
+export const millisecondsToDays = (input: number) => {
+  return Math.round(input / 1000 / 60 / 60 / 24);
+};
+
+export const toTimezoneAwareISOString = (date: Date) => {
   return date
     .toLocaleString("fi", {
       day: "2-digit",
@@ -35,16 +35,4 @@ export const toDateOnlyTZISO = (date: Date) => {
     .reverse()
     .join(".")
     .replaceAll(".", "-");
-};
-
-export const toDateMonthString = (date: Date) => {
-  return date.toLocaleDateString("fi", { day: "numeric", month: "numeric" });
-};
-
-export const difference = (start: Date, end: Date) => {
-  return millisecondsToDays(end.getTime() - start.getTime());
-};
-
-export const millisecondsToDays = (input: number) => {
-  return Math.round(input / 1000 / 60 / 60 / 24);
 };

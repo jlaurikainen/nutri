@@ -3,7 +3,7 @@ import {
   difference,
   endOfDay,
   startOfDay,
-  toDateOnlyTZISO,
+  toTimezoneAwareISOString,
 } from "@/src/lib/date";
 import { useMeals } from "@/src/queries/meals";
 
@@ -26,7 +26,7 @@ export const useWeeklyCaloriesSummary = () => {
     new Array(difference(WEEK_AGO, END_OF_TODAY))
       .fill(null)
       .reduce((a: Record<string, number>, _c, i) => {
-        const dateString = toDateOnlyTZISO(addDays(WEEK_AGO, i));
+        const dateString = toTimezoneAwareISOString(addDays(WEEK_AGO, i));
 
         if (!a[dateString]) {
           a[dateString] = 0;

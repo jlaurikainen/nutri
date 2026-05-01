@@ -1,14 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
-import { fromDBString, toDateOnlyTZISO } from "../lib/date";
+import { toTimezoneAwareISOString } from "../lib/date";
 
 import { MEALS_KEY } from "./keys";
 import { createMealTemplateSchema } from "./meal-templates";
 
 export const createMealSchema = z.intersection(
   createMealTemplateSchema,
-  z.object({ date: z.string().transform(fromDBString) }),
+  z.object({ date: z.string() }),
 );
 
 export const mealSchema = z.intersection(
@@ -66,8 +66,8 @@ export const useDeleteMeal = () => {
 
 export const useMeals = (props: { end: Date; start: Date }) => {
   const db = useSQLiteContext();
-  const startString = toDateOnlyTZISO(props.start);
-  const endString = toDateOnlyTZISO(props.end);
+  const startString = toTimezoneAwareISOString(props.start);
+  const endString = toTimezoneAwareISOString(props.end);
 
   return useQuery({
     queryFn: async () => {

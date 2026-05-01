@@ -8,7 +8,7 @@ import { Icon } from "@/src/components/ui/icon";
 import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
-import { addDays, startOfDay, toDateOnlyTZISO } from "@/src/lib/date";
+import { addDays, startOfDay, toTimezoneAwareISOString } from "@/src/lib/date";
 import { pathDateSchema } from "@/src/schemas/search-params";
 
 function Meals() {
@@ -20,7 +20,7 @@ function Meals() {
   const goBack = () => {
     return () => {
       router.replace({
-        params: { date: toDateOnlyTZISO(addDays(new Date(date), -1)) },
+        params: { date: toTimezoneAwareISOString(addDays(new Date(date), -1)) },
         pathname: "/meals/[date]",
       });
     };
@@ -29,7 +29,7 @@ function Meals() {
   const goForward = () => {
     return () => {
       router.replace({
-        params: { date: toDateOnlyTZISO(addDays(new Date(date), 1)) },
+        params: { date: toTimezoneAwareISOString(addDays(new Date(date), 1)) },
         pathname: "/meals/[date]",
       });
     };

@@ -8,7 +8,6 @@ import { Page } from "@/src/components/ui/page";
 import { Text } from "@/src/components/ui/text";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
 import { useUpdateMealTemplateForm } from "@/src/hooks/useUpdateMealTemplateForm";
-import { tranformFieldProps } from "@/src/lib/field";
 import { toNumber } from "@/src/lib/number";
 import { useDeleteMealTemplate } from "@/src/queries/meal-templates";
 import { pathIdSchema } from "@/src/schemas/search-params";
@@ -39,11 +38,7 @@ const Edit = () => {
           control={control}
           name="name"
           render={({ field }) => (
-            <Field
-              label="Name"
-              returnKeyType="next"
-              {...tranformFieldProps(field)}
-            />
+            <Field label="Name" returnKeyType="next" {...field} />
           )}
         />
 
@@ -55,7 +50,7 @@ const Edit = () => {
               inputMode="decimal"
               label="Calories"
               returnKeyType="next"
-              {...tranformFieldProps(field)}
+              {...field}
             />
           )}
         />
@@ -68,7 +63,7 @@ const Edit = () => {
               inputMode="decimal"
               label="Carbs"
               returnKeyType="next"
-              {...tranformFieldProps(field)}
+              {...field}
             />
           )}
         />
@@ -81,7 +76,7 @@ const Edit = () => {
               inputMode="decimal"
               label="Protein"
               returnKeyType="next"
-              {...tranformFieldProps(field)}
+              {...field}
             />
           )}
         />
@@ -90,11 +85,7 @@ const Edit = () => {
           control={control}
           name="fat"
           render={({ field }) => (
-            <Field
-              inputMode="decimal"
-              label="Fat"
-              {...tranformFieldProps(field)}
-            />
+            <Field inputMode="decimal" label="Fat" {...field} />
           )}
         />
 

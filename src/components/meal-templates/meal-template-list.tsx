@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { Pressable, ScrollView, View } from "react-native";
 import type z from "zod";
-import { toDateOnlyTZISO } from "@/src/lib/date";
+import { toTimezoneAwareISOString } from "@/src/lib/date";
 import type { mealTemplateSchema } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
 import { MealItem } from "../ui/meal-item";
@@ -16,7 +16,7 @@ export const MealTemplateList = () => {
     return async () => {
       await mutateAsync({
         ...template,
-        date: toDateOnlyTZISO(new Date()),
+        date: toTimezoneAwareISOString(new Date()),
       }).then(() => router.back());
     };
   };

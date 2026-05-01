@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { Pressable, View } from "react-native";
-import { toDateOnlyTZISO } from "@/src/lib/date";
+import { toTimezoneAwareISOString } from "@/src/lib/date";
 import { useMeals } from "@/src/queries/meals";
 import { Insight } from "../ui/insight";
 
@@ -23,7 +23,7 @@ export const DailyMacros = () => {
     <Link
       asChild
       href={{
-        params: { date: toDateOnlyTZISO(new Date()) },
+        params: { date: toTimezoneAwareISOString(new Date()) },
         pathname: "/meals/[date]",
       }}
     >
