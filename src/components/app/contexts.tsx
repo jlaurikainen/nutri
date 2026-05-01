@@ -10,7 +10,18 @@ export const Contexts = (props: PropsWithChildren) => {
   return (
     <QueryClientProvider client={client}>
       <SQLiteProvider databaseName="nutri.db" onInit={migrate}>
-        <ThemeProvider value={DefaultTheme}>{props.children}</ThemeProvider>
+        <ThemeProvider
+          value={{
+            ...DefaultTheme,
+            colors: {
+              ...DefaultTheme.colors,
+              card: "#f7fff7", // expo-router stack header background
+              text: "#1c1c1e", // expo-router stack header text/icon color
+            },
+          }}
+        >
+          {props.children}
+        </ThemeProvider>
       </SQLiteProvider>
     </QueryClientProvider>
   );

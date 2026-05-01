@@ -18,17 +18,17 @@ const buttonVariants = cva(
         sm: cn("h-9 gap-1.5 px-3 sm:h-8"),
       },
       variant: {
-        default: cn("bg-gray-900 active:bg-gray-900/90"),
-        destructive: cn("bg-rose-900"),
+        default: cn("bg-foreground active:bg-foreground/90"),
+        destructive: cn("bg-brand active:bg-brand/90"),
         secondary: cn(
-          "bg-gray-100 border border-gray-900 active:bg-gray-100/80",
+          "bg-light-gray/10 border border-foreground active:bg-light-gray/5",
         ),
       },
     },
   },
 );
 
-const buttonTextVariants = cva(cn("text-white text-sm font-medium"), {
+const buttonTextVariants = cva(cn("text-sm font-medium"), {
   defaultVariants: {
     size: "default",
     variant: "default",
@@ -41,9 +41,9 @@ const buttonTextVariants = cva(cn("text-white text-sm font-medium"), {
       sm: "",
     },
     variant: {
-      default: cn("text-gray-100"),
-      destructive: cn("text-gray-100"),
-      secondary: cn("text-gray-900"),
+      default: cn("text-background"),
+      destructive: cn("text-background"),
+      secondary: cn("text-foreground"),
     },
   },
 });

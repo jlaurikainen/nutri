@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { formatNumber } from "@/src/lib/number";
 import { Text } from "./text";
 
 interface Props {
@@ -9,15 +10,12 @@ interface Props {
 
 export const Insight = (props: Props) => {
   return (
-    <View className="flex flex-1 border p-4 border-gray-900">
-      <Text className="text-4xl text-gray-900">
-        {props.amount.toLocaleString("fi", {
-          maximumFractionDigits: 2,
-          minimumFractionDigits: 0,
-        })}{" "}
-        <Text className="text-xl text-gray-700">{props.unit}</Text>
+    <View className="flex flex-1 border p-4 border-foreground">
+      <Text className="text-4xl text-foreground">
+        {formatNumber(props.amount)}
+        <Text className="text-xl text-mid-gray">{props.unit}</Text>
       </Text>
-      <Text className="text-gray-700">{props.title}</Text>
+      <Text className="text-mid-gray">{props.title}</Text>
     </View>
   );
 };

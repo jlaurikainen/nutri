@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { View } from "react-native";
+import { formatNumber } from "@/src/lib/number";
 import { Text } from "./text";
 
 export const MealItem = (props: PropsWithChildren) => {
@@ -21,7 +22,7 @@ const Heading = (props: PropsWithChildren<{ action?: ReactNode }>) => {
 
 const Title = (props: { title: string }) => {
   return (
-    <Text className="text-gray-900 text-xl line-clamp-1 shrink">
+    <Text className="text-foreground text-xl line-clamp-1 shrink">
       {props.title}
     </Text>
   );
@@ -34,8 +35,8 @@ const Macros = (props: PropsWithChildren) => {
 const Macro = (props: { label: string; unit: string; value: number }) => {
   return (
     <View className="flex-1">
-      <Text className="text-gray-500 text-xs">{props.label}</Text>
-      <Text className="text-gray-700">{`${props.value} ${props.unit}`}</Text>
+      <Text className="text-light-gray text-xs">{props.label}</Text>
+      <Text className="text-mid-gray">{`${formatNumber(props.value)} ${props.unit}`}</Text>
     </View>
   );
 };

@@ -14,13 +14,13 @@ export function WeeklyCalories() {
   const { weeklyCalories } = useWeeklyCaloriesSummary();
 
   return (
-    <View className="aspect-video">
+    <View className="aspect-video border border-foreground">
       <Svg
         height="100%"
         viewBox={`0 0 ${VIEWPORT_WIDTH} ${VIEWPORT_HEIGHT}`}
         width="100%"
       >
-        <Rect fill="#181818" height="100%" width="100%" x={0} y={0} />
+        <Rect fill="#f7fff7" height="100%" id="bg" width="100%" x={0} y={0} />
 
         {Object.entries(weeklyCalories).map(([key, value], i, self) => {
           const canvasEmptyWidth = VIEWPORT_WIDTH - BAR_WIDTH * self.length; // How much space we have left on the canvas x-axis once the bars are drawn
@@ -32,7 +32,7 @@ export function WeeklyCalories() {
           return (
             <Fragment key={key}>
               <SVGText
-                fill={value > 0 ? "#fff" : "transparent"}
+                fill={value > 0 ? "#1c1c1e" : "transparent"}
                 fontSize={50}
                 textAnchor="middle"
                 x={barX + BAR_WIDTH / 2}
@@ -42,7 +42,7 @@ export function WeeklyCalories() {
               </SVGText>
 
               <Rect
-                fill="#eee"
+                fill="#4a4a4a"
                 height={barRelativeHeight}
                 width={BAR_WIDTH}
                 x={barX}

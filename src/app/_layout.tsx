@@ -8,7 +8,7 @@ const RootLayout = () => {
   return (
     <Contexts>
       <StatusBar style="dark" />
-      <Stack />
+      <Stack screenOptions={{ headerShadowVisible: false }} />
       <PortalHost />
     </Contexts>
   );

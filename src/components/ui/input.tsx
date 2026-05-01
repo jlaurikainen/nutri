@@ -7,10 +7,11 @@ export function Input(props: TextInputProps) {
   return (
     <TextInput
       className={cn(
-        "border-gray-900 bg-gray-100 text-gray-900 flex h-10 w-full min-w-0 flex-row items-center border px-3 py-1 text-base leading-5 shadow-sm shadow-black/5 sm:h-9 placeholder:text-gray-500",
+        "border-foreground bg-background text-foreground flex h-10 w-full min-w-0 flex-row items-center border px-3 py-1 text-base leading-5 sm:h-9",
         rest.editable === false && cn("opacity-50"),
         className,
       )}
+      placeholderTextColor="#7e7f7c"
       {...rest}
     />
   );
