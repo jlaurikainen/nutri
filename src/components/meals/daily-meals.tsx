@@ -27,7 +27,7 @@ export const DailyMeals = (props: Props) => {
     return (
       <View className="items-center my-24 gap-8">
         <Text className="text-gray-900" variant="h3">
-          No Meals Added for Today
+          No Meals Added for This Day
         </Text>
       </View>
     );

@@ -33,6 +33,5 @@ export const toTimezoneAwareISOString = (date: Date) => {
     })
     .split(".")
     .reverse()
-    .join(".")
-    .replaceAll(".", "-");
+    .join("-");
 };
