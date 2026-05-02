@@ -1,7 +1,7 @@
 import type { SQLiteDatabase } from "expo-sqlite";
 
 export async function migrate(db: SQLiteDatabase) {
-  const DB_VERSION = 3;
+  const DB_VERSION = 4;
 
   const versionQuery = await db.getFirstAsync<{ user_version: number }>(
     "PRAGMA user_version",
@@ -17,11 +17,24 @@ export async function migrate(db: SQLiteDatabase) {
     return;
   }
 
+  // Dev drop table when fucking up
+  if (currentVersion === -1) {
+    await db.execAsync(`
+      DROP TABLE IF EXISTS meal_templates;
+      DROP TABLE IF EXISTS meals;
+      DROP TABLE IF EXISTS user;
+      DROP TABLE IF EXISTS user_weights;
+    `);
+
+    currentVersion += 1;
+  }
+
+  // Create meal_templates table and init a test template
   if (currentVersion === 0) {
     await db.execAsync(`
       PRAGMA journal_mode = WAL;
 
-      CREATE TABLE meal_templates (
+      CREATE TABLE IF NOT EXISTS meal_templates (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         calories INTEGER,
@@ -51,9 +64,10 @@ export async function migrate(db: SQLiteDatabase) {
     currentVersion += 1;
   }
 
+  // Create meals table and index the meals date
   if (currentVersion === 1) {
     await db.execAsync(`
-      CREATE TABLE meals (
+      CREATE TABLE IF NOT EXISTS meals (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         calories INTEGER,
@@ -69,10 +83,51 @@ export async function migrate(db: SQLiteDatabase) {
     currentVersion += 1;
   }
 
+  // Timezones were causing issues in charts, change meals date to date only for saved meals
   if (currentVersion === 2) {
     await db.execAsync(`
       UPDATE meals
       SET date = date(date);
+    `);
+
+    currentVersion += 1;
+  }
+
+  // Create user and user_weights tables. Alter meals table date column to DATE instead of DATETIME. Redo date formatting for existing meals just in case
+  if (currentVersion === 3) {
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS user (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        activity INTEGER NOT NULL DEFAULT 0,
+        height REAL NOT NULL DEFAULT 170,
+        sex INTEGER NOT NULL DEFAULT 0
+      );
+    `);
+
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS user_weights (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date DATE NOT NULL DEFAULT CURRENT_DATE,
+        weight REAL NOT NULL DEFAULT 70
+      );
+    `);
+
+    await db.execAsync(`
+      DROP INDEX IF EXISTS idx_date;
+      ALTER TABLE meals RENAME COLUMN date TO old_date;
+    `);
+
+    await db.execAsync(`
+      ALTER TABLE meals ADD COLUMN date DATE DEFAULT NULL;
+      CREATE INDEX idx_date ON meals(date);
+    `);
+
+    await db.execAsync(`
+      UPDATE meals SET date = date(old_date);
+    `);
+
+    await db.execAsync(`
+      ALTER TABLE meals DROP COLUMN old_date;
     `);
 
     currentVersion += 1;
