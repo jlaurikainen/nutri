@@ -26,9 +26,7 @@ export const DailyMeals = (props: Props) => {
   if (data.length === 0) {
     return (
       <View className="items-center justify-center aspect-video gap-8">
-        <Text className="text-foreground text-lg">
-          No Meals Added for This Day
-        </Text>
+        <Text className="text-lg">No Meals Added for This Day</Text>
       </View>
     );
   }
