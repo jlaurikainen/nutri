@@ -1,5 +1,7 @@
 import { Link, Stack } from "expo-router";
 import { Plus, User } from "lucide-react-native";
+import { Fragment } from "react";
+import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DailyMacros } from "../components/home/daily-macros";
 import { WeeklyCalories } from "../components/home/weekly-calories";
@@ -12,7 +14,7 @@ const Home = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <Page>
+    <Fragment>
       <Stack.Screen
         options={{
           headerRight: () => (
@@ -25,12 +27,21 @@ const Home = () => {
           title: "Home",
         }}
       />
-      <DailyMacros />
-      <WeeklyCalories />
-      <Link asChild href="/meal-templates">
-        <FAB icon={Plus} style={{ bottom: insets.bottom + 16, left: 16 }} />
-      </Link>
-    </Page>
+
+      <Page>
+        <ScrollView>
+          <View className="gap-4">
+            <DailyMacros />
+
+            <WeeklyCalories />
+          </View>
+        </ScrollView>
+
+        <Link asChild href="/meal-templates">
+          <FAB icon={Plus} style={{ bottom: insets.bottom + 16, left: 16 }} />
+        </Link>
+      </Page>
+    </Fragment>
   );
 };
 
