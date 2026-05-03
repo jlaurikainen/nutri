@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
+import { calculateBMR } from "../utils/user";
 import { USER_KEY } from "./keys";
+import { useUserWeight } from "./user-weight";
 
 export const userSchema = z.object({
   activity: z.union([
@@ -24,9 +26,7 @@ export const useUser = () => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: async () => {
-      return await db.getFirstAsync("SELECT * FROM user;");
-    },
+    queryFn: async () => await db.getFirstAsync("SELECT * FROM user;"),
     queryKey: [USER_KEY],
     select: userSchema.parse,
   });
@@ -37,7 +37,7 @@ export const useUpdateUser = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: User) => {
+    mutationFn: async (args: User) =>
       await db.runAsync(
         `
           UPDATE user
@@ -49,8 +49,14 @@ export const useUpdateUser = () => {
           WHERE id = ?;
         `,
         [args.activity, args.age, args.height, args.sex, args.id],
-      );
-    },
+      ),
     onSuccess: () => client.invalidateQueries({ queryKey: [USER_KEY] }),
   });
+};
+
+export const useUserBMR = () => {
+  const { data: userData } = useUser();
+  const { data: weightData } = useUserWeight();
+
+  return calculateBMR(userData, weightData?.weight);
 };
