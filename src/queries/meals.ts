@@ -24,7 +24,7 @@ export const useAddMeal = () => {
     mutationFn: async (args: z.infer<typeof createMealSchema>) => {
       await db.runAsync(
         `
-          INSERT INTO meals(
+          INSERT INTO meals (
             calories,
             carbs,
             date,
@@ -32,7 +32,7 @@ export const useAddMeal = () => {
             name,
             protein
           )
-          VALUES(?, ?, ?, ?, ?, ?);
+          VALUES (?, ?, ?, ?, ?, ?);
         `,
         [
           args.calories,
