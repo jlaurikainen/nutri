@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import { z } from "zod";
-import { toNumber } from "../utils/number";
 import { MULTI_TEMPLATE_KEY, SINGLE_TEMPLATE_KEY } from "./keys";
 
 export const createMealTemplateSchema = z.object({
@@ -10,14 +9,6 @@ export const createMealTemplateSchema = z.object({
   fat: z.number(),
   name: z.string(),
   protein: z.number(),
-});
-
-export const mealTemplateFormSchema = z.object({
-  calories: z.string().transform(toNumber),
-  carbs: z.string().transform(toNumber),
-  fat: z.string().transform(toNumber),
-  name: z.string(),
-  protein: z.string().transform(toNumber),
 });
 
 export const mealTemplateSchema = z.intersection(

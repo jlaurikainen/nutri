@@ -1,25 +1,30 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 import {
-  mealTemplateFormSchema,
+  createMealTemplateSchema,
   useCreateMealTemplate,
 } from "../queries/meal-templates";
 
 export const useCreateMealTemplateForm = () => {
-  const router = useRouter();
   const { mutateAsync } = useCreateMealTemplate();
-  const { control, handleSubmit } = useForm({
-    resolver: zodResolver(mealTemplateFormSchema),
-  });
+  const { control, handleSubmit } =
+    useForm<z.infer<typeof createMealTemplateSchema>>();
+  const router = useRouter();
 
-  const onSubmit = handleSubmit(
-    async (data: z.infer<typeof mealTemplateFormSchema>) => {
-      await mutateAsync(data);
-      router.back();
-    },
-  );
+  const onSubmit = handleSubmit(async (formData) => {
+    const { data, success } = createMealTemplateSchema.safeParse({
+      calories: +formData.calories,
+      carbs: +formData.carbs,
+      fat: +formData.fat,
+      name: formData.name,
+      protein: +formData.protein,
+    });
+
+    if (!success) return;
+
+    await mutateAsync(data).then(router.back);
+  });
 
   return { control, onSubmit };
 };

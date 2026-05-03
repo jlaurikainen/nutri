@@ -1,9 +1,8 @@
-import type { ComponentProps } from "react";
 import { View } from "react-native";
-import { Input } from "./input";
+import { Input, type InputProps } from "./input";
 import { Text } from "./text";
 
-interface Props extends ComponentProps<typeof Input> {
+interface Props extends InputProps {
   label: string;
 }
 

@@ -1,14 +1,18 @@
 import { TextInput, type TextInputProps } from "react-native";
 import { cn } from "@/src/utils/utils";
 
-interface Props
+export interface InputProps
   extends Omit<TextInputProps, "onChange" | "onChange" | "value"> {
-  onChange?: (text: string) => void;
+  onChange?: (text: string | number) => void;
   value?: string | number;
 }
 
-export function Input(props: Props) {
+export function Input(props: InputProps) {
   const { className, onChange, value, ...rest } = props;
+
+  const internalOnChange = (x: string) => {
+    return onChange?.(typeof value === "number" ? Number(x) : x);
+  };
 
   return (
     <TextInput
@@ -17,7 +21,7 @@ export function Input(props: Props) {
         rest.editable === false && cn("opacity-50"),
         className,
       )}
-      onChangeText={onChange}
+      onChangeText={internalOnChange}
       placeholderTextColor="#7e7f7c"
       value={typeof value === "number" ? value.toString() : value}
       {...rest}

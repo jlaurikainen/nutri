@@ -33,13 +33,7 @@ const User = () => {
   };
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, success } = userSchema.safeParse({
-      activity: Number(formData.activity),
-      age: Number(formData.age),
-      height: Number(formData.height),
-      id: formData.id,
-      sex: Number(formData.sex),
-    });
+    const { data, success } = userSchema.safeParse(formData);
 
     if (!success) return;
 
