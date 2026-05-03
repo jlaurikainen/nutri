@@ -1,12 +1,14 @@
 import { TextInput, type TextInputProps } from "react-native";
 import { cn } from "@/src/utils/utils";
 
-interface Props extends Omit<TextInputProps, "onChange" | "onChange"> {
+interface Props
+  extends Omit<TextInputProps, "onChange" | "onChange" | "value"> {
   onChange?: (text: string) => void;
+  value?: string | number;
 }
 
 export function Input(props: Props) {
-  const { className, onChange, ...rest } = props;
+  const { className, onChange, value, ...rest } = props;
 
   return (
     <TextInput
@@ -17,6 +19,7 @@ export function Input(props: Props) {
       )}
       onChangeText={onChange}
       placeholderTextColor="#7e7f7c"
+      value={typeof value === "number" ? value.toString() : value}
       {...rest}
     />
   );
