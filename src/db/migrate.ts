@@ -1,7 +1,7 @@
 import type { SQLiteDatabase } from "expo-sqlite";
 
 export async function migrate(db: SQLiteDatabase) {
-  const DB_VERSION = 6;
+  const DB_VERSION = 5;
 
   const versionQuery = await db.getFirstAsync<{ user_version: number }>(
     "PRAGMA user_version",
@@ -133,19 +133,14 @@ export async function migrate(db: SQLiteDatabase) {
     currentVersion += 1;
   }
 
-  // Create default user
+  // Add age column to user table and create default user
   if (currentVersion === 4) {
     await db.runAsync(`
-      INSERT INTO user DEFAULT VALUES;
+      ALTER TABLE user ADD COLUMN age INTEGER NOT NULL DEFAULT 25;
     `);
 
-    currentVersion += 1;
-  }
-
-  // Add age column to user
-  if (currentVersion === 5) {
     await db.runAsync(`
-      ALTER TABLE user ADD COLUMN age INTEGER NOT NULL DEFAULT 25;
+      INSERT INTO user DEFAULT VALUES;
     `);
 
     currentVersion += 1;
