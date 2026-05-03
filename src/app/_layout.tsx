@@ -1,4 +1,5 @@
 import "../global.css";
+import { PortalHost } from "@rn-primitives/portal";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -28,6 +29,7 @@ const RootLayout = () => {
           },
         }}
       />
+      <PortalHost />
     </Contexts>
   );
 };
