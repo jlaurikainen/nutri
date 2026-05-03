@@ -25,8 +25,8 @@ export const DailyMeals = (props: Props) => {
 
   if (data.length === 0) {
     return (
-      <View className="items-center my-24 gap-8">
-        <Text className="text-gray-900" variant="h3">
+      <View className="items-center justify-center aspect-video gap-8">
+        <Text className="text-foreground text-lg">
           No Meals Added for This Day
         </Text>
       </View>
@@ -34,7 +34,7 @@ export const DailyMeals = (props: Props) => {
   }
 
   return (
-    <ScrollView className="flex-1">
+    <ScrollView>
       <View className="gap-2">
         {data.map((x) => (
           <MealItem key={x.id}>
