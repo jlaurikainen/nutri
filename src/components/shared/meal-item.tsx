@@ -36,7 +36,7 @@ const Macro = (props: { label: string; unit: string; value: number }) => {
   return (
     <View className="flex-1">
       <Text className="text-light-gray text-xs">{props.label}</Text>
-      <Text className="text-mid-gray">{`${formatNumber(props.value)} ${props.unit}`}</Text>
+      <Text className="text-mid-gray">{`${formatNumber(props.value)}${props.unit}`}</Text>
     </View>
   );
 };

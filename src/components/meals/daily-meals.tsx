@@ -11,11 +11,11 @@ interface Props {
 }
 
 export const DailyMeals = (props: Props) => {
+  const { mutateAsync } = useDeleteMeal();
   const { data = [] } = useMeals({
     end: props.date ?? new Date(),
     start: props.date ?? new Date(),
   });
-  const { mutateAsync } = useDeleteMeal();
 
   const onDelete = (id: number) => {
     return async () => {
@@ -25,7 +25,7 @@ export const DailyMeals = (props: Props) => {
 
   if (data.length === 0) {
     return (
-      <View className="items-center justify-center aspect-video gap-8">
+      <View className="items-center justify-center aspect-video">
         <Text className="text-lg">No Meals Added for This Day</Text>
       </View>
     );
