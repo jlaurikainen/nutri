@@ -21,60 +21,62 @@ const Add = () => {
       <Stack.Screen options={{ title: "New Meal Template" }} />
 
       <Page>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field }) => (
-            <Field autoFocus label="Name" returnKeyType="next" {...field} />
-          )}
-        />
+        <View className="gap-2">
+          <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <Field autoFocus label="Name" returnKeyType="next" {...field} />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="calories"
-          render={({ field }) => (
-            <Field
-              inputMode="decimal"
-              label="Calories"
-              returnKeyType="next"
-              {...field}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="calories"
+            render={({ field }) => (
+              <Field
+                inputMode="decimal"
+                label="Calories"
+                returnKeyType="next"
+                {...field}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="carbs"
-          render={({ field }) => (
-            <Field
-              inputMode="decimal"
-              label="Carbs"
-              returnKeyType="next"
-              {...field}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="carbs"
+            render={({ field }) => (
+              <Field
+                inputMode="decimal"
+                label="Carbs"
+                returnKeyType="next"
+                {...field}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="protein"
-          render={({ field }) => (
-            <Field
-              inputMode="decimal"
-              label="Protein"
-              returnKeyType="next"
-              {...field}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="protein"
+            render={({ field }) => (
+              <Field
+                inputMode="decimal"
+                label="Protein"
+                returnKeyType="next"
+                {...field}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="fat"
-          render={({ field }) => (
-            <Field inputMode="decimal" label="Fat" {...field} />
-          )}
-        />
+          <Controller
+            control={control}
+            name="fat"
+            render={({ field }) => (
+              <Field inputMode="decimal" label="Fat" {...field} />
+            )}
+          />
+        </View>
 
         <View className="flex-row gap-2">
           <Button className="flex-1" onPress={onCancel} variant="secondary">
