@@ -38,7 +38,7 @@ export const useWeeklyCaloriesSummary = () => {
 
   const weekAverage =
     Object.values(weeklyCalories).reduce((a, c) => (a += c), 0) /
-    Object.values(weeklyCalories).filter((x) => x > 0).length;
+    Math.max(Object.values(weeklyCalories).filter((x) => x > 0).length, 1);
 
   return { weekAverage, weeklyCalories };
 };
