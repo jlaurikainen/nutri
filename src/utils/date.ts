@@ -35,3 +35,19 @@ export const toTimezoneAwareISOString = (date: Date) => {
     .reverse()
     .join("-");
 };
+
+export const toTimezoneAwareISOStringWithTime = (date: Date) => {
+  return (
+    date
+      .toLocaleString("fi", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+      .split(".")
+      .reverse()
+      .join("-") +
+    " " +
+    date.toLocaleTimeString("fi").split(".").join(":")
+  );
+};
