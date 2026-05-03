@@ -23,7 +23,7 @@ export const BarChart = (props: Props) => {
   // How much of a gap we should have between and around the bars based on the leftover space on the x-axis
   const gap = canvasEmptyWidth / values.length + 1;
 
-  const maxCalorieValue = Math.max(...values);
+  const maxCalorieValue = Math.max(...values, 1);
 
   // Calculate relative viewbox units so that we leave consistent space for the value labels based on maximum displayed value
   const maxValueWithReservedSpace =
