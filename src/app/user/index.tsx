@@ -1,10 +1,17 @@
-import { Stack } from "expo-router";
-import { Fragment } from "react";
+import { Stack, useRouter } from "expo-router";
+import { Fragment, useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { ScrollView, View } from "react-native";
+import { Button } from "@/src/components/shared/button";
+import { Field } from "@/src/components/shared/field";
 import { Page } from "@/src/components/shared/page";
 import { Text } from "@/src/components/shared/text";
-import { useUser } from "@/src/queries/user";
-import { formatNumber } from "@/src/utils/number";
-import { calculateBMR } from "@/src/utils/user";
+import {
+  type User as UserType,
+  userSchema,
+  useUpdateUser,
+  useUser,
+} from "@/src/queries/user";
 
 const ACTIVITY_TO_READABLE = {
   0: "Sedentary",
@@ -15,33 +22,135 @@ const ACTIVITY_TO_READABLE = {
   5: "Very intense daily exercise",
 } as const;
 
-const SEX_TO_READABLE = {
-  0: "Male",
-  1: "Female",
-} as const;
-
 const User = () => {
   const { data: user } = useUser();
+  const { mutateAsync } = useUpdateUser();
+  const { control, handleSubmit, reset } = useForm<UserType>();
+  const router = useRouter();
 
-  const userBMR = calculateBMR(user, 70);
+  const onCancel = () => {
+    router.back();
+  };
+
+  const onSubmit = handleSubmit(async (formData) => {
+    const { data, success } = userSchema.safeParse({
+      activity: Number(formData.activity),
+      age: Number(formData.age),
+      height: Number(formData.height),
+      id: formData.id,
+      sex: Number(formData.sex),
+    });
+
+    if (!success) return;
+
+    await mutateAsync(data);
+
+    router.back();
+  });
+
+  useEffect(() => {
+    if (!user) return;
+
+    reset(user);
+  }, [reset, user]);
 
   return (
     <Fragment>
       <Stack.Screen options={{ title: "User" }} />
+
       <Page>
-        {!user ? null : (
-          <Fragment>
-            <Text>Age: {user.age}</Text>
-            <Text>Sex: {SEX_TO_READABLE[user.sex]}</Text>
-            <Text>Activity: {ACTIVITY_TO_READABLE[user.activity]}</Text>
-            <Text>Height: {user.height}</Text>
-          </Fragment>
-        )}
-        <Text>
-          {!user
-            ? "Missing user data to calculate BMR."
-            : `BMR: ${formatNumber(userBMR)}kcal`}
-        </Text>
+        <ScrollView>
+          {!user ? null : (
+            <View className="gap-2">
+              <Controller
+                control={control}
+                name="age"
+                render={({ field }) => (
+                  <Field
+                    inputMode="numeric"
+                    label="Age"
+                    returnKeyType="next"
+                    {...field}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="height"
+                render={({ field }) => (
+                  <Field
+                    inputMode="numeric"
+                    label="Height (cm)"
+                    returnKeyType="next"
+                    {...field}
+                  />
+                )}
+              />
+
+              <View className="gap-1">
+                <Text>Sex:</Text>
+
+                <Controller
+                  control={control}
+                  name="sex"
+                  render={({ field }) => (
+                    <View className="flex-row">
+                      <Button
+                        className="flex-1"
+                        onPress={() => field.onChange(0)}
+                        variant={field.value === 0 ? "selectable" : "secondary"}
+                      >
+                        <Text>Male</Text>
+                      </Button>
+                      <Button
+                        className="flex-1"
+                        onPress={() => field.onChange(1)}
+                        variant={field.value === 1 ? "selectable" : "secondary"}
+                      >
+                        <Text>Female</Text>
+                      </Button>
+                    </View>
+                  )}
+                />
+              </View>
+
+              <View className="gap-1">
+                <Text>Activity Level:</Text>
+
+                <Controller
+                  control={control}
+                  name="activity"
+                  render={({ field }) => (
+                    <View className="">
+                      {Object.entries(ACTIVITY_TO_READABLE).map(([k, v]) => (
+                        <Button
+                          className="-mt-px"
+                          key={k}
+                          onPress={() => field.onChange(+k)}
+                          variant={
+                            field.value === +k ? "selectable" : "secondary"
+                          }
+                        >
+                          <Text>{v}</Text>
+                        </Button>
+                      ))}
+                    </View>
+                  )}
+                />
+              </View>
+            </View>
+          )}
+
+          <View className="gap-2 flex-row mt-4">
+            <Button className="flex-1" onPress={onCancel} variant="secondary">
+              <Text>Cancel</Text>
+            </Button>
+            <Button className="flex-1" onPress={onSubmit}>
+              <Text>Save Changes</Text>
+            </Button>
+          </View>
+        </ScrollView>
       </Page>
     </Fragment>
   );
