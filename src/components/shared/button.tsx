@@ -23,6 +23,9 @@ const buttonVariants = cva(
         secondary: cn(
           "bg-light-gray/10 border border-foreground active:bg-light-gray/5",
         ),
+        selectable: cn(
+          "bg-mid-gray border border-mid-gray active:bg-mid-gray/90",
+        ),
       },
     },
   },
@@ -44,6 +47,7 @@ const buttonTextVariants = cva(cn("font-grotesk"), {
       default: cn("text-background"),
       destructive: cn("text-background"),
       secondary: cn("text-foreground"),
+      selectable: cn("text-background"),
     },
   },
 });
