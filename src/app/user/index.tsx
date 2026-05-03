@@ -2,6 +2,7 @@ import { Stack, useRouter } from "expo-router";
 import { Fragment, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/src/components/shared/button";
 import { Field } from "@/src/components/shared/field";
 import { Page } from "@/src/components/shared/page";
@@ -26,6 +27,7 @@ const User = () => {
   const { data: user } = useUser();
   const { mutateAsync } = useUpdateUser();
   const { control, handleSubmit, reset } = useForm<UserType>();
+  const insets = useSafeAreaInsets();
   const router = useRouter();
 
   const onCancel = () => {
@@ -60,12 +62,7 @@ const User = () => {
                 control={control}
                 name="age"
                 render={({ field }) => (
-                  <Field
-                    inputMode="numeric"
-                    label="Age"
-                    returnKeyType="next"
-                    {...field}
-                  />
+                  <Field inputMode="numeric" label="Age" {...field} />
                 )}
               />
 
@@ -73,12 +70,7 @@ const User = () => {
                 control={control}
                 name="height"
                 render={({ field }) => (
-                  <Field
-                    inputMode="numeric"
-                    label="Height (cm)"
-                    returnKeyType="next"
-                    {...field}
-                  />
+                  <Field inputMode="numeric" label="Height (cm)" {...field} />
                 )}
               />
 
@@ -135,17 +127,20 @@ const User = () => {
               </View>
             </View>
           )}
-
-          <View className="gap-2 flex-row mt-4">
-            <Button className="flex-1" onPress={onCancel} variant="secondary">
-              <Text>Cancel</Text>
-            </Button>
-            <Button className="flex-1" onPress={onSubmit}>
-              <Text>Save Changes</Text>
-            </Button>
-          </View>
         </ScrollView>
       </Page>
+
+      <View
+        className="gap-2 flex-row mt-4 bg-background border-t border-foreground absolute p-4"
+        style={{ bottom: insets.bottom, insetInline: 0 }}
+      >
+        <Button className="flex-1" onPress={onCancel} variant="secondary">
+          <Text>Cancel</Text>
+        </Button>
+        <Button className="flex-1" onPress={onSubmit}>
+          <Text>Save Changes</Text>
+        </Button>
+      </View>
     </Fragment>
   );
 };

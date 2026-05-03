@@ -2,6 +2,7 @@ import { Stack, useRouter } from "expo-router";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/src/components/shared/button";
 import { Field } from "@/src/components/shared/field";
 import { Page } from "@/src/components/shared/page";
@@ -16,6 +17,7 @@ const Edit = () => {
   const { id } = useParsedLocalParams(pathIdSchema);
   const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
   const { control, onSubmit } = useUpdateMealTemplateForm(toNumber(id));
+  const insets = useSafeAreaInsets();
   const router = useRouter();
 
   const onCancel = () => {
@@ -90,22 +92,25 @@ const Edit = () => {
             )}
           />
         </View>
+      </Page>
 
-        <View className="gap-2">
-          <View className="flex-row gap-2">
-            <Button className="flex-1" onPress={onCancel} variant="secondary">
-              <Text>Cancel</Text>
-            </Button>
-            <Button className="flex-1" onPress={onSubmit}>
-              <Text>Save Changes</Text>
-            </Button>
-          </View>
-
-          <Button onPress={onDelete(Number(id))} variant="destructive">
-            <Text>Delete Template</Text>
+      <View
+        className="gap-2 absolute bg-background border-t border-foreground p-4"
+        style={{ bottom: insets.bottom, insetInline: 0 }}
+      >
+        <View className="flex-row gap-2">
+          <Button className="flex-1" onPress={onCancel} variant="secondary">
+            <Text>Cancel</Text>
+          </Button>
+          <Button className="flex-1" onPress={onSubmit}>
+            <Text>Save Changes</Text>
           </Button>
         </View>
-      </Page>
+
+        <Button onPress={onDelete(Number(id))} variant="destructive">
+          <Text>Delete Template</Text>
+        </Button>
+      </View>
     </Fragment>
   );
 };
