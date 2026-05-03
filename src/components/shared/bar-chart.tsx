@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { View } from "react-native";
-import Svg, { Rect, Text as SVGText } from "react-native-svg";
+import Svg, { Line, Rect, Text as SVGText } from "react-native-svg";
 import { formatNumber } from "@/src/utils/number";
 
 const BAR_WIDTH = 180,
@@ -11,6 +11,7 @@ const BAR_WIDTH = 180,
   VIEWBOX_WIDTH = 1600;
 
 interface Props {
+  comparisonValue?: number;
   values: Record<string, number>;
 }
 
@@ -23,7 +24,7 @@ export const BarChart = (props: Props) => {
   // How much of a gap we should have between and around the bars based on the leftover space on the x-axis
   const gap = canvasEmptyWidth / values.length + 1;
 
-  const maxCalorieValue = Math.max(...values, 1);
+  const maxCalorieValue = Math.max(...values, 1, props.comparisonValue ?? 0);
 
   // Calculate relative viewbox units so that we leave consistent space for the value labels based on maximum displayed value
   const maxValueWithReservedSpace =
@@ -38,6 +39,18 @@ export const BarChart = (props: Props) => {
         width="100%"
       >
         <Rect fill="#f7fff7" height="100%" id="bg" width="100%" x={0} y={0} />
+
+        {props.comparisonValue ? (
+          <Line
+            stroke="#4a4a4a"
+            strokeDasharray={10}
+            strokeWidth={4}
+            x1={0}
+            x2="100%"
+            y1={VIEWBOX_HEIGHT - relativeViewboxUnit * props.comparisonValue}
+            y2={VIEWBOX_HEIGHT - relativeViewboxUnit * props.comparisonValue}
+          />
+        ) : null}
 
         {Object.entries(props.values).map(([key, value], i, self) => {
           const barRelativeHeight = relativeViewboxUnit * value;
