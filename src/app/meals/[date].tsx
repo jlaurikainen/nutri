@@ -19,12 +19,12 @@ function Meals() {
   const { date } = useParsedLocalParams(pathDateSchema);
   const router = useRouter();
 
-  const isTodayOrFuture = startOfDay(new Date(date)) >= startOfDay(new Date());
+  const isTodayOrFuture = startOfDay(date) >= startOfDay(new Date());
 
   const goBack = () => {
     return () => {
       router.replace({
-        params: { date: toTimezoneAwareISOString(addDays(new Date(date), -1)) },
+        params: { date: toTimezoneAwareISOString(addDays(date, -1)) },
         pathname: "/meals/[date]",
       });
     };
@@ -33,7 +33,7 @@ function Meals() {
   const goForward = () => {
     return () => {
       router.replace({
-        params: { date: toTimezoneAwareISOString(addDays(new Date(date), 1)) },
+        params: { date: toTimezoneAwareISOString(addDays(date, 1)) },
         pathname: "/meals/[date]",
       });
     };
@@ -47,9 +47,7 @@ function Meals() {
           <Button onPress={goBack()} size="icon" variant="secondary">
             <Icon as={ArrowLeft} />
           </Button>
-          <Text className="text-center">
-            {new Date(date).toLocaleDateString("fi")}
-          </Text>
+          <Text className="text-center">{date.toLocaleDateString("fi")}</Text>
           <Button
             disabled={isTodayOrFuture}
             onPress={goForward()}
@@ -59,7 +57,7 @@ function Meals() {
             <Icon as={ArrowRight} />
           </Button>
         </View>
-        <DailyMeals date={new Date(date)} />
+        <DailyMeals date={date} />
       </Page>
     </Fragment>
   );

@@ -51,3 +51,5 @@ export const toTimezoneAwareISOStringWithTime = (date: Date) => {
     date.toLocaleTimeString("fi").split(".").join(":")
   );
 };
+
+export const toDate = (input: string) => new Date(input);
