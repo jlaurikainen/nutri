@@ -85,14 +85,14 @@ const User = () => {
                       <Button
                         className="flex-1"
                         onPress={() => field.onChange(0)}
-                        variant={field.value === 0 ? "selectable" : "secondary"}
+                        variant={field.value === 0 ? "selectable" : "bordered"}
                       >
                         <Text>Male</Text>
                       </Button>
                       <Button
                         className="flex-1"
                         onPress={() => field.onChange(1)}
-                        variant={field.value === 1 ? "selectable" : "secondary"}
+                        variant={field.value === 1 ? "selectable" : "bordered"}
                       >
                         <Text>Female</Text>
                       </Button>
@@ -115,7 +115,7 @@ const User = () => {
                           key={k}
                           onPress={() => field.onChange(+k)}
                           variant={
-                            field.value === +k ? "selectable" : "secondary"
+                            field.value === +k ? "selectable" : "bordered"
                           }
                         >
                           <Text>{v}</Text>
