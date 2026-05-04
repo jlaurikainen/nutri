@@ -1,17 +1,12 @@
 import { Stack, useRouter } from "expo-router";
-import { Fragment, useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Fragment } from "react";
+import { Controller } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { Button } from "@/src/components/shared/button";
 import { Field } from "@/src/components/shared/field";
 import { Page } from "@/src/components/shared/page";
 import { Text } from "@/src/components/shared/text";
-import {
-  type User as UserType,
-  userSchema,
-  useUpdateUser,
-  useUser,
-} from "@/src/queries/user";
+import { useUserForm } from "@/src/hooks/useUserForm";
 
 const ACTIVITY_TO_READABLE = {
   0: "Sedentary",
@@ -23,110 +18,81 @@ const ACTIVITY_TO_READABLE = {
 } as const;
 
 const User = () => {
-  const { data: user } = useUser();
-  const { mutateAsync } = useUpdateUser();
-  const { control, handleSubmit, reset } = useForm<UserType>();
+  const { control, onSubmit } = useUserForm();
   const router = useRouter();
 
   const onCancel = () => {
     router.back();
   };
 
-  const onSubmit = handleSubmit(async (formData) => {
-    const { data, success } = userSchema.safeParse(formData);
-
-    if (!success) return;
-
-    await mutateAsync(data);
-
-    router.back();
-  });
-
-  useEffect(() => {
-    if (!user) return;
-
-    reset(user);
-  }, [reset, user]);
-
   return (
     <Fragment>
       <Stack.Screen options={{ title: "User" }} />
-
       <Page>
         <ScrollView>
-          {!user ? null : (
-            <View className="gap-2">
+          <View className="gap-2">
+            <Controller
+              control={control}
+              name="age"
+              render={({ field }) => (
+                <Field inputMode="numeric" label="Age" {...field} />
+              )}
+            />
+            <Controller
+              control={control}
+              name="height"
+              render={({ field }) => (
+                <Field inputMode="numeric" label="Height (cm)" {...field} />
+              )}
+            />
+            <View className="gap-1">
+              <Text>Sex:</Text>
               <Controller
                 control={control}
-                name="age"
+                name="sex"
                 render={({ field }) => (
-                  <Field inputMode="numeric" label="Age" {...field} />
+                  <View className="flex-row">
+                    <Button
+                      className="flex-1"
+                      onPress={() => field.onChange(0)}
+                      variant={field.value === 0 ? "selectable" : "bordered"}
+                    >
+                      <Text>Male</Text>
+                    </Button>
+                    <Button
+                      className="flex-1"
+                      onPress={() => field.onChange(1)}
+                      variant={field.value === 1 ? "selectable" : "bordered"}
+                    >
+                      <Text>Female</Text>
+                    </Button>
+                  </View>
                 )}
               />
-
-              <Controller
-                control={control}
-                name="height"
-                render={({ field }) => (
-                  <Field inputMode="numeric" label="Height (cm)" {...field} />
-                )}
-              />
-
-              <View className="gap-1">
-                <Text>Sex:</Text>
-
-                <Controller
-                  control={control}
-                  name="sex"
-                  render={({ field }) => (
-                    <View className="flex-row">
-                      <Button
-                        className="flex-1"
-                        onPress={() => field.onChange(0)}
-                        variant={field.value === 0 ? "selectable" : "bordered"}
-                      >
-                        <Text>Male</Text>
-                      </Button>
-                      <Button
-                        className="flex-1"
-                        onPress={() => field.onChange(1)}
-                        variant={field.value === 1 ? "selectable" : "bordered"}
-                      >
-                        <Text>Female</Text>
-                      </Button>
-                    </View>
-                  )}
-                />
-              </View>
-
-              <View className="gap-1">
-                <Text>Activity Level:</Text>
-
-                <Controller
-                  control={control}
-                  name="activity"
-                  render={({ field }) => (
-                    <View className="">
-                      {Object.entries(ACTIVITY_TO_READABLE).map(([k, v]) => (
-                        <Button
-                          className="-mt-px"
-                          key={k}
-                          onPress={() => field.onChange(+k)}
-                          variant={
-                            field.value === +k ? "selectable" : "bordered"
-                          }
-                        >
-                          <Text>{v}</Text>
-                        </Button>
-                      ))}
-                    </View>
-                  )}
-                />
-              </View>
             </View>
-          )}
+            <View className="gap-1">
+              <Text>Activity Level:</Text>
+              <Controller
+                control={control}
+                name="activity"
+                render={({ field }) => (
+                  <View className="">
+                    {Object.entries(ACTIVITY_TO_READABLE).map(([k, v]) => (
+                      <Button
+                        className="-mt-px"
+                        key={k}
+                        onPress={() => field.onChange(+k)}
+                        variant={field.value === +k ? "selectable" : "bordered"}
+                      >
+                        <Text>{v}</Text>
+                      </Button>
+                    ))}
+                  </View>
+                )}
+              />
+            </View>
+          </View>
         </ScrollView>
-
         <View className="flex-row gap-2">
           <Button className="flex-1" onPress={onCancel} variant="bordered">
             <Text>Cancel</Text>

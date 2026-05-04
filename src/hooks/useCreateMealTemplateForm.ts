@@ -1,29 +1,37 @@
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
-import type z from "zod";
 import {
   createMealTemplateSchema,
   useCreateMealTemplate,
 } from "../queries/meal-templates";
+import { toNumber } from "../utils/number";
 
 export const useCreateMealTemplateForm = () => {
-  const { mutateAsync } = useCreateMealTemplate();
-  const { control, handleSubmit } =
-    useForm<z.infer<typeof createMealTemplateSchema>>();
+  const { mutate } = useCreateMealTemplate();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      calories: "",
+      carbs: "",
+      fat: "",
+      name: "",
+      protein: "",
+    },
+  });
   const router = useRouter();
 
-  const onSubmit = handleSubmit(async (formData) => {
+  const onSubmit = handleSubmit((formData) => {
     const { data, success } = createMealTemplateSchema.safeParse({
-      calories: +formData.calories,
-      carbs: +formData.carbs,
-      fat: +formData.fat,
+      calories: toNumber(formData.calories),
+      carbs: toNumber(formData.carbs),
+      fat: toNumber(formData.fat),
       name: formData.name,
-      protein: +formData.protein,
+      protein: toNumber(formData.protein),
     });
 
     if (!success) return;
 
-    await mutateAsync(data).then(router.back);
+    mutate(data);
+    router.back();
   });
 
   return { control, onSubmit };

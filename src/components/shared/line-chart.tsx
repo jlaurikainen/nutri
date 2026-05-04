@@ -68,7 +68,7 @@ export const LineChart = (props: Props) => {
               </SVGText>
 
               <Line
-                stroke="#4e4e4e"
+                stroke="#4a4a4a"
                 strokeDasharray={10}
                 strokeWidth={5}
                 x1={pointX}

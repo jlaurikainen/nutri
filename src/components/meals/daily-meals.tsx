@@ -11,15 +11,15 @@ interface Props {
 }
 
 export const DailyMeals = (props: Props) => {
-  const { mutateAsync } = useDeleteMeal();
+  const { mutate } = useDeleteMeal();
   const { data = [] } = useMeals({
     end: props.date ?? new Date(),
     start: props.date ?? new Date(),
   });
 
   const onDelete = (id: number) => {
-    return async () => {
-      await mutateAsync(id);
+    return () => {
+      mutate(id);
     };
   };
 

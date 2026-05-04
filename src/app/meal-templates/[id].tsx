@@ -16,8 +16,8 @@ import { pathIdSchema } from "@/src/utils/search-params";
 
 const Edit = () => {
   const { id } = useParsedLocalParams(pathIdSchema);
-  const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
   const { control, onSubmit } = useUpdateMealTemplateForm(toNumber(id));
+  const { mutate } = useDeleteMealTemplate();
   const router = useRouter();
 
   const onCancel = () => {
@@ -25,8 +25,8 @@ const Edit = () => {
   };
 
   const onDelete = (id: number) => {
-    return async () => {
-      await deleteTemplate(id);
+    return () => {
+      mutate(id);
       router.back();
     };
   };

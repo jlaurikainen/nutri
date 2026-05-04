@@ -13,9 +13,7 @@ export const createMealTemplateSchema = z.object({
 
 export const mealTemplateSchema = z.intersection(
   createMealTemplateSchema,
-  z.object({
-    id: z.number(),
-  }),
+  z.object({ id: z.number() }),
 );
 
 export const useCreateMealTemplate = () => {
@@ -24,7 +22,7 @@ export const useCreateMealTemplate = () => {
 
   return useMutation({
     mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) => {
-      await db.runAsync(
+      db.runSync(
         `
           INSERT INTO meal_templates(
             calories,
@@ -50,7 +48,7 @@ export const useDeleteMealTemplate = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      await db.runAsync("DELETE FROM meal_templates WHERE id = ?;", id);
+      db.runSync("DELETE FROM meal_templates WHERE id = ?;", id);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
@@ -62,11 +60,8 @@ export const useMealTemplate = (id: number) => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: async () => {
-      return await db.getFirstAsync(
-        "SELECT * FROM meal_templates WHERE id = ?;",
-        id,
-      );
+    queryFn: () => {
+      return db.getFirstSync("SELECT * FROM meal_templates WHERE id = ?;", id);
     },
     queryKey: [SINGLE_TEMPLATE_KEY, id],
     select: mealTemplateSchema.parse,
@@ -77,10 +72,8 @@ export const useMealTemplates = () => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: async () => {
-      return await db.getAllAsync(
-        "SELECT * FROM meal_templates ORDER BY name ASC;",
-      );
+    queryFn: () => {
+      return db.getAllSync("SELECT * FROM meal_templates ORDER BY name ASC;");
     },
     queryKey: [MULTI_TEMPLATE_KEY],
     select: z.array(mealTemplateSchema).parse,
@@ -93,7 +86,7 @@ export const useUpdateMealTemplate = () => {
 
   return useMutation({
     mutationFn: async (args: z.infer<typeof mealTemplateSchema>) => {
-      await db.runAsync(
+      db.runSync(
         `
           UPDATE meal_templates
           SET

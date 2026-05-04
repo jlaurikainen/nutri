@@ -10,14 +10,15 @@ import { MealItem } from "../shared/meal-item";
 export const MealTemplateList = () => {
   const data = useFilteredMealTempaltes();
   const router = useRouter();
-  const { mutateAsync } = useAddMeal();
+  const { mutate } = useAddMeal();
 
   const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
-    return async () => {
-      await mutateAsync({
+    return () => {
+      mutate({
         ...template,
         date: toTimezoneAwareISOString(new Date()),
-      }).then(() => router.back());
+      });
+      router.back();
     };
   };
 

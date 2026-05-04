@@ -26,7 +26,7 @@ export const useUser = () => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: async () => await db.getFirstAsync("SELECT * FROM user;"),
+    queryFn: () => db.getFirstSync("SELECT * FROM user;"),
     queryKey: [USER_KEY],
     select: userSchema.parse,
   });
@@ -38,7 +38,7 @@ export const useUpdateUser = () => {
 
   return useMutation({
     mutationFn: async (args: User) =>
-      await db.runAsync(
+      db.runSync(
         `
           UPDATE user
           SET

@@ -22,7 +22,7 @@ export const useAddMeal = () => {
 
   return useMutation({
     mutationFn: async (args: z.infer<typeof createMealSchema>) => {
-      await db.runAsync(
+      db.runSync(
         `
           INSERT INTO meals (
             calories,
@@ -56,7 +56,7 @@ export const useDeleteMeal = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      await db.runAsync("DELETE FROM meals WHERE id = ?;", id);
+      db.runSync("DELETE FROM meals WHERE id = ?;", id);
     },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [MEALS_KEY] });
@@ -70,8 +70,8 @@ export const useMeals = (props: { end: Date; start: Date }) => {
   const endString = toTimezoneAwareISOString(props.end);
 
   return useQuery({
-    queryFn: async () => {
-      return await db.getAllAsync(
+    queryFn: () => {
+      return db.getAllSync(
         `
           SELECT * FROM meals
           WHERE date BETWEEN ? AND ?

@@ -7,11 +7,11 @@ import {
   toTimezoneAwareISOString,
 } from "@/src/utils/date";
 
-const END_OF_TODAY = endOfDay(new Date());
-const WEEK_AGO = startOfDay(addDays(END_OF_TODAY, -6));
+const TODAY = endOfDay(new Date());
+const WEEK_AGO = startOfDay(addDays(TODAY, -6));
 
 export const useWeeklyCaloriesSummary = () => {
-  const { data = [] } = useMeals({ end: END_OF_TODAY, start: WEEK_AGO });
+  const { data = [] } = useMeals({ end: TODAY, start: WEEK_AGO });
 
   const weeklyCalories = data.reduce(
     (a, c) => {
@@ -23,7 +23,7 @@ export const useWeeklyCaloriesSummary = () => {
 
       return a;
     },
-    new Array(difference(WEEK_AGO, END_OF_TODAY))
+    new Array(difference(WEEK_AGO, TODAY))
       .fill(null)
       .reduce((a: Record<string, number>, _c, i) => {
         const dateString = toTimezoneAwareISOString(addDays(WEEK_AGO, i));
