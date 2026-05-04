@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
 import { toTimezoneAwareISOString } from "../utils/date";
-
 import { MEALS_KEY } from "./keys";
 import { createMealTemplateSchema } from "./meal-templates";
 
@@ -21,32 +20,26 @@ export const useAddMeal = () => {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof createMealSchema>) => {
-      db.runSync(
-        `
-          INSERT INTO meals (
-            calories,
-            carbs,
-            date,
-            fat,
-            name,
-            protein
-          )
-          VALUES (?, ?, ?, ?, ?, ?);
-        `,
-        [
-          args.calories,
-          args.carbs,
-          args.date,
-          args.fat,
-          args.name,
-          args.protein,
-        ],
-      );
-    },
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: [MEALS_KEY] });
-    },
+    mutationFn: async (args: z.infer<typeof createMealSchema>) =>
+      db.sql`
+        INSERT INTO meals (
+          calories,
+          carbs,
+          date,
+          fat,
+          name,
+          protein
+        )
+        VALUES (
+          ${args.calories},
+          ${args.carbs},
+          ${args.date},
+          ${args.fat},
+          ${args.name},
+          ${args.protein}
+        );
+      `,
+    onSuccess: () => client.invalidateQueries({ queryKey: [MEALS_KEY] }),
   });
 };
 
@@ -55,12 +48,9 @@ export const useDeleteMeal = () => {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: number) => {
-      db.runSync("DELETE FROM meals WHERE id = ?;", id);
-    },
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: [MEALS_KEY] });
-    },
+    mutationFn: async (id: number) =>
+      db.sql`DELETE FROM meals WHERE id = ${id};`,
+    onSuccess: () => client.invalidateQueries({ queryKey: [MEALS_KEY] }),
   });
 };
 
@@ -70,16 +60,12 @@ export const useMeals = (props: { end: Date; start: Date }) => {
   const endString = toTimezoneAwareISOString(props.end);
 
   return useQuery({
-    queryFn: () => {
-      return db.getAllSync(
-        `
-          SELECT * FROM meals
-          WHERE date BETWEEN ? AND ?
-          ORDER BY date ASC;
-        `,
-        [startString, endString],
-      );
-    },
+    queryFn: () =>
+      db.sql`
+        SELECT * FROM meals
+        WHERE date BETWEEN ${startString} AND ${endString}
+        ORDER BY date ASC;
+      `.allSync(),
     queryKey: [MEALS_KEY, startString, endString],
     select: z.array(mealSchema).parse,
   });

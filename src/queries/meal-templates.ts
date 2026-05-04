@@ -21,24 +21,25 @@ export const useCreateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) => {
-      db.runSync(
-        `
-          INSERT INTO meal_templates(
-            calories,
-            carbs,
-            fat,
-            name,
-            protein
-          )
-          VALUES(?, ?, ?, ?, ?);
-        `,
-        [args.calories, args.carbs, args.fat, args.name, args.protein],
-      );
-    },
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
-    },
+    mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) =>
+      db.sql`
+        INSERT INTO meal_templates(
+          calories,
+          carbs,
+          fat,
+          name,
+          protein
+        )
+        VALUES (
+          ${args.calories},
+          ${args.carbs},
+          ${args.fat},
+          ${args.name},
+          ${args.protein}
+        );
+      `,
+    onSuccess: () =>
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] }),
   });
 };
 
@@ -47,12 +48,10 @@ export const useDeleteMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (id: number) => {
-      db.runSync("DELETE FROM meal_templates WHERE id = ?;", id);
-    },
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
-    },
+    mutationFn: async (id: number) =>
+      db.sql`DELETE FROM meal_templates WHERE id = ${id};`,
+    onSuccess: () =>
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] }),
   });
 };
 
@@ -60,9 +59,8 @@ export const useMealTemplate = (id: number) => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: () => {
-      return db.getFirstSync("SELECT * FROM meal_templates WHERE id = ?;", id);
-    },
+    queryFn: () =>
+      db.sql`SELECT * FROM meal_templates WHERE id = ${id};`.firstSync(),
     queryKey: [SINGLE_TEMPLATE_KEY, id],
     select: mealTemplateSchema.parse,
   });
@@ -72,9 +70,8 @@ export const useMealTemplates = () => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: () => {
-      return db.getAllSync("SELECT * FROM meal_templates ORDER BY name ASC;");
-    },
+    queryFn: () =>
+      db.sql`SELECT * FROM meal_templates ORDER BY name ASC;`.allSync(),
     queryKey: [MULTI_TEMPLATE_KEY],
     select: z.array(mealTemplateSchema).parse,
   });
@@ -85,21 +82,17 @@ export const useUpdateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof mealTemplateSchema>) => {
-      db.runSync(
-        `
-          UPDATE meal_templates
-          SET
-            calories = ?,
-            carbs = ?,
-            fat = ?,
-            name = ?,
-            protein = ?
-          WHERE id = ?;
-        `,
-        [args.calories, args.carbs, args.fat, args.name, args.protein, args.id],
-      );
-    },
+    mutationFn: async (args: z.infer<typeof mealTemplateSchema>) =>
+      db.sql`
+        UPDATE meal_templates
+        SET
+          calories = ${args.calories},
+          carbs = ${args.carbs},
+          fat = ${args.fat},
+          name = ${args.name},
+          protein = ${args.protein}
+        WHERE id = ${args.id};
+      `,
     onSuccess: (_, args) => {
       client.invalidateQueries({ queryKey: [SINGLE_TEMPLATE_KEY, args.id] });
       client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });

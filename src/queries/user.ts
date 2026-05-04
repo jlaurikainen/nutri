@@ -22,35 +22,32 @@ export const userSchema = z.object({
 
 export type User = z.infer<typeof userSchema>;
 
-export const useUser = () => {
-  const db = useSQLiteContext();
-
-  return useQuery({
-    queryFn: () => db.getFirstSync("SELECT * FROM user;"),
-    queryKey: [USER_KEY],
-    select: userSchema.parse,
-  });
-};
-
 export const useUpdateUser = () => {
   const client = useQueryClient();
   const db = useSQLiteContext();
 
   return useMutation({
     mutationFn: async (args: User) =>
-      db.runSync(
-        `
-          UPDATE user
-          SET
-            activity = ?,
-            age = ?,
-            height = ?,
-            sex = ?
-          WHERE id = ?;
-        `,
-        [args.activity, args.age, args.height, args.sex, args.id],
-      ),
+      db.sql`
+        UPDATE user
+        SET
+          activity = ${args.activity},
+          age = ${args.age},
+          height = ${args.height},
+          sex = ${args.sex}?
+        WHERE id = ${args.id};
+      `,
     onSuccess: () => client.invalidateQueries({ queryKey: [USER_KEY] }),
+  });
+};
+
+export const useUser = () => {
+  const db = useSQLiteContext();
+
+  return useQuery({
+    queryFn: () => db.sql`SELECT * FROM user;`.firstSync(),
+    queryKey: [USER_KEY],
+    select: userSchema.parse,
   });
 };
 
