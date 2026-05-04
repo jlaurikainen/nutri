@@ -11,12 +11,13 @@ import {
   useAddWeightMeasurement,
   useUserWeight,
 } from "@/src/queries/user-weight";
+import { toNumber } from "@/src/utils/number";
 
 const UserWeight = () => {
   const { data: weight } = useUserWeight();
   const { mutateAsync } = useAddWeightMeasurement();
   const { control, handleSubmit, reset, formState } = useForm<{
-    weight: number;
+    weight: string;
   }>();
   const { isDirty } = formState;
   const router = useRouter();
@@ -24,8 +25,7 @@ const UserWeight = () => {
   const onSubmit = handleSubmit(async (formData) => {
     const { data, success } = z
       .object({ weight: z.number() })
-      .transform((x) => ({ weight: +x.weight }))
-      .safeParse(formData);
+      .safeParse({ weight: toNumber(formData.weight) });
 
     if (!success) return;
 
@@ -35,7 +35,7 @@ const UserWeight = () => {
   useEffect(() => {
     if (!weight) return;
 
-    reset(weight);
+    reset({ weight: weight.weight.toLocaleString("fi") });
   }, [reset, weight]);
 
   return (

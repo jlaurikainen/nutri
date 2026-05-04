@@ -7,6 +7,7 @@ import Svg, {
   Rect,
   Text as SVGText,
 } from "react-native-svg";
+import { formatNumber } from "@/src/utils/number";
 
 const VIEWBOX_HEIGHT = 900,
   VIEWBOX_WIDTH = 1600;
@@ -63,7 +64,7 @@ export const LineChart = (props: Props) => {
                 x={pointX}
                 y={100}
               >
-                {v}
+                {formatNumber(v)}
               </SVGText>
 
               <Line
