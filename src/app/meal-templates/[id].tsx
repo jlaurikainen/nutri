@@ -1,10 +1,11 @@
 import { Stack, useRouter } from "expo-router";
+import { Trash } from "lucide-react-native";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/src/components/shared/button";
 import { Field } from "@/src/components/shared/field";
+import { Icon } from "@/src/components/shared/icon";
 import { Page } from "@/src/components/shared/page";
 import { Text } from "@/src/components/shared/text";
 import { useParsedLocalParams } from "@/src/hooks/useParsedLocalParams";
@@ -17,7 +18,6 @@ const Edit = () => {
   const { id } = useParsedLocalParams(pathIdSchema);
   const { mutateAsync: deleteTemplate } = useDeleteMealTemplate();
   const { control, onSubmit } = useUpdateMealTemplateForm(toNumber(id));
-  const insets = useSafeAreaInsets();
   const router = useRouter();
 
   const onCancel = () => {
@@ -33,7 +33,22 @@ const Edit = () => {
 
   return (
     <Fragment>
-      <Stack.Screen options={{ title: "Edit Template" }} />
+      <Stack.Screen
+        options={{
+          headerRight: () => {
+            return (
+              <Button
+                onPress={onDelete(Number(id))}
+                size="icon"
+                variant="bordered"
+              >
+                <Icon as={Trash} />
+              </Button>
+            );
+          },
+          title: "Edit Template",
+        }}
+      />
 
       <Page>
         <View className="gap-2">
@@ -92,25 +107,16 @@ const Edit = () => {
             )}
           />
         </View>
-      </Page>
 
-      <View
-        className="gap-2 absolute bg-background border-t border-foreground p-4"
-        style={{ bottom: insets.bottom, insetInline: 0 }}
-      >
-        <View className="flex-row gap-2">
+        <View className="flex-row gap-2 mt-auto">
           <Button className="flex-1" onPress={onCancel} variant="bordered">
             <Text>Cancel</Text>
           </Button>
           <Button className="flex-1" onPress={onSubmit}>
-            <Text>Save Changes</Text>
+            <Text>Save</Text>
           </Button>
         </View>
-
-        <Button onPress={onDelete(Number(id))} variant="brand">
-          <Text>Delete Template</Text>
-        </Button>
-      </View>
+      </Page>
     </Fragment>
   );
 };

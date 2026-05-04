@@ -2,7 +2,6 @@ import { Stack, useRouter } from "expo-router";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/src/components/shared/button";
 import { Field } from "@/src/components/shared/field";
 import { Page } from "@/src/components/shared/page";
@@ -11,7 +10,6 @@ import { useCreateMealTemplateForm } from "@/src/hooks/useCreateMealTemplateForm
 
 const Add = () => {
   const { control, onSubmit } = useCreateMealTemplateForm();
-  const insets = useSafeAreaInsets();
   const router = useRouter();
 
   const onCancel = () => {
@@ -79,19 +77,16 @@ const Add = () => {
             )}
           />
         </View>
-      </Page>
 
-      <View
-        className="flex-row gap-2 absolute p-4 bg-background border-t border-foreground"
-        style={{ bottom: insets.bottom, insetInline: 0 }}
-      >
-        <Button className="flex-1" onPress={onCancel} variant="bordered">
-          <Text>Cancel</Text>
-        </Button>
-        <Button className="flex-1" onPress={onSubmit}>
-          <Text>Create Template</Text>
-        </Button>
-      </View>
+        <View className="flex-row gap-2 mt-auto">
+          <Button className="flex-1" onPress={onCancel} variant="bordered">
+            <Text>Cancel</Text>
+          </Button>
+          <Button className="flex-1" onPress={onSubmit}>
+            <Text>Create</Text>
+          </Button>
+        </View>
+      </Page>
     </Fragment>
   );
 };
