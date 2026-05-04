@@ -2,9 +2,12 @@
 @import "tw-animate-css";
 @import "uniwind";
 
+/* biome-ignore assist/source/useSortedProperties: <reset before color defs> */
 @theme {
+  --color-*: initial;
+
   --color-foreground: #1c1c1e;
-  --color-brand: #ff3d00;
+  --color-brand: #a82700;
   --color-light-gray: #7e7f7c;
   --color-mid-gray: #4a4a4a;
   --color-background: #f7fff7;
