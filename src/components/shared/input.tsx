@@ -17,7 +17,7 @@ export function Input(props: InputProps) {
   return (
     <TextInput
       className={cn(
-        "border-foreground bg-background text-foreground flex h-10 w-full min-w-0 flex-row items-center border px-3 py-1 text-base leading-5 sm:h-9 font-grotesk",
+        "flex h-10 w-full min-w-0 flex-row items-center border border-foreground bg-background px-3 py-1 font-grotesk text-base text-foreground leading-5 sm:h-9",
         rest.editable === false && cn("opacity-50"),
         className,
       )}

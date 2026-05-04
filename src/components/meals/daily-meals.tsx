@@ -25,7 +25,7 @@ export const DailyMeals = (props: Props) => {
 
   if (data.length === 0) {
     return (
-      <View className="items-center justify-center aspect-video">
+      <View className="aspect-video items-center justify-center">
         <Text className="text-lg">No Meals Added for This Day</Text>
       </View>
     );

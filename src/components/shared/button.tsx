@@ -19,12 +19,12 @@ const buttonVariants = cva(
       },
       variant: {
         bordered: cn(
-          "bg-background border border-foreground active:bg-light-gray/5",
+          "border border-foreground bg-background active:bg-light-gray/5",
         ),
         brand: cn("bg-brand active:bg-brand/90"),
         default: cn("bg-foreground active:bg-foreground/90"),
         selectable: cn(
-          "bg-mid-gray border border-mid-gray active:bg-mid-gray/90",
+          "border border-mid-gray bg-mid-gray active:bg-mid-gray/90",
         ),
       },
     },

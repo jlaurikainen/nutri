@@ -43,7 +43,7 @@ function Meals() {
     <Fragment>
       <Stack.Screen options={{ title: "Meals" }} />
       <Page>
-        <View className="flex-row gap-4 items-center justify-between">
+        <View className="flex-row items-center justify-between gap-4">
           <Button onPress={goBack()} size="icon" variant="bordered">
             <Icon as={ArrowLeft} />
           </Button>

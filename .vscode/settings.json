@@ -20,5 +20,5 @@
     "source.removeUnusedImports": "always"
   },
   "editor.defaultFormatter": "biomejs.biome",
-  "tailwindCSS.classFunctions": ["cn", "clsx", "twMerge"]
+  "tailwindCSS.classFunctions": ["cn", "clsx", "twMerge", "cva"]
 }

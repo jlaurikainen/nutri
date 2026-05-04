@@ -3,20 +3,20 @@ import { type ComponentProps, createContext, useContext } from "react";
 import { Text as RNText } from "react-native";
 import { cn } from "@/src/utils/utils";
 
-const textVariants = cva(cn("text-foreground text-base font-grotesk"), {
+const textVariants = cva(cn("font-grotesk text-base text-foreground"), {
   defaultVariants: {
     variant: "default",
   },
   variants: {
     variant: {
       default: "",
-      h1: cn("text-center text-4xl font-extrabold tracking-tight"),
+      h1: cn("text-center font-extrabold text-4xl tracking-tight"),
       h2: cn(
-        "border-border border-b pb-2 text-3xl font-semibold tracking-tight",
+        "border-border border-b pb-2 font-semibold text-3xl tracking-tight",
       ),
-      h3: cn("text-2xl font-semibold tracking-tight"),
-      h4: cn("text-xl font-semibold tracking-tight"),
-      p: "mt-3 leading-7 sm:mt-6",
+      h3: cn("font-semibold text-2xl tracking-tight"),
+      h4: cn("font-semibold text-xl tracking-tight"),
+      p: cn("mt-3 leading-7 sm:mt-6"),
     },
   },
 });

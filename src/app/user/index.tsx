@@ -127,7 +127,7 @@ const User = () => {
           )}
         </ScrollView>
 
-        <View className="gap-2 flex-row">
+        <View className="flex-row gap-2">
           <Button className="flex-1" onPress={onCancel} variant="bordered">
             <Text>Cancel</Text>
           </Button>

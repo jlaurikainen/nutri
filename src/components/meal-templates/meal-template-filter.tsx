@@ -12,7 +12,7 @@ export const MealTempalteFilter = () => {
   const { clearQuery, updateQuery } = useQueryFilter();
 
   return (
-    <View className="flex-row gap-2 items-end">
+    <View className="flex-row items-end gap-2">
       <View className="flex-1">
         <Input
           onChangeText={updateQuery}

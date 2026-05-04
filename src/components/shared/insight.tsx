@@ -10,7 +10,7 @@ interface Props {
 
 export const Insight = (props: Props) => {
   return (
-    <View className="flex flex-1 border p-4 border-foreground">
+    <View className="flex flex-1 border border-foreground p-4">
       <Text className="text-4xl text-foreground">
         {formatNumber(props.amount)}
       </Text>

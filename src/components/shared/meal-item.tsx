@@ -5,7 +5,7 @@ import { Text } from "./text";
 
 export const MealItem = (props: PropsWithChildren) => {
   return (
-    <View className="gap-1 px-3 py-2 border-gray-900 border">
+    <View className="gap-1 border border-gray-900 px-3 py-2">
       {props.children}
     </View>
   );
@@ -13,7 +13,7 @@ export const MealItem = (props: PropsWithChildren) => {
 
 const Heading = (props: PropsWithChildren<{ action?: ReactNode }>) => {
   return (
-    <View className="flex-row gap-2 items-center">
+    <View className="flex-row items-center gap-2">
       {props.children}
       {props.action ? <View className="ml-auto">{props.action}</View> : null}
     </View>
@@ -22,7 +22,7 @@ const Heading = (props: PropsWithChildren<{ action?: ReactNode }>) => {
 
 const Title = (props: { title: string }) => {
   return (
-    <Text className="text-foreground text-xl line-clamp-1 shrink">
+    <Text className="line-clamp-1 shrink text-foreground text-xl">
       {props.title}
     </Text>
   );
@@ -42,7 +42,7 @@ const Macro = (props: { label: string; unit: string; value: number }) => {
 };
 
 const Actions = (props: PropsWithChildren) => {
-  return <View className="flex-row gap-1 mt-2">{props.children}</View>;
+  return <View className="mt-2 flex-row gap-1">{props.children}</View>;
 };
 
 MealItem.Heading = Heading;

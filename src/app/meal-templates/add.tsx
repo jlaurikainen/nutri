@@ -78,7 +78,7 @@ const Add = () => {
           />
         </View>
 
-        <View className="flex-row gap-2 mt-auto">
+        <View className="mt-auto flex-row gap-2">
           <Button className="flex-1" onPress={onCancel} variant="bordered">
             <Text>Cancel</Text>
           </Button>

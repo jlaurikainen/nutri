@@ -32,5 +32,17 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80
+  },
+  "linter": {
+    "rules": {
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "functions": ["clsx", "cva", "cn"]
+          }
+        }
+      }
+    }
   }
 }

@@ -14,11 +14,11 @@ export function FAB(props: Props) {
     <Pressable
       {...rest}
       className={cn(
-        "absolute bg-brand active:bg-brand/90 rounded-full",
+        "absolute rounded-full bg-brand active:bg-brand/90",
         rest.className,
       )}
     >
-      <View className="items-center justify-center p-3 ">
+      <View className="items-center justify-center p-3">
         <Icon as={icon} className="text-background" size={32} />
       </View>
     </Pressable>
