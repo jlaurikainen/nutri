@@ -11,13 +11,15 @@ export function WeeklyCalories() {
 
   return (
     <View className="gap-1">
-      <Text className="text-center text-sm">
-        BMR: {formatNumber(bmr, 0)}kcal at Dashed Line
-      </Text>
+      <View className="flex-row justify-between">
+        <Text className="text-center text-sm">
+          {bmr === 0 ? "BMR Data Missing" : `BMR: ${formatNumber(bmr, 0)}kcal`}
+        </Text>
+        <Text className="text-center text-sm">
+          Daily AVG: {formatNumber(weekAverage, 0)}kcal
+        </Text>
+      </View>
       <BarChart comparisonValue={bmr} values={weeklyCalories} />
-      <Text className="text-center text-sm">
-        Average daily calories: {formatNumber(weekAverage, 0)}kcal
-      </Text>
     </View>
   );
 }
