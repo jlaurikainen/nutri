@@ -4,11 +4,13 @@ import z from "zod";
 import { toTimezoneAwareISOStringWithTime } from "../utils/date";
 import { USER_WEIGHT_KEY, USER_WEIGHTS_KEY } from "./keys";
 
-const userWeightSchema = z.object({
+export const userWeightSchema = z.object({
   date: z.string(),
   id: z.number(),
   weight: z.number(),
 });
+
+export type UserWeightType = z.infer<typeof userWeightSchema>;
 
 export const useUserWeight = () => {
   const db = useSQLiteContext();
@@ -32,7 +34,7 @@ export const useUserWeights = (props: { end: Date; start: Date }) => {
         `
           SELECT * FROM user_weights
           WHERE date BETWEEN ? and ?
-          ORDER BY date DESC;
+          ORDER BY date ASC;
         `,
         [startString, endString],
       ),
@@ -53,7 +55,7 @@ export const useAddWeightMeasurement = () => {
             date,
             weight
           )
-          VALUES (date('now'), ?);
+          VALUES (datetime('now'), ?);
         `,
         [weight],
       ),
