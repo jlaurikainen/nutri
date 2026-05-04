@@ -5,6 +5,7 @@ import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DailyMacros } from "../components/home/daily-macros";
 import { WeeklyCalories } from "../components/home/weekly-calories";
+import { WeightData } from "../components/home/weight-data";
 import { Button } from "../components/shared/button";
 import { FAB } from "../components/shared/fab";
 import { Icon } from "../components/shared/icon";
@@ -34,6 +35,8 @@ const Home = () => {
             <DailyMacros />
 
             <WeeklyCalories />
+
+            <WeightData />
           </View>
         </ScrollView>
 
