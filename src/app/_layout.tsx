@@ -25,7 +25,6 @@ const RootLayout = () => {
           headerShadowVisible: false,
           headerTitleStyle: {
             fontFamily: "SpaceGrotesk-Regular",
-            fontWeight: "normal",
           },
         }}
       />
