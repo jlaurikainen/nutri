@@ -44,7 +44,7 @@ function Meals() {
       <Stack.Screen options={{ title: "Meals" }} />
       <Page>
         <View className="flex-row gap-4 items-center justify-between">
-          <Button onPress={goBack()} size="icon" variant="secondary">
+          <Button onPress={goBack()} size="icon" variant="bordered">
             <Icon as={ArrowLeft} />
           </Button>
           <Text className="text-center">{date.toLocaleDateString("fi")}</Text>
@@ -52,7 +52,7 @@ function Meals() {
             disabled={isTodayOrFuture}
             onPress={goForward()}
             size="icon"
-            variant="secondary"
+            variant="bordered"
           >
             <Icon as={ArrowRight} />
           </Button>

@@ -38,11 +38,7 @@ export const DailyMeals = (props: Props) => {
           <MealItem key={x.id}>
             <MealItem.Heading
               action={
-                <Button
-                  onPress={onDelete(x.id)}
-                  size="icon"
-                  variant="secondary"
-                >
+                <Button onPress={onDelete(x.id)} size="icon" variant="bordered">
                   <Icon as={Trash2} />
                 </Button>
               }

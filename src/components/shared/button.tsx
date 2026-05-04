@@ -18,11 +18,11 @@ const buttonVariants = cva(
         sm: cn("h-9 gap-1.5 px-3 sm:h-8"),
       },
       variant: {
-        default: cn("bg-foreground active:bg-foreground/90"),
-        destructive: cn("bg-brand active:bg-brand/90"),
-        secondary: cn(
-          "bg-light-gray/10 border border-foreground active:bg-light-gray/5",
+        bordered: cn(
+          "bg-background border border-foreground active:bg-light-gray/5",
         ),
+        brand: cn("bg-brand active:bg-brand/90"),
+        default: cn("bg-foreground active:bg-foreground/90"),
         selectable: cn(
           "bg-mid-gray border border-mid-gray active:bg-mid-gray/90",
         ),
@@ -44,9 +44,9 @@ const buttonTextVariants = cva(cn("font-grotesk"), {
       sm: "",
     },
     variant: {
+      bordered: cn("text-foreground"),
+      brand: cn("text-background"),
       default: cn("text-background"),
-      destructive: cn("text-background"),
-      secondary: cn("text-foreground"),
       selectable: cn("text-background"),
     },
   },

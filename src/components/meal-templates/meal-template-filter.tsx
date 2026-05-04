@@ -21,7 +21,7 @@ export const MealTempalteFilter = () => {
         />
       </View>
 
-      <Button onPress={clearQuery} size="icon" variant="secondary">
+      <Button onPress={clearQuery} size="icon" variant="bordered">
         <Icon as={RotateCcw} />
       </Button>
     </View>

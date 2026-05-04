@@ -85,7 +85,7 @@ const Add = () => {
         className="flex-row gap-2 absolute p-4 bg-background border-t border-foreground"
         style={{ bottom: insets.bottom, insetInline: 0 }}
       >
-        <Button className="flex-1" onPress={onCancel} variant="secondary">
+        <Button className="flex-1" onPress={onCancel} variant="bordered">
           <Text>Cancel</Text>
         </Button>
         <Button className="flex-1" onPress={onSubmit}>

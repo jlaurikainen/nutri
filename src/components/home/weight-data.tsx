@@ -63,7 +63,7 @@ export const WeightData = () => {
                 <Button
                   className="flex-1"
                   onPress={() => setShowDialog(false)}
-                  variant="secondary"
+                  variant="bordered"
                 >
                   <Text>Cancel</Text>
                 </Button>

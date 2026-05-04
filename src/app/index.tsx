@@ -20,7 +20,7 @@ const Home = () => {
         options={{
           headerRight: () => (
             <Link asChild href="/user">
-              <Button className="rounded-full" size="icon" variant="secondary">
+              <Button className="rounded-full" size="icon" variant="bordered">
                 <Icon as={User} />
               </Button>
             </Link>

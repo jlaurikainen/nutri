@@ -99,7 +99,7 @@ const Edit = () => {
         style={{ bottom: insets.bottom, insetInline: 0 }}
       >
         <View className="flex-row gap-2">
-          <Button className="flex-1" onPress={onCancel} variant="secondary">
+          <Button className="flex-1" onPress={onCancel} variant="bordered">
             <Text>Cancel</Text>
           </Button>
           <Button className="flex-1" onPress={onSubmit}>
@@ -107,7 +107,7 @@ const Edit = () => {
           </Button>
         </View>
 
-        <Button onPress={onDelete(Number(id))} variant="destructive">
+        <Button onPress={onDelete(Number(id))} variant="brand">
           <Text>Delete Template</Text>
         </Button>
       </View>
