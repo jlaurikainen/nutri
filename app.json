@@ -3,7 +3,7 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff",
-        "foregroundImage": "./src/assets/adaptive-icon.png"
+        "foregroundImage": "./assets/adaptive-icon.png"
       },
       "package": "com.jl.nutri",
       "predictiveBackGestureEnabled": false
@@ -11,7 +11,7 @@
     "experiments": {
       "typedRoutes": true
     },
-    "icon": "./src/assets/icon.png",
+    "icon": "./assets/icon.png",
     "name": "Nutri",
     "orientation": "portrait",
     "plugins": ["expo-router", "expo-sqlite"],
@@ -19,7 +19,7 @@
     "slug": "nutri",
     "splash": {
       "backgroundColor": "#ffffff",
-      "image": "./src/assets/splash-icon.png",
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain"
     },
     "userInterfaceStyle": "automatic",
