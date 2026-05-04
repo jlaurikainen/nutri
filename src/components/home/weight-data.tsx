@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { Link } from "expo-router";
+import { Pressable, View } from "react-native";
 import { useUserWeights } from "@/src/queries/user-weight";
 import { addDays, endOfDay, startOfDay } from "@/src/utils/date";
 import { LineChart } from "../shared/line-chart";
@@ -22,7 +23,11 @@ export const WeightData = () => {
 
   return (
     <View>
-      <LineChart values={chartData} />
+      <Link asChild href="/user/user-weight">
+        <Pressable>
+          <LineChart values={chartData} />
+        </Pressable>
+      </Link>
     </View>
   );
 };

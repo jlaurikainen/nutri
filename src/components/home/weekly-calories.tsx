@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { Link } from "expo-router";
+import { Pressable, View } from "react-native";
 import { useUserBMR } from "@/src/queries/user";
 import { formatNumber } from "@/src/utils/number";
 import { useWeeklyCaloriesSummary } from "../../hooks/useWeeklyCaloriesSummary";
@@ -19,7 +20,11 @@ export function WeeklyCalories() {
           Daily AVG: {formatNumber(weekAverage, 0)}kcal
         </Text>
       </View>
-      <BarChart comparisonValue={bmr} values={weeklyCalories} />
+      <Link asChild href="/meal-templates">
+        <Pressable>
+          <BarChart comparisonValue={bmr} values={weeklyCalories} />
+        </Pressable>
+      </Link>
     </View>
   );
 }
