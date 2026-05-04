@@ -54,7 +54,7 @@ export const BarChart = (props: Props) => {
 
         {Object.entries(props.values).map(([key, value], i, self) => {
           const barRelativeHeight = relativeViewboxUnit * value;
-          const barX = gap + i * ((VIEWBOX_WIDTH - gap) / self.length); // Shift the bar x-axis position by the barGap amount from both ends of the canvas
+          const barX = gap / 2 + i * ((VIEWBOX_WIDTH - gap) / self.length); // Shift the bar x-axis position by the barGap amount from both ends of the canvas
           const barY = VIEWBOX_HEIGHT - barRelativeHeight; // Shift the bars to start from the bottom of the canvas
 
           return (
