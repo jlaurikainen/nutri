@@ -34,7 +34,8 @@ export const useUserWeights = (props: { end: Date; start: Date }) => {
         `
           SELECT * FROM user_weights
           WHERE date BETWEEN ? and ?
-          ORDER BY date ASC;
+          ORDER BY date DESC
+          LIMIT 7;
         `,
         [startString, endString],
       ),
