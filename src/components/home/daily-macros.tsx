@@ -2,22 +2,14 @@ import { Link } from "expo-router";
 import { Pressable, View } from "react-native";
 import { useMeals } from "@/src/queries/meals";
 import { toTimezoneAwareISOString } from "@/src/utils/date";
+import { calculateMacroRatios, reduceToDailyMacros } from "@/src/utils/macros";
 import { Insight } from "../shared/insight";
 
 export const DailyMacros = () => {
   const { data = [] } = useMeals({ end: new Date(), start: new Date() });
 
-  const totals = data.reduce(
-    (a, c) => {
-      a.calories += c.calories;
-      a.carbs += c.carbs;
-      a.fat += c.fat;
-      a.protein += c.protein;
-
-      return a;
-    },
-    { calories: 0, carbs: 0, fat: 0, protein: 0 },
-  );
+  const macros = reduceToDailyMacros(data);
+  const ratios = calculateMacroRatios(macros);
 
   return (
     <Link
@@ -30,13 +22,28 @@ export const DailyMacros = () => {
       <Pressable>
         <View className="gap-2">
           <View className="w-full flex-row gap-2">
-            <Insight amount={totals.calories} title="Calories" unit="kcal" />
-            <Insight amount={totals.carbs} title="Carbs" unit="g" />
+            <Insight amount={macros.calories} title="Calories" unit="kcal" />
+            <Insight
+              amount={macros.carbs}
+              ratio={ratios.carbs}
+              title="Carbs"
+              unit="g"
+            />
           </View>
 
           <View className="w-full flex-row gap-2">
-            <Insight amount={totals.protein} title="Protein" unit="g" />
-            <Insight amount={totals.fat} title="Fat" unit="g" />
+            <Insight
+              amount={macros.protein}
+              ratio={ratios.protein}
+              title="Protein"
+              unit="g"
+            />
+            <Insight
+              amount={macros.fat}
+              ratio={ratios.fat}
+              title="Fat"
+              unit="g"
+            />
           </View>
         </View>
       </Pressable>
