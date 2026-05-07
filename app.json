@@ -14,7 +14,11 @@
     "icon": "./assets/icon.png",
     "name": "Nutri",
     "orientation": "portrait",
-    "plugins": ["expo-router", "expo-sqlite"],
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-font"
+    ],
     "scheme": "nutri-scheme",
     "slug": "nutri",
     "splash": {
