@@ -34,7 +34,7 @@ export const useUpdateUser = () => {
           activity = ${args.activity},
           age = ${args.age},
           height = ${args.height},
-          sex = ${args.sex}?
+          sex = ${args.sex}
         WHERE id = ${args.id};
       `,
     onSuccess: () => client.invalidateQueries({ queryKey: [USER_KEY] }),
