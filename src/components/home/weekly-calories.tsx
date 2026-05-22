@@ -8,7 +8,7 @@ import { Text } from "../shared/text";
 
 export function WeeklyCalories() {
   const bmr = useUserBMR();
-  const { weekAverage, weeklyCalories } = useWeeklyCaloriesSummary();
+  const { weeklyAverage, weeklyCalories } = useWeeklyCaloriesSummary();
 
   return (
     <View className="gap-1">
@@ -17,12 +17,18 @@ export function WeeklyCalories() {
           {bmr === 0 ? "BMR Data Missing" : `BMR: ${formatNumber(bmr, 0)}kcal`}
         </Text>
         <Text className="text-center text-sm">
-          Daily AVG: {formatNumber(weekAverage, 0)}kcal
+          Daily AVG: {formatNumber(weeklyAverage, 0)}kcal
         </Text>
       </View>
       <Link asChild href="/meal-templates">
         <Pressable>
-          <BarChart comparisonValue={bmr} values={weeklyCalories} />
+          <BarChart
+            comparisonValue={bmr}
+            getBarKey={(x) => x.date}
+            getBarLabel={(x) => formatNumber(x.calories, 0)}
+            getBarValue={(x) => x.calories}
+            values={weeklyCalories}
+          />
         </Pressable>
       </Link>
     </View>
