@@ -17,14 +17,15 @@ export const reduceToDailyMacros = (
   );
 };
 
-export const calculateMacroRatios = (
+export const calculateMacroRatiosByCalories = (
   macros: ReturnType<typeof reduceToDailyMacros>,
 ) => {
-  const totalMacroWeight = macros.carbs + macros.fat + macros.protein || 1;
+  const totalMacroAmount =
+    macros.carbs * 4 + macros.fat * 9 + macros.protein * 4 || 1;
 
   return {
-    carbs: macros.carbs / totalMacroWeight,
-    fat: macros.fat / totalMacroWeight,
-    protein: macros.protein / totalMacroWeight,
+    carbs: (macros.carbs * 4) / totalMacroAmount,
+    fat: (macros.fat * 9) / totalMacroAmount,
+    protein: (macros.protein * 4) / totalMacroAmount,
   };
 };
