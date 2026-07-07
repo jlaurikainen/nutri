@@ -6,5 +6,7 @@ export const useFilteredMealTempaltes = () => {
   const { query = "" } = useParsedLocalParams(querySchema);
   const { data = [] } = useMealTemplates();
 
-  return data.filter((x) => x.name.toLowerCase().includes(query.toLowerCase()));
+  return data.filter((x) =>
+    x.name.toLowerCase().includes(query.toLowerCase().trim()),
+  );
 };
