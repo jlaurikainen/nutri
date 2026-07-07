@@ -146,5 +146,33 @@ export async function migrate(db: SQLiteDatabase) {
     currentVersion += 1;
   }
 
+  if (currentVersion === 5) {
+    await db.runAsync(`
+      ALTER TABLE meal_templates ADD COLUMN sugar REAL NOT NULL DEFAULT 0;
+
+      UPDATE meal_templates SET sugar = 0;
+    `);
+
+    await db.runAsync(`
+      ALTER TABLE meal_templates ADD COLUMN fiber REAL NOT NULL DEFAULT 0;
+
+      UPDATE meal_templates SET fiber = 0;      
+    `);
+
+    await db.runAsync(`
+      ALTER TABLE meals ADD COLUMN sugar REAL NOT NULL DEFAULT 0;
+
+      UPDATE meals SET sugar = 0;
+    `);
+
+    await db.runAsync(`
+      ALTER TABLE meals ADD COLUMN fiber REAL NOT NULL DEFAULT 0;
+
+      UPDATE meals SET fiber = 0;
+    `);
+
+    currentVersion += 1;
+  }
+
   await db.execAsync(`PRAGMA user_version = ${DB_VERSION}`);
 }
