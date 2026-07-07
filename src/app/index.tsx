@@ -24,15 +24,15 @@ const Home = () => {
           title: "Home",
         }}
       />
-      <Page>
-        <ScrollView>
+      <ScrollView>
+        <Page>
           <View className="gap-4">
             <DailyMacros />
             <WeeklyCalories />
             <WeightData />
           </View>
-        </ScrollView>
-      </Page>
+        </Page>
+      </ScrollView>
     </Fragment>
   );
 };
