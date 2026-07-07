@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { formatNumber } from "@/src/utils/number";
+import { cn } from "@/src/utils/utils";
 import { Text } from "./text";
 
 interface Props {
@@ -7,12 +8,22 @@ interface Props {
   ratio?: number;
   title: string;
   unit: string;
+  withinRecommendations?: boolean;
 }
 
 export const Insight = (props: Props) => {
   return (
     <View className="flex flex-1 border border-foreground p-4">
-      <Text className="text-4xl text-foreground">
+      <Text
+        className={cn(
+          "text-4xl",
+          props.withinRecommendations === undefined
+            ? "text-foreground"
+            : props.withinRecommendations
+              ? "text-success"
+              : "text-brand",
+        )}
+      >
         {formatNumber(props.amount)}
       </Text>
       <View className="flex-row items-end">

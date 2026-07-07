@@ -58,6 +58,19 @@ const Add = () => {
 
           <Controller
             control={control}
+            name="sugar"
+            render={({ field }) => (
+              <Field
+                inputMode="decimal"
+                label="Sugar"
+                returnKeyType="next"
+                {...field}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
             name="protein"
             render={({ field }) => (
               <Field
@@ -73,7 +86,20 @@ const Add = () => {
             control={control}
             name="fat"
             render={({ field }) => (
-              <Field inputMode="decimal" label="Fat" {...field} />
+              <Field
+                inputMode="decimal"
+                label="Fat"
+                returnKeyType="next"
+                {...field}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="fiber"
+            render={({ field }) => (
+              <Field inputMode="decimal" label="Fiber" {...field} />
             )}
           />
         </View>

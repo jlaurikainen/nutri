@@ -19,9 +19,11 @@ export const useUpdateMealTemplateForm = (id: number) => {
       calories: toNumber(formData.calories),
       carbs: toNumber(formData.carbs),
       fat: toNumber(formData.fat),
+      fiber: toNumber(formData.fiber),
       id: id,
       name: formData.name,
       protein: toNumber(formData.protein),
+      sugar: toNumber(formData.sugar),
     });
 
     if (!success) return;
@@ -37,8 +39,10 @@ export const useUpdateMealTemplateForm = (id: number) => {
       calories: formatNumber(data.calories),
       carbs: formatNumber(data.carbs),
       fat: formatNumber(data.fat),
+      fiber: formatNumber(data.fiber),
       name: data.name,
       protein: formatNumber(data.protein),
+      sugar: formatNumber(data.sugar),
     });
   }, [data, reset]);
 

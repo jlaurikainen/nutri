@@ -27,16 +27,20 @@ export const useAddMeal = () => {
           carbs,
           date,
           fat,
+          fiber,
           name,
-          protein
+          protein,
+          sugar
         )
         VALUES (
           ${args.calories},
           ${args.carbs},
           ${args.date},
           ${args.fat},
+          ${args.fiber},
           ${args.name},
-          ${args.protein}
+          ${args.protein},
+          ${args.sugar}
         );
       `,
     onSuccess: () => client.invalidateQueries({ queryKey: [MEALS_KEY] }),

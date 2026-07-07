@@ -48,6 +48,21 @@ export const DailyMacros = () => {
               unit="g"
             />
           </View>
+
+          <View className="w-full flex-row gap-2">
+            <Insight
+              amount={macros.sugar}
+              title="Sugar"
+              unit="g"
+              withinRecommendations={macros.sugar < 50}
+            />
+            <Insight
+              amount={macros.fiber}
+              title="Fiber"
+              unit="g"
+              withinRecommendations={macros.fiber > 25 && macros.fiber < 35}
+            />
+          </View>
         </View>
       </Pressable>
     </Link>

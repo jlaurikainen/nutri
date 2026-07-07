@@ -7,8 +7,10 @@ export const createMealTemplateSchema = z.object({
   calories: z.number(),
   carbs: z.number(),
   fat: z.number(),
+  fiber: z.number(),
   name: z.string(),
   protein: z.number(),
+  sugar: z.number(),
 });
 
 export const mealTemplateSchema = z.intersection(
@@ -27,15 +29,19 @@ export const useCreateMealTemplate = () => {
           calories,
           carbs,
           fat,
+          fiber,
           name,
-          protein
+          protein,
+          sugar
         )
         VALUES (
           ${args.calories},
           ${args.carbs},
           ${args.fat},
+          ${args.fiber},
           ${args.name},
-          ${args.protein}
+          ${args.protein},
+          ${args.sugar}
         );
       `,
     onSuccess: () =>
@@ -89,8 +95,10 @@ export const useUpdateMealTemplate = () => {
           calories = ${args.calories},
           carbs = ${args.carbs},
           fat = ${args.fat},
+          fiber = ${args.fiber},
           name = ${args.name},
-          protein = ${args.protein}
+          protein = ${args.protein},
+          sugar = ${args.sugar}
         WHERE id = ${args.id};
       `,
     onSuccess: (_, args) => {

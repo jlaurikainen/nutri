@@ -13,8 +13,10 @@ export const useCreateMealTemplateForm = () => {
       calories: "",
       carbs: "",
       fat: "",
+      fiber: "",
       name: "",
       protein: "",
+      sugar: "",
     },
   });
   const router = useRouter();
@@ -24,8 +26,10 @@ export const useCreateMealTemplateForm = () => {
       calories: toNumber(formData.calories),
       carbs: toNumber(formData.carbs),
       fat: toNumber(formData.fat),
+      fiber: toNumber(formData.fiber),
       name: formData.name,
       protein: toNumber(formData.protein),
+      sugar: toNumber(formData.sugar),
     });
 
     if (!success) return;
