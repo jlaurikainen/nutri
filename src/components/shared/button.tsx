@@ -15,7 +15,7 @@ const buttonVariants = cva(
         default: cn("h-10 px-4 py-2 sm:h-9"),
         icon: "h-10 w-10 sm:h-9 sm:w-9",
         lg: cn("h-11 px-6 sm:h-10"),
-        sm: cn("h-9 gap-1.5 px-3 sm:h-8"),
+        sm: cn("h-6 gap-1.5 px-3 sm:h-6"),
       },
       variant: {
         bordered: cn(
