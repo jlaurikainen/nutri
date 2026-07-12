@@ -24,7 +24,7 @@ const Home = () => {
           title: "Home",
         }}
       />
-      <ScrollView>
+      <ScrollView className="bg-background">
         <Page>
           <View className="gap-4">
             <DailyMacros />

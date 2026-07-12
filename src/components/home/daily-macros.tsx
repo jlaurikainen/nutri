@@ -23,8 +23,8 @@ export const DailyMacros = () => {
       }}
     >
       <Pressable>
-        <View className="gap-2">
-          <View className="w-full flex-row gap-2">
+        <View className="gap-1">
+          <View className="w-full flex-row gap-1">
             <Insight amount={macros.calories} title="Calories" unit="kcal" />
             <Insight
               amount={macros.carbs}
@@ -34,7 +34,7 @@ export const DailyMacros = () => {
             />
           </View>
 
-          <View className="w-full flex-row gap-2">
+          <View className="w-full flex-row gap-1">
             <Insight
               amount={macros.protein}
               ratio={ratios.protein}
@@ -49,7 +49,7 @@ export const DailyMacros = () => {
             />
           </View>
 
-          <View className="w-full flex-row gap-2">
+          <View className="w-full flex-row gap-1">
             <Insight
               amount={macros.sugar}
               title="Sugar"

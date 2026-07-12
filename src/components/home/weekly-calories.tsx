@@ -12,7 +12,7 @@ export function WeeklyCalories() {
 
   return (
     <View className="gap-1">
-      <View className="flex-row justify-between">
+      <View className="mx-2 flex-row justify-between">
         <Text className="text-center text-sm">
           {bmr === 0 ? "BMR Data Missing" : `BMR: ${formatNumber(bmr, 0)}kcal`}
         </Text>
@@ -23,7 +23,7 @@ export function WeeklyCalories() {
       <Link asChild href="/meal-templates">
         <Pressable>
           <BarChart
-            comparisonValue={bmr}
+            comparisonValues={[bmr, bmr - 600]}
             getBarKey={(x) => x.date}
             getBarLabel={(x) => formatNumber(x.calories, 0)}
             getBarValue={(x) => x.calories}

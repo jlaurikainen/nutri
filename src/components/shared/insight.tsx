@@ -13,10 +13,10 @@ interface Props {
 
 export const Insight = (props: Props) => {
   return (
-    <View className="flex flex-1 border border-foreground p-4">
+    <View className="flex flex-1 border border-foreground p-2">
       <Text
         className={cn(
-          "text-4xl",
+          "text-2xl",
           props.withinRecommendations === undefined
             ? "text-foreground"
             : props.withinRecommendations
