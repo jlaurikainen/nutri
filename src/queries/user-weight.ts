@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSQLiteContext } from "expo-sqlite";
 import z from "zod";
-import { toTimezoneAwareISOStringWithTime } from "../utils/date";
 import { USER_WEIGHT_KEY, USER_WEIGHTS_KEY } from "./keys";
 
 export const userWeightSchema = z.object({
@@ -55,21 +54,15 @@ export const useUserWeight = () => {
   });
 };
 
-export const useUserWeights = (props: {
-  end: Date;
-  start: Date;
-  limit?: number;
-}) => {
+export const useUserWeights = (props: { limit?: number }) => {
   const db = useSQLiteContext();
-  const startString = toTimezoneAwareISOStringWithTime(props.start);
-  const endString = toTimezoneAwareISOStringWithTime(props.end);
+
   const limit = props.limit ?? 7;
 
   return useQuery({
     queryFn: () =>
       db.sql`
         SELECT * FROM user_weights
-        WHERE date BETWEEN ${startString} and ${endString}
         ORDER BY date DESC
         LIMIT ${limit};
       `.allSync(),

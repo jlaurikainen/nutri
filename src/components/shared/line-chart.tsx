@@ -20,7 +20,8 @@ export const LineChart = (props: Props) => {
   const values = Object.values(props.values);
 
   const maxValue = Math.max(...values);
-  const heightOffset = maxValue * 2;
+  const minValue = Math.min(...values);
+  const heightPad = (maxValue - minValue) / 2;
   const widthSafeAreaOffset = values.length === 1 ? VIEWBOX_WIDTH / 2 : 100;
 
   return (
@@ -37,7 +38,12 @@ export const LineChart = (props: Props) => {
           points={values
             .map(
               (v, i) =>
-                `${widthSafeAreaOffset + i * ((VIEWBOX_WIDTH - widthSafeAreaOffset * 2) / Math.max(values.length - 1, 1))} ${VIEWBOX_HEIGHT - (VIEWBOX_HEIGHT / heightOffset) * v}`,
+                `${widthSafeAreaOffset + i * ((VIEWBOX_WIDTH - widthSafeAreaOffset * 2) / Math.max(values.length - 1, 1))} ${
+                  (1 -
+                    (v - (minValue - heightPad)) /
+                      (maxValue + heightPad - (minValue - heightPad))) *
+                  (VIEWBOX_HEIGHT - heightPad * 2)
+                }`,
             )
             .join(", ")}
           stroke="#4a4a4a"
@@ -50,7 +56,11 @@ export const LineChart = (props: Props) => {
             i *
               ((VIEWBOX_WIDTH - widthSafeAreaOffset * 2) /
                 (self.length - 1 || 1));
-          const pointY = VIEWBOX_HEIGHT - (VIEWBOX_HEIGHT / heightOffset) * v;
+          const pointY =
+            (1 -
+              (v - (minValue - heightPad)) /
+                (maxValue + heightPad - (minValue - heightPad))) *
+            (VIEWBOX_HEIGHT - heightPad * 2);
 
           return (
             <Fragment key={k}>

@@ -1,18 +1,11 @@
 import { Link } from "expo-router";
 import { Pressable, View } from "react-native";
 import { useUserWeights } from "@/src/queries/user-weight";
-import { addDays, endOfDay, startOfDay } from "@/src/utils/date";
 import { LineChart } from "../shared/line-chart";
 import { Text } from "../shared/text";
 
-const TODAY = endOfDay(new Date());
-const WEEK_AGO = startOfDay(addDays(TODAY, -6));
-
 export const WeightData = () => {
-  const { data: weightData = [] } = useUserWeights({
-    end: TODAY,
-    start: WEEK_AGO,
-  });
+  const { data: weightData = [] } = useUserWeights({});
 
   const chartData = weightData
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
