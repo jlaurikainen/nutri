@@ -74,11 +74,21 @@ export const LineChart = (props: Props) => {
                 x={pointX}
                 y={100}
               >
-                {formatNumber(v)}
+                {values.length < 14
+                  ? formatNumber(v)
+                  : i === 0 || i === self.length - 1
+                    ? formatNumber(v)
+                    : null}
               </SVGText>
 
               <Line
-                stroke="#4a4a4a"
+                stroke={
+                  values.length < 14
+                    ? "#4a4a4a"
+                    : i === 0 || i === self.length - 1
+                      ? "#4a4a4a"
+                      : "transparent"
+                }
                 strokeDasharray={10}
                 strokeWidth={5}
                 x1={pointX}
@@ -95,10 +105,17 @@ export const LineChart = (props: Props) => {
                 x={pointX}
                 y={VIEWBOX_HEIGHT - 60}
               >
-                {new Date(k).toLocaleDateString("fi", {
-                  day: "numeric",
-                  month: "numeric",
-                })}
+                {values.length < 14
+                  ? new Date(k).toLocaleDateString("fi", {
+                      day: "numeric",
+                      month: "numeric",
+                    })
+                  : i === 0 || i === self.length - 1
+                    ? new Date(k).toLocaleDateString("fi", {
+                        day: "numeric",
+                        month: "numeric",
+                      })
+                    : null}
               </SVGText>
             </Fragment>
           );

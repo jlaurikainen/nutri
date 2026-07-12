@@ -66,7 +66,7 @@ export const useUserWeights = (props: { limit?: number }) => {
         ORDER BY date DESC
         LIMIT ${limit};
       `.allSync(),
-    queryKey: [USER_WEIGHTS_KEY],
+    queryKey: [USER_WEIGHTS_KEY, props.limit],
     select: z.array(userWeightSchema).parse,
   });
 };

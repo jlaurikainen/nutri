@@ -5,7 +5,7 @@ import { LineChart } from "../shared/line-chart";
 import { Text } from "../shared/text";
 
 export const WeightData = () => {
-  const { data: weightData = [] } = useUserWeights({});
+  const { data: weightData = [] } = useUserWeights({ limit: 7 });
 
   const chartData = weightData
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())

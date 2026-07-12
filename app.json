@@ -14,18 +14,9 @@
     "icon": "./assets/icon.png",
     "name": "Nutri",
     "orientation": "portrait",
-    "plugins": [
-      "expo-router",
-      "expo-sqlite",
-      "expo-font"
-    ],
+    "plugins": ["expo-router", "expo-sqlite", "expo-font"],
     "scheme": "nutri-scheme",
     "slug": "nutri",
-    "splash": {
-      "backgroundColor": "#ffffff",
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain"
-    },
     "userInterfaceStyle": "automatic",
     "version": "1.0.1"
   }
