@@ -5,7 +5,7 @@ export const useQueryFilter = () => {
 
   const clearQuery = () => router.setParams({ query: "" });
 
-  const updateQuery = (x: string) => router.setParams({ query: x });
+  const updateQuery = (query: string) => router.setParams({ query });
 
   return { clearQuery, updateQuery };
 };
