@@ -1,12 +1,12 @@
 import type { User } from "../queries/user";
 
-const ACTIVITY_LEVEL_COUNT = 6;
+const ACTIVITY_LEVEL_COUNT = 5;
 const ACTIVITY_MULTIPLIER_MIX_MAX_DIFFERENCE = 1.9 - 1.2;
 const ACTIVITY_MULTIPLIER =
   ACTIVITY_MULTIPLIER_MIX_MAX_DIFFERENCE / ACTIVITY_LEVEL_COUNT;
 
 const getActivityMultiplier = (activity: User["activity"]) => {
-  return 1.2 + ACTIVITY_MULTIPLIER / (ACTIVITY_LEVEL_COUNT - activity);
+  return 1.2 + ACTIVITY_MULTIPLIER * activity;
 };
 
 const AGE_MULTIPLIER = -5; // -5 kcal per year of age
@@ -31,8 +31,8 @@ export const calculateBMR = (
   const sexAdjustment = user.sex === 0 ? MALE_ADJUSTMENT : FEMALE_ADJUSTMENT;
   const weightPortion = WEIGHT_MULTIPLIER * weight;
 
-  return (
-    (agePortion + heightPortion + sexAdjustment + weightPortion) *
-    activityMultiplier
-  );
+  const BMRBase = agePortion + heightPortion + weightPortion + sexAdjustment;
+  const BMRAdjusted = BMRBase * activityMultiplier;
+
+  return BMRAdjusted;
 };
