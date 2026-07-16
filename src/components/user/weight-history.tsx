@@ -1,13 +1,10 @@
-import { Trash } from "lucide-react-native";
 import { Fragment } from "react";
-import { ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import {
   useDeleteWeightMeasurement,
   useUserWeights,
 } from "@/src/queries/user-weight";
 import { toDate } from "@/src/utils/date";
-import { Button } from "../shared/button";
-import { Icon } from "../shared/icon";
 import { MealItem } from "../shared/meal-item";
 import { Text } from "../shared/text";
 
@@ -30,32 +27,20 @@ export const WeightHistory = () => {
       <ScrollView>
         <View className="gap-2">
           {data.map((x) => (
-            <MealItem key={x.id}>
-              <MealItem.Heading>
-                <MealItem.Macros>
-                  <MealItem.Macro
-                    label={toDate(`${x.date}Z`).toLocaleString("fi", {
+            <Pressable key={x.id} onLongPress={onDelete(x.id)}>
+              <MealItem>
+                <View className="flex-row justify-between gap-2">
+                  <Text>
+                    {toDate(`${x.date}Z`).toLocaleString("fi", {
                       day: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
                       month: "numeric",
                       year: "numeric",
                     })}
-                    unit="kg"
-                    value={x.weight}
-                  />
-                  <View>
-                    <Button
-                      onPress={onDelete(x.id)}
-                      size="icon"
-                      variant="bordered"
-                    >
-                      <Icon as={Trash} />
-                    </Button>
-                  </View>
-                </MealItem.Macros>
-              </MealItem.Heading>
-            </MealItem>
+                  </Text>
+                  <Text>{x.weight}kg</Text>
+                </View>
+              </MealItem>
+            </Pressable>
           ))}
         </View>
       </ScrollView>
