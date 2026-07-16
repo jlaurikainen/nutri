@@ -12,18 +12,20 @@ interface Props {
 }
 
 export const Insight = (props: Props) => {
+  const getWithinRecommendationColor = () => {
+    switch (true) {
+      case props.withinRecommendations === true:
+        return "text-success";
+      case props.withinRecommendations === false:
+        return "text-brand";
+      default:
+        return "text-foreground";
+    }
+  };
+
   return (
     <View className="flex flex-1 border border-foreground p-2">
-      <Text
-        className={cn(
-          "text-2xl",
-          props.withinRecommendations === undefined
-            ? "text-foreground"
-            : props.withinRecommendations
-              ? "text-success"
-              : "text-brand",
-        )}
-      >
+      <Text className={cn("text-xl", getWithinRecommendationColor())}>
         {formatNumber(props.amount)}
       </Text>
       <View className="flex-row items-end">
