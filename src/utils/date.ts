@@ -37,3 +37,10 @@ export const toTimezoneAwareISOString = (date: Date) => {
 };
 
 export const toDate = (input: string) => new Date(input);
+
+export const toDateAndMonthString = (input: Date | string) => {
+  return new Date(input).toLocaleDateString("fi", {
+    day: "numeric",
+    month: "numeric",
+  });
+};
