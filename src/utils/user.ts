@@ -1,18 +1,9 @@
 import type { User } from "../queries/user";
 
-const ACTIVITY_LEVEL_COUNT = 5;
-const ACTIVITY_MULTIPLIER_MIX_MAX_DIFFERENCE = 1.9 - 1.2;
-const ACTIVITY_MULTIPLIER =
-  ACTIVITY_MULTIPLIER_MIX_MAX_DIFFERENCE / ACTIVITY_LEVEL_COUNT;
-
-const getActivityMultiplier = (activity: User["activity"]) => {
-  return 1.2 + ACTIVITY_MULTIPLIER * activity;
-};
-
+const ACTIVITY_MULTIPLIER = [1.2, 1.34, 1.48, 1.62, 1.76, 1.9];
 const AGE_MULTIPLIER = -5; // -5 kcal per year of age
 const HEIGHT_MULTIPLIER = 6.25;
-const MALE_ADJUSTMENT = 5;
-const FEMALE_ADJUSTMENT = -161;
+const SEX_ADJUSTMENT = [5, -161]; // male, female
 const WEIGHT_MULTIPLIER = 10;
 
 /** Mifflin-St Jeor Equation
@@ -25,14 +16,12 @@ export const calculateBMR = (
 ) => {
   if (!user || !weight) return 0;
 
-  const activityMultiplier = getActivityMultiplier(user.activity);
-  const agePortion = AGE_MULTIPLIER * user.age;
-  const heightPortion = HEIGHT_MULTIPLIER * user.height;
-  const sexAdjustment = user.sex === 0 ? MALE_ADJUSTMENT : FEMALE_ADJUSTMENT;
-  const weightPortion = WEIGHT_MULTIPLIER * weight;
+  const ageBMR = AGE_MULTIPLIER * user.age;
+  const heightBMR = HEIGHT_MULTIPLIER * user.height;
+  const sexBMR = SEX_ADJUSTMENT[user.sex];
+  const weightBMR = WEIGHT_MULTIPLIER * weight;
 
-  const BMRBase = agePortion + heightPortion + weightPortion + sexAdjustment;
-  const BMRAdjusted = BMRBase * activityMultiplier;
+  const baseBMR = ageBMR + heightBMR + weightBMR + sexBMR;
 
-  return BMRAdjusted;
+  return baseBMR * ACTIVITY_MULTIPLIER[user.activity];
 };
