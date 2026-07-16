@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.10",
+    "fallow": "^3.6.0",
     "typescript": "~5.9.2"
   },
   "main": "expo-router/entry",
@@ -36,7 +37,8 @@
     "android": "expo start --android",
     "build:apk": "npx expo prebuild --clean && npx expo run:android --variant release",
     "check": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "sca": "fallow"
   },
   "version": "1.0.0"
 }
