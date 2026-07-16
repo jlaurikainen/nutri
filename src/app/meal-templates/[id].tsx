@@ -51,7 +51,7 @@ const Edit = () => {
       />
 
       <KeyboardAvoidingView behavior="padding" className="flex-1">
-        <ScrollView className="bg-background">
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <Page>
             <View className="mb-4 gap-2">
               <Controller
