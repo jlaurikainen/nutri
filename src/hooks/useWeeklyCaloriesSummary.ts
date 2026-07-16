@@ -9,33 +9,31 @@ import {
 
 const TODAY = endOfDay(new Date());
 const WEEK_AGO = startOfDay(addDays(TODAY, -6));
+const WEEKLY_CALORIES = new Array(difference(WEEK_AGO, TODAY))
+  .fill(null)
+  .reduce((a: Record<string, number>, _c, i) => {
+    const dateString = toTimezoneAwareISOString(addDays(WEEK_AGO, i));
+
+    if (!a[dateString]) {
+      a[dateString] = 0;
+    }
+
+    return a;
+  }, {});
 
 export const useWeeklyCaloriesSummary = () => {
   const { data = [] } = useMeals({ end: TODAY, start: WEEK_AGO });
 
   const weeklyCalories = Object.entries(
-    data.reduce(
-      (a, c) => {
-        if (!(c.date in a)) {
-          return a;
-        }
-
-        a[c.date] += c.calories;
-
+    data.reduce((a, c) => {
+      if (!(c.date in a)) {
         return a;
-      },
-      new Array(difference(WEEK_AGO, TODAY))
-        .fill(null)
-        .reduce((a: Record<string, number>, _c, i) => {
-          const dateString = toTimezoneAwareISOString(addDays(WEEK_AGO, i));
+      }
 
-          if (!a[dateString]) {
-            a[dateString] = 0;
-          }
+      a[c.date] += c.calories;
 
-          return a;
-        }, {}),
-    ),
+      return a;
+    }, WEEKLY_CALORIES),
   ).map(([key, value]) => ({ calories: value, date: key }));
 
   const nonEmptyDayCalories = weeklyCalories.filter((x) => x.calories > 0);
