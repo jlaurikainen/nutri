@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, View } from "react-native";
+import { Alert, Pressable, ScrollView, View } from "react-native";
 import { useDeleteMeal, useMeals } from "@/src/queries/meals";
 import { reduceToDailyMacros } from "@/src/utils/macros";
 import { MealItem } from "../shared/meal-item";
@@ -10,17 +10,23 @@ interface Props {
 }
 
 export const DailyMeals = (props: Props) => {
-  const { mutate } = useDeleteMeal();
   const { data = [] } = useMeals({
     end: props.date ?? new Date(),
     start: props.date ?? new Date(),
   });
   const macros = reduceToDailyMacros(data);
+  const { mutate } = useDeleteMeal();
 
   const onDelete = (id: number) => {
-    return () => {
-      mutate(id);
-    };
+    Alert.alert("Delete Meal", "Are you sure you want to delete this meal?", [
+      {
+        text: "Cancel",
+      },
+      {
+        onPress: () => mutate(id),
+        text: "Delete",
+      },
+    ]);
   };
 
   if (data.length === 0) {
@@ -37,7 +43,7 @@ export const DailyMeals = (props: Props) => {
         <MacroListing {...macros} />
 
         {data.map((x) => (
-          <Pressable key={x.id} onLongPress={onDelete(x.id)}>
+          <Pressable key={x.id} onLongPress={() => onDelete(x.id)}>
             <MealItem>
               <MealItem.Heading>
                 <MealItem.Title title={x.name} />

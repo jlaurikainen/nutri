@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { Alert, Pressable, ScrollView, View } from "react-native";
 import {
   useDeleteWeightMeasurement,
   useUserWeights,
@@ -15,9 +15,19 @@ export const WeightHistory = () => {
   const { mutate } = useDeleteWeightMeasurement();
 
   const onDelete = (id: number) => {
-    return () => {
-      mutate(id);
-    };
+    Alert.alert(
+      "Delete Measurement",
+      "Are you sure you want to delete this measurement?",
+      [
+        {
+          text: "Cancel",
+        },
+        {
+          onPress: () => mutate(id),
+          text: "Delete",
+        },
+      ],
+    );
   };
 
   return (
@@ -27,7 +37,7 @@ export const WeightHistory = () => {
       <ScrollView>
         <View className="gap-2">
           {data.map((x) => (
-            <Pressable key={x.id} onLongPress={onDelete(x.id)}>
+            <Pressable key={x.id} onLongPress={() => onDelete(x.id)}>
               <MealItem>
                 <View className="flex-row justify-between gap-2">
                   <Text>
