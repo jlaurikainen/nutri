@@ -4,11 +4,12 @@ import {
   createMealTemplateSchema,
   useCreateMealTemplate,
 } from "../queries/meal-templates";
+import type { MealTemplateFormType } from "../types/meal-template-form";
 import { toNumber } from "../utils/number";
 
 export const useCreateMealTemplateForm = () => {
   const { mutate } = useCreateMealTemplate();
-  const { control, handleSubmit } = useForm({
+  const form = useForm<MealTemplateFormType>({
     defaultValues: {
       calories: "",
       carbs: "",
@@ -19,6 +20,7 @@ export const useCreateMealTemplateForm = () => {
       sugar: "",
     },
   });
+  const { handleSubmit } = form;
   const router = useRouter();
 
   const onSubmit = handleSubmit((formData) => {
@@ -38,5 +40,5 @@ export const useCreateMealTemplateForm = () => {
     router.back();
   });
 
-  return { control, onSubmit };
+  return { form, onSubmit };
 };

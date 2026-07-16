@@ -6,12 +6,14 @@ import {
   useMealTemplate,
   useUpdateMealTemplate,
 } from "../queries/meal-templates";
+import type { MealTemplateFormType } from "../types/meal-template-form";
 import { formatNumber, toNumber } from "../utils/number";
 
 export const useUpdateMealTemplateForm = (id: number) => {
   const { data } = useMealTemplate(id);
   const { mutate } = useUpdateMealTemplate();
-  const { control, handleSubmit, reset } = useForm();
+  const form = useForm<MealTemplateFormType>();
+  const { handleSubmit, reset } = form;
   const router = useRouter();
 
   const onSubmit = handleSubmit((formData) => {
@@ -46,5 +48,5 @@ export const useUpdateMealTemplateForm = (id: number) => {
     });
   }, [data, reset]);
 
-  return { control, onSubmit };
+  return { form, onSubmit };
 };
