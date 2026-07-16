@@ -39,14 +39,12 @@ export const MealTemplateList = () => {
               </MealItem.Heading>
 
               <MealItem.Macros>
-                <MealItem.Macro
-                  label="calories"
-                  unit="kcal"
-                  value={x.calories}
-                />
+                <MealItem.Macro label="calories" value={x.calories} />
                 <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
-                <MealItem.Macro label="protein" unit="g" value={x.protein} />
+                <MealItem.Macro label="sugars" unit="g" value={x.sugar} />
                 <MealItem.Macro label="fat" unit="g" value={x.fat} />
+                <MealItem.Macro label="protein" unit="g" value={x.protein} />
+                <MealItem.Macro label="fiber" unit="g" value={x.fiber} />
               </MealItem.Macros>
             </MealItem>
           </Pressable>
