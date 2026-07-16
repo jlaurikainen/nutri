@@ -2,8 +2,8 @@ import { limitSchema } from "../utils/search-params";
 import { useParsedLocalParams } from "./useParsedLocalParams";
 
 const LIMIT_STRINGS = {
-  "7": "Past Week",
-  "30": "Past Month",
+  "7": "Past 7",
+  "30": "Past 30",
 } as const;
 
 export const useWeightMeasurementLimit = () => {
