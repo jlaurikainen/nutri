@@ -20,7 +20,7 @@ export const difference = (start: Date, end: Date) => {
   return millisecondsToDays(end.getTime() - start.getTime());
 };
 
-export const millisecondsToDays = (input: number) => {
+const millisecondsToDays = (input: number) => {
   return Math.round(input / 1000 / 60 / 60 / 24);
 };
 
@@ -34,22 +34,6 @@ export const toTimezoneAwareISOString = (date: Date) => {
     .split(".")
     .reverse()
     .join("-");
-};
-
-export const toTimezoneAwareISOStringWithTime = (date: Date) => {
-  return (
-    date
-      .toLocaleString("fi", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
-      .split(".")
-      .reverse()
-      .join("-") +
-    " " +
-    date.toLocaleTimeString("fi").split(".").join(":")
-  );
 };
 
 export const toDate = (input: string) => new Date(input);
