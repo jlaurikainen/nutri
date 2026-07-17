@@ -9,9 +9,7 @@ import { MealItem } from "../shared/meal-item";
 import { Text } from "../shared/text";
 
 export const WeightHistory = () => {
-  const { data = [] } = useUserWeights({
-    limit: 14,
-  });
+  const { data = [] } = useUserWeights(14);
   const { mutate } = useDeleteWeightMeasurement();
 
   const onDelete = (id: number) => {

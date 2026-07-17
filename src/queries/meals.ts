@@ -20,29 +20,31 @@ export const useAddMeal = () => {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof createMealSchema>) =>
-      db.sql`
+    mutationFn: async (args: z.infer<typeof createMealSchema>) => {
+      const statement = db.prepareSync(`
         INSERT INTO meals (
-          calories,
-          carbs,
-          date,
-          fat,
-          fiber,
-          name,
-          protein,
-          sugar
+          calories, carbs, date, fat, fiber, name, protein, sugar
         )
         VALUES (
-          ${args.calories},
-          ${args.carbs},
-          ${args.date},
-          ${args.fat},
-          ${args.fiber},
-          ${args.name},
-          ${args.protein},
-          ${args.sugar}
+          $calories, $carbs, $date, $fat, $fiber, $name, $protein, $sugar
         );
-      `,
+      `);
+
+      try {
+        statement.executeSync({
+          $calories: args.calories,
+          $carbs: args.carbs,
+          $date: args.date,
+          $fat: args.fat,
+          $fiber: args.fiber,
+          $name: args.name,
+          $protein: args.protein,
+          $sugar: args.sugar,
+        });
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     onSuccess: () => client.invalidateQueries({ queryKey: [MEALS_KEY] }),
   });
 };
@@ -52,8 +54,15 @@ export const useDeleteMeal = () => {
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: number) =>
-      db.sql`DELETE FROM meals WHERE id = ${id};`,
+    mutationFn: async (id: number) => {
+      const statement = db.prepareSync("DELETE FROM meals WHERE id = $id;");
+
+      try {
+        statement.executeSync({ $id: id });
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     onSuccess: () => client.invalidateQueries({ queryKey: [MEALS_KEY] }),
   });
 };
@@ -64,12 +73,21 @@ export const useMeals = (props: { end: Date; start: Date }) => {
   const endString = toTimezoneAwareISOString(props.end);
 
   return useQuery({
-    queryFn: () =>
-      db.sql`
+    queryFn: () => {
+      const statement = db.prepareSync(`
         SELECT * FROM meals
-        WHERE date BETWEEN ${startString} AND ${endString}
-        ORDER BY date ASC;
-      `.allSync(),
+        WHERE date BETWEEN $start AND $end
+        ORDER BY date ASC;  
+      `);
+
+      try {
+        return statement
+          .executeSync({ $end: endString, $start: startString })
+          .getAllSync();
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     queryKey: [MEALS_KEY, startString, endString],
     select: z.array(mealSchema).parse,
   });

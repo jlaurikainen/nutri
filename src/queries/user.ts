@@ -27,16 +27,25 @@ export const useUpdateUser = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: User) =>
-      db.sql`
-        UPDATE user
-        SET
-          activity = ${args.activity},
-          age = ${args.age},
-          height = ${args.height},
-          sex = ${args.sex}
-        WHERE id = ${args.id};
-      `,
+    mutationFn: async (args: User) => {
+      const statement = db.prepareSync(`
+        UPDATE user SET
+          activity = $activity, age = $age, height = $height, sex = $sex
+        WHERE id = $id;
+      `);
+
+      try {
+        statement.executeSync({
+          $activity: args.activity,
+          $age: args.age,
+          $height: args.height,
+          $id: args.id,
+          $sex: args.sex,
+        });
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     onSuccess: () => client.invalidateQueries({ queryKey: [USER_KEY] }),
   });
 };
@@ -45,7 +54,15 @@ export const useUser = () => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: () => db.sql`SELECT * FROM user;`.firstSync(),
+    queryFn: () => {
+      const statement = db.prepareSync("SELECT * FROM user;");
+
+      try {
+        return statement.executeSync().getFirstSync();
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     queryKey: [USER_KEY],
     select: userSchema.parse,
   });

@@ -23,29 +23,32 @@ export const useCreateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) =>
-      db.sql`
-        INSERT INTO meal_templates(
-          calories,
-          carbs,
-          fat,
-          fiber,
-          name,
-          protein,
-          sugar
+    mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) => {
+      const statement = db.prepareSync(`
+        INSERT INTO meal_templates (
+          calories, carbs, fat, fiber, name, protein, sugar
         )
         VALUES (
-          ${args.calories},
-          ${args.carbs},
-          ${args.fat},
-          ${args.fiber},
-          ${args.name},
-          ${args.protein},
-          ${args.sugar}
-        );
-      `,
-    onSuccess: () =>
-      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] }),
+          $calories, $carbs, $fat, $fiber, $name, $protein, $sugar
+        );`);
+
+      try {
+        statement.executeSync({
+          $calories: args.calories,
+          $carbs: args.carbs,
+          $fat: args.fat,
+          $fiber: args.fiber,
+          $name: args.name,
+          $protein: args.protein,
+          $sugar: args.sugar,
+        });
+      } finally {
+        statement.finalizeSync();
+      }
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
+    },
   });
 };
 
@@ -54,10 +57,20 @@ export const useDeleteMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (id: number) =>
-      db.sql`DELETE FROM meal_templates WHERE id = ${id};`,
-    onSuccess: () =>
-      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] }),
+    mutationFn: async (id: number) => {
+      const statement = db.prepareSync(
+        "DELETE FROM meal_templates WHERE id = $id;",
+      );
+
+      try {
+        statement.executeSync({ $id: id });
+      } finally {
+        statement.finalizeSync();
+      }
+    },
+    onSuccess: () => {
+      client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });
+    },
   });
 };
 
@@ -65,8 +78,17 @@ export const useMealTemplate = (id: number) => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: () =>
-      db.sql`SELECT * FROM meal_templates WHERE id = ${id};`.firstSync(),
+    queryFn: () => {
+      const statement = db.prepareSync(
+        "SELECT * FROM meal_templates WHERE id = $id;",
+      );
+
+      try {
+        return statement.executeSync({ $id: id }).getFirstSync();
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     queryKey: [SINGLE_TEMPLATE_KEY, id],
     select: mealTemplateSchema.parse,
   });
@@ -76,8 +98,17 @@ export const useMealTemplates = () => {
   const db = useSQLiteContext();
 
   return useQuery({
-    queryFn: () =>
-      db.sql`SELECT * FROM meal_templates ORDER BY name ASC;`.allSync(),
+    queryFn: () => {
+      const statement = db.prepareSync(
+        "SELECT * FROM meal_templates ORDER BY name ASC;",
+      );
+
+      try {
+        return statement.executeSync().getAllSync();
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     queryKey: [MULTI_TEMPLATE_KEY],
     select: z.array(mealTemplateSchema).parse,
   });
@@ -88,19 +119,28 @@ export const useUpdateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof mealTemplateSchema>) =>
-      db.sql`
-        UPDATE meal_templates
-        SET
-          calories = ${args.calories},
-          carbs = ${args.carbs},
-          fat = ${args.fat},
-          fiber = ${args.fiber},
-          name = ${args.name},
-          protein = ${args.protein},
-          sugar = ${args.sugar}
-        WHERE id = ${args.id};
-      `,
+    mutationFn: async (args: z.infer<typeof mealTemplateSchema>) => {
+      const statement = db.prepareSync(`
+        UPDATE meal_templates SET
+          calories = $calories, carbs = $carbs, fat = $fat, fiber = $fiber, name = $name, protein = $protein, sugar = $sugar
+        WHERE id = $id;
+      `);
+
+      try {
+        statement.executeSync({
+          $calories: args.calories,
+          $carbs: args.carbs,
+          $fat: args.fat,
+          $fiber: args.fiber,
+          $id: args.id,
+          $name: args.name,
+          $protein: args.protein,
+          $sugar: args.sugar,
+        });
+      } finally {
+        statement.finalizeSync();
+      }
+    },
     onSuccess: (_, args) => {
       client.invalidateQueries({ queryKey: [SINGLE_TEMPLATE_KEY, args.id] });
       client.invalidateQueries({ queryKey: [MULTI_TEMPLATE_KEY] });

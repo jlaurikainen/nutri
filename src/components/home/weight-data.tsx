@@ -12,7 +12,7 @@ const LIMITS = ["7", "30"] as const;
 export const WeightData = () => {
   const { label, limit } = useWeightMeasurementLimit();
   const { updateLimit } = useWeightMeasurementFilter();
-  const { data: weightData = [] } = useUserWeights({ limit });
+  const { data: weightData = [] } = useUserWeights(limit);
 
   const chartData = weightData
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
