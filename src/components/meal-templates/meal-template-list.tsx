@@ -9,8 +9,8 @@ import { MealItem } from "../shared/meal-item";
 
 export const MealTemplateList = () => {
   const data = useFilteredMealTempaltes();
-  const router = useRouter();
   const { mutate } = useAddMeal();
+  const router = useRouter();
 
   const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
     return () => {
@@ -37,11 +37,10 @@ export const MealTemplateList = () => {
               <MealItem.Heading>
                 <MealItem.Title title={x.name} />
               </MealItem.Heading>
-
               <MealItem.Macros>
                 <MealItem.Macro label="calories" value={x.calories} />
                 <MealItem.Macro label="carbs" unit="g" value={x.carbs} />
-                <MealItem.Macro label="sugars" unit="g" value={x.sugar} />
+                <MealItem.Macro label="sugar" unit="g" value={x.sugar} />
                 <MealItem.Macro label="fat" unit="g" value={x.fat} />
                 <MealItem.Macro label="protein" unit="g" value={x.protein} />
                 <MealItem.Macro label="fiber" unit="g" value={x.fiber} />

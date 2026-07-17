@@ -14,8 +14,8 @@ export const DailyMeals = (props: Props) => {
     end: props.date ?? new Date(),
     start: props.date ?? new Date(),
   });
-  const macros = reduceToDailyMacros(data);
   const { mutate } = useDeleteMeal();
+  const macros = reduceToDailyMacros(data);
 
   const onDelete = (id: number) => {
     Alert.alert("Delete Meal", "Are you sure you want to delete this meal?", [
