@@ -1,4 +1,4 @@
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { ScrollView, View } from "react-native";
@@ -6,7 +6,8 @@ import { Button } from "@/src/components/shared/button";
 import { Field } from "@/src/components/shared/field";
 import { Page } from "@/src/components/shared/page";
 import { Text } from "@/src/components/shared/text";
-import { useUserForm } from "@/src/hooks/useUserForm";
+import { useUserFormView } from "@/src/hooks/useUserFormView";
+import { type User as UserType, useUser } from "@/src/queries/user";
 
 const ACTIVITY_TO_READABLE = {
   0: "Sedentary",
@@ -18,12 +19,19 @@ const ACTIVITY_TO_READABLE = {
 } as const;
 
 const User = () => {
-  const { control, onSubmit } = useUserForm();
-  const router = useRouter();
+  const { data } = useUser();
 
-  const onCancel = () => {
-    router.back();
-  };
+  if (data === undefined) return null;
+
+  return <UserView user={data} />;
+};
+
+interface UserProps {
+  user: UserType;
+}
+
+const UserView = ({ user }: UserProps) => {
+  const { control, onCancel, onSubmit } = useUserFormView(user);
 
   return (
     <Fragment>
@@ -54,15 +62,15 @@ const User = () => {
                   <View className="flex-row">
                     <Button
                       className="flex-1"
-                      onPress={() => field.onChange(0)}
-                      variant={field.value === 0 ? "selectable" : "bordered"}
+                      onPress={() => field.onChange("0")}
+                      variant={field.value === "0" ? "selectable" : "bordered"}
                     >
                       <Text>Male</Text>
                     </Button>
                     <Button
                       className="flex-1"
-                      onPress={() => field.onChange(1)}
-                      variant={field.value === 1 ? "selectable" : "bordered"}
+                      onPress={() => field.onChange("1")}
+                      variant={field.value === "1" ? "selectable" : "bordered"}
                     >
                       <Text>Female</Text>
                     </Button>
@@ -81,8 +89,8 @@ const User = () => {
                       <Button
                         className="-mt-px"
                         key={k}
-                        onPress={() => field.onChange(+k)}
-                        variant={field.value === +k ? "selectable" : "bordered"}
+                        onPress={() => field.onChange(k)}
+                        variant={field.value === k ? "selectable" : "bordered"}
                       >
                         <Text>{v}</Text>
                       </Button>

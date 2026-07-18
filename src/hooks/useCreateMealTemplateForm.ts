@@ -4,7 +4,7 @@ import {
   createMealTemplateSchema,
   useCreateMealTemplate,
 } from "../queries/meal-templates";
-import type { MealTemplateFormType } from "../types/meal-template-form";
+import type { MealTemplateFormType } from "../types/form";
 import { toNumber } from "../utils/number";
 
 export const useCreateMealTemplateForm = () => {

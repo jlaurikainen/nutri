@@ -7,3 +7,11 @@ export type MealTemplateFormType = {
   protein: string;
   sugar: string;
 };
+
+export type UserFormType = {
+  activity: string;
+  age: string;
+  height: string;
+  id: string;
+  sex: string;
+};

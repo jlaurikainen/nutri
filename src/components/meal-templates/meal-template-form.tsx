@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
-import type { MealTemplateFormType } from "@/src/types/meal-template-form";
+import type { MealTemplateFormType } from "@/src/types/form";
 import { Button } from "../shared/button";
 import { Field } from "../shared/field";
 import { Page } from "../shared/page";

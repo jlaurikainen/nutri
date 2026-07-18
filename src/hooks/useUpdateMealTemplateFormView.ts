@@ -6,18 +6,13 @@ import {
   useDeleteMealTemplate,
   useUpdateMealTemplate,
 } from "../queries/meal-templates";
-import type { MealTemplateFormType } from "../types/meal-template-form";
+import type { MealTemplateFormType } from "../types/form";
+import { toFormObject } from "../utils/form";
 import { toNumber } from "../utils/number";
-
-const templateToFormObject = (template: MealTemplate) => {
-  return Object.fromEntries(
-    Object.entries(template).map(([k, v]) => [k, v.toString()]),
-  );
-};
 
 export const useUpdateMealTemplateFormView = (template: MealTemplate) => {
   const form = useForm<MealTemplateFormType>({
-    defaultValues: templateToFormObject(template),
+    defaultValues: toFormObject(template),
   });
   const { mutate: remove } = useDeleteMealTemplate();
   const { mutate: update } = useUpdateMealTemplate();
