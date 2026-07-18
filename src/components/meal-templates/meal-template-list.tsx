@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { Pressable, ScrollView, View } from "react-native";
-import type z from "zod";
-import type { mealTemplateSchema } from "@/src/queries/meal-templates";
+import type { MealTemplate } from "@/src/queries/meal-templates";
 import { useAddMeal } from "@/src/queries/meals";
 import { toTimezoneAwareISOString } from "@/src/utils/date";
 import { useFilteredMealTempaltes } from "../../hooks/useFilteredMealTemplates";
@@ -12,7 +11,7 @@ export const MealTemplateList = () => {
   const { mutate } = useAddMeal();
   const router = useRouter();
 
-  const onAdd = (template: z.infer<typeof mealTemplateSchema>) => {
+  const onAdd = (template: MealTemplate) => {
     return () => {
       mutate({
         ...template,

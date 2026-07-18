@@ -1,9 +1,6 @@
-import type z from "zod";
-import type { mealSchema } from "../queries/meals";
+import type { Meal } from "../queries/meals";
 
-export const reduceToDailyMacros = (
-  data: Array<z.infer<typeof mealSchema>>,
-) => {
+export const reduceToDailyMacros = (data: Array<Meal>) => {
   return data.reduce(
     (a, c) => {
       a.calories += c.calories;

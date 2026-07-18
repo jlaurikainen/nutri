@@ -15,12 +15,15 @@ export const mealSchema = z.intersection(
   z.object({ id: z.number() }),
 );
 
+export type Meal = z.infer<typeof mealSchema>;
+export type NewMeal = Omit<Meal, "id">;
+
 export const useAddMeal = () => {
   const db = useSQLiteContext();
   const client = useQueryClient();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof createMealSchema>) => {
+    mutationFn: async (args: NewMeal) => {
       const statement = db.prepareSync(`
         INSERT INTO meals (
           calories, carbs, date, fat, fiber, name, protein, sugar

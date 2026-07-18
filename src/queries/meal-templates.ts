@@ -18,12 +18,15 @@ export const mealTemplateSchema = z.intersection(
   z.object({ id: z.number() }),
 );
 
+export type MealTemplate = z.infer<typeof mealTemplateSchema>;
+export type NewMealTemplate = Omit<MealTemplate, "id">;
+
 export const useCreateMealTemplate = () => {
   const client = useQueryClient();
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof createMealTemplateSchema>) => {
+    mutationFn: async (args: NewMealTemplate) => {
       const statement = db.prepareSync(`
         INSERT INTO meal_templates (
           calories, carbs, fat, fiber, name, protein, sugar
@@ -119,7 +122,7 @@ export const useUpdateMealTemplate = () => {
   const db = useSQLiteContext();
 
   return useMutation({
-    mutationFn: async (args: z.infer<typeof mealTemplateSchema>) => {
+    mutationFn: async (args: MealTemplate) => {
       const statement = db.prepareSync(`
         UPDATE meal_templates SET
           calories = $calories, carbs = $carbs, fat = $fat, fiber = $fiber, name = $name, protein = $protein, sugar = $sugar
